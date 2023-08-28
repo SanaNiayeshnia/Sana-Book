@@ -6,6 +6,7 @@ async function fetchAndLoadDetailsOfBooks(bookId, query){
 
        for (const key in  detailsOfEachBookData) {
          let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
+         bookPrice=(isNaN(Number(bookPrice)))?100:bookPrice;
          let cardTextContent;
          let discountBadge;
          //if the price of the book was more than 150, add the sale price and the discount badge
@@ -309,112 +310,85 @@ async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRan
   while(document.querySelector('.products').firstChild){
     document.querySelector('.products').firstChild.remove()
   }
-
+  //fetching books data
   switch(cParam){
     case 'foreign':
       category='fantasy';
       if(sortFilter==='newest')
-      res=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng&sort=new`);
-      else if(sortFilter==='cheapest' || sortFilter==='mostExpensive')
-      res=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng&limit:100`);
+      res=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng&sort=new&limit=100`);
       else
-      res=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng`);
+      res=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng&limit=100`);
       break;
+
     case 'psychology':
       category= 'روانشناسی';
       if(sortFilter==='newest')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?sort=new`);
-      else if(sortFilter==='cheapest' || sortFilter==='mostExpensive')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit:100`);
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?sort=new&limit=100`);
       else
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json`);
-    
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=100`);
       break;
+
     case 'poetry':
       category='شعر';
       if(sortFilter==='newest')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?offset=6&sort=new`);
-      else if(sortFilter==='cheapest' || sortFilter==='mostExpensive')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?offset=6&limit:100`);
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?offset=6&sort=new&limit=100`);
       else
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?offset=6`);
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?offset=6&limit=100`);
     
       break;
     case 'fiction':
       category= 'ادبیات داستانی';
       if(sortFilter==='newest')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?sort=new`);
-      else if(sortFilter==='cheapest' || sortFilter==='mostExpensive')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit:100`);
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?sort=new&limit=100`);
       else
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json`);
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=100`);
     
       break;
     case 'education':
       category='آموزشی';
       if(sortFilter==='newest')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?sort=new`);
-      else if(sortFilter==='cheapest' || sortFilter==='mostExpensive')
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?sort=new&limit:100`);
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?sort=new&limit=100`);
       else
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json`);
+      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=100`);
     
       break;
     default:
   }
   const data=await res.json();
+  //geting the data about every book in this category and then putting their olid and price in the bookArray
   let fetchPromises;
+  fetchPromises=data.works.map(async book=>{
+    const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
+    const detailsOfEachBookData =await detailsOfEachBookRes.json();
+    for (const key in  detailsOfEachBookData) {
+      let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
+      bookPrice=(isNaN(Number(bookPrice)))?100:bookPrice;
+      if(bookPrice>150)
+      bookPrice=Math.floor(bookPrice*0.7); //their price with discount
+      bookPrice*=1000;
+      if(bookPrice>=minPriceRange && bookPrice<=maxPriceRange)
+      bookArray.push({id: book.cover_edition_key, price: Number(bookPrice)}); }
+    })
+  await Promise.all(fetchPromises);
+
   switch(sortFilter){
     case 'cheapest':
-      //first I get the data about every book in this category and then I put their olid and their price in the bookArray and then sort them according to their price 
-      fetchPromises=data.works.map(async book=>{
-      const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
-      const detailsOfEachBookData =await detailsOfEachBookRes.json();
-      for (const key in  detailsOfEachBookData) {
-        let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
-        if(bookPrice>150)
-        bookPrice=Math.floor(bookPrice*0.7);
-        bookArray.push({id: book.cover_edition_key, price: Number(bookPrice)}); }
-      })
-      await Promise.all(fetchPromises);
+      //sorting them according to their price
       bookArray.sort((a,b)=> a.price - b.price);
-      //hide the book loader
-      document.querySelector('.book-loader').style.display='none';
-      for (let i = 0; i < 12; i++) {
-       fetchAndLoadDetailsOfBooks(bookArray[i].id, '.products');
-      }
     break;
     case 'mostExpensive':
-      //first I get the data about every book in this category and then I put their olid and their price in the bookArray and then sort them according to their price 
-      fetchPromises=data.works.map(async book=>{
-      const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
-      const detailsOfEachBookData =await detailsOfEachBookRes.json();
-      for (const key in  detailsOfEachBookData) {
-        let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
-        if(bookPrice>150)
-        bookPrice=Math.floor(bookPrice*0.7);
-        bookArray.push({id: book.cover_edition_key, price: Number(bookPrice)}); }
-      })
-      await Promise.all(fetchPromises);
+      //sorting them according to their price 
       bookArray.sort((a,b)=> b.price - a.price);
-      //hide the book loader
-      document.querySelector('.book-loader').style.display='none';
-      for (let i = 0; i < 12; i++) {
-        fetchAndLoadDetailsOfBooks(bookArray[i].id, '.products');
-      }
     break;
-    case 'mostRelevant':
-    case 'newest':
-      data.works.forEach(async book=>{
-      fetchAndLoadDetailsOfBooks(book.cover_edition_key, '.products');
-      //hide the book loader
-      document.querySelector('.book-loader').style.display='none';
-      })
-    break;
-      
   }
-
-
+  //hide the book loader
+  document.querySelector('.book-loader').style.display='none';
+  //adding new books to the container
+  for (let i = 0; i < bookArray.length; i++) {
+    if(i==12)
+    break;
+    fetchAndLoadDetailsOfBooks(bookArray[i].id, '.products');
+  }
 
 }
 

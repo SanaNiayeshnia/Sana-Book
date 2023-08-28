@@ -152,6 +152,17 @@ box-shadow:  0 5px 5px 1px rgb(155,155,155);
 .price-range .topic{
     border-bottom: 2px solid var(--pastelBlue);
 }
+.price-range .apply-range-filter-btn{
+font-size: 0.8rem;
+border: none;
+background-color: var(--pastelBlue);
+color: #476c91;
+transition: all 0.3s;
+}
+.price-range .apply-range-filter-btn:active{
+    color: var(--pastelBlue);
+    background-color: #5d8dbd;
+}
 .range>div span{
 font-family: 'Vazir-FarsiDigits';
 color: var(--mainTextColor);
@@ -448,6 +459,9 @@ width: 25px;
     }
     .range-slider {
         height: 5px;
+    }
+    .price-range .apply-range-filter-btn{
+        font-size: 1rem;
     }
     .range-input input{
         height: 5px;

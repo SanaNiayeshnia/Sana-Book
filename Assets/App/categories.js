@@ -21,6 +21,9 @@ let sortBoxBtns=document.querySelectorAll('.sorting .orders input[type="radio"]'
 
 let checkAvailibilityBtns=document.querySelectorAll('.check-availability-btn');
 
+let applyRangeFilterBtns=document.querySelectorAll('.apply-range-filter-btn');
+
+
 //global variables
 let sortFilter;
 let minPriceRange=0;
@@ -82,61 +85,58 @@ document.querySelectorAll('.language .lang-list li , .publishers .pub-list li').
 maxRanges.forEach(maxRange=>{
     maxRange.addEventListener('input', (event)=>{
         //move the selector when the user move the max range thumb
-        let minValue=maxRange.previousElementSibling.value;
-        let maxValue=maxRange.value;
+        minPriceRange=maxRange.previousElementSibling.value;
+        maxPriceRange=maxRange.value;
         event.target.parentElement.parentElement.querySelector('.range-selected').style.cssText=`
-        left: ${(Math.floor(1000000-maxValue)/1000000)*100}%;
-        right: ${Math.floor((minValue/1000000)*100)}%;
+        left: ${(Math.floor(1000000-maxPriceRange)/1000000)*100}%;
+        right: ${Math.floor((minPriceRange/1000000)*100)}%;
     `;
         //change the max number input when the range input changes
-        event.target.parentElement.nextElementSibling.querySelector('.max-number').value=maxValue;
-
-        //load new data by changing the price range input
-        sortAndFilterBooks(searchParams.get('c',sortFilter, minPrice, maxPrice))
+        event.target.parentElement.nextElementSibling.querySelector('.max-number').value=maxPriceRange;
     })
 })
 minRanges.forEach(minRange=>{
     minRange.addEventListener('input', (event)=>{
         //move the selector when the user move the min range thumb
-        let minValue=minRange.value;
-        let maxValue=event.target.nextElementSibling.value;
+        minPriceRange=minRange.value;
+        maxPriceRange=event.target.nextElementSibling.value;
         event.target.parentElement.parentElement.querySelector('.range-selected').style.cssText=`
-        right: ${Math.floor((minValue/1000000)*100)}%;
-        left: ${(Math.floor(1000000-maxValue)/1000000)*100}%;
+        right: ${Math.floor((minPriceRange/1000000)*100)}%;
+        left: ${(Math.floor(1000000-maxPriceRange)/1000000)*100}%;
     `;
         //changing the min number input when the range input changes
-        event.target.parentElement.nextElementSibling.querySelector('.min-number').value=minValue;
+        event.target.parentElement.nextElementSibling.querySelector('.min-number').value=minPriceRange;
 
     })
 })
 minRangeNumbers.forEach(minRangeNumber=>{
     minRangeNumber.addEventListener('input',(event)=>{
         //move the selector when the user change the min number input
-        let minValue=minRangeNumber.value;
-        let maxValue=event.target.nextElementSibling.nextElementSibling.value;
+        minPriceRange=minRangeNumber.value;
+        maxPriceRange=event.target.nextElementSibling.nextElementSibling.value;
         event.target.parentElement.parentElement.querySelector('.range-selected').style.cssText=`
-        right: ${Math.floor((minValue/1000000)*100)}%;
-        left: ${(Math.floor(1000000-maxValue)/1000000)*100}%;
+        right: ${Math.floor((minPriceRange/1000000)*100)}%;
+        left: ${(Math.floor(1000000-maxPriceRange)/1000000)*100}%;
     `;
         //move the range thumb when the user change the min number input
-        event.target.parentElement.previousElementSibling.children[0].value=minValue;
-        event.target.parentElement.previousElementSibling.children[1].value=maxValue;
+        event.target.parentElement.previousElementSibling.children[0].value=minPriceRange;
+        event.target.parentElement.previousElementSibling.children[1].value=maxPriceRange;
         
     })
 })
 maxRangeNumbers.forEach(maxRangeNumber=>{
     maxRangeNumber.addEventListener('input',(event)=>{
         //move the selector when the user change the max number input
-        let maxValue=maxRangeNumber.value;
-        let minValue=event.target.previousElementSibling.previousElementSibling.value;
+        maxPriceRange=maxRangeNumber.value;
+        minPriceRange=event.target.previousElementSibling.previousElementSibling.value;
         event.target.parentElement.parentElement.querySelector('.range-selected').style.cssText=`
-        right: ${Math.floor((minValue/1000000)*100)}%;
-        left: ${(Math.floor(1000000-maxValue)/1000000)*100}%;
+        right: ${Math.floor((minPriceRange/1000000)*100)}%;
+        left: ${(Math.floor(1000000-maxPriceRange)/1000000)*100}%;
     `;
 
         //move the range thumb when the user change the min number input
-        event.target.parentElement.previousElementSibling.children[0].value=minValue;
-        event.target.parentElement.previousElementSibling.children[1].value=maxValue;
+        event.target.parentElement.previousElementSibling.children[0].value=minPriceRange;
+        event.target.parentElement.previousElementSibling.children[1].value=maxPriceRange;
     })
 })
 
@@ -189,4 +189,8 @@ checkAvailibilityBtns.forEach(btn=>btn.addEventListener('change', ()=>{
     }
 
  
+}))
+//reload data by clicking on the applyRangeFilterBtn when the price range changes
+applyRangeFilterBtns.forEach(btn=>btn.addEventListener('click', ()=>{
+    sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange);
 }))
