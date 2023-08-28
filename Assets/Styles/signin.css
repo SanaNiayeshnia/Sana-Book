@@ -1,0 +1,240 @@
+@font-face {
+    font-family: 'Vazir-Regular';
+    src: url('../Fonts/Vazir/Vazir-Regular.eot') format('eot'), url('../Fonts/Vazir/Vazir-Regular.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Regular.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-Bold';
+    src: url('../Fonts/Vazir/Vazir-Bold.eot') format('eot'), url('../Fonts/Vazir/Vazir-Bold.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Bold.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-Medium';
+    src: url('../Fonts/Vazir/Vazir-Medium.eot') format('eot'), url('../Fonts/Vazir/Vazir-Medium.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Medium.woff2') format('woff2')
+}
+:root{
+    --mainPink: #E99EC9;
+    --mainBlue: #6699CC;
+    --darkPink:#e264ab;
+    --darkBlue:#5d8dbd;
+    --pastelGreen: #d9f6ce;
+    --pastelPink:#f5c7e0;
+    --pastelBlue: #c2dcf7;
+    --mainTextColor: #263238;
+}
+
+*{
+    font-family: 'Vazir-Regular';
+}
+body{
+background-image: linear-gradient(90deg, var(--pastelPink), var(--pastelBlue));
+background-attachment: fixed;
+position: relative;
+animation: colorChanging infinite alternate 5s;
+}
+@keyframes colorChanging{
+0%{
+background-image: linear-gradient(90deg, var(--pastelPink), var(--pastelBlue));
+}
+25%{
+background-image: linear-gradient(150deg, var(--pastelPink), var(--pastelBlue));
+}
+50%{
+background-image: linear-gradient(210deg, var(--pastelPink), var(--pastelBlue));
+}
+75%{
+background-image: linear-gradient(270deg, var(--pastelPink), var(--pastelBlue));
+}
+100%{
+background-image: linear-gradient(360deg, var(--pastelPink), var(--pastelBlue));
+}
+}
+.content{
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+/*page-loader*/
+.loader{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center ;
+
+}
+.page-loader{
+    z-index: 2;
+    width: 400px;
+}
+.signin-container{
+    background-color: transparent;
+    width: 80%;
+}
+.signin-container .signin-row{
+    box-shadow: 0 0 10px 0px rgb(163, 163, 163);
+}
+.signin-row .signin-pic{
+width: 250px;
+}
+.sign-in-or-sign-up span:not(.active){
+    cursor:pointer ;
+    background-color: #E0E0E0;
+}
+.sign-in-or-sign-up .active{
+    z-index: 2;
+    box-shadow: 0 5px 10px 5px rgb(163, 163, 163);
+    background-color: white;
+}
+/*form title*/
+form .main-page-link span{
+    font-family: 'Vazir-Bold';
+}
+form .main-page-link .first-sec-title{
+    color: var(--mainBlue);
+}
+form .main-page-link .second-sec-title{
+    color: var(--mainPink);
+}
+form .email-box, form .password-box, form .username-box ,form .forget-password, form .rememberme-box{
+    width: 100%;
+}
+/*inputs*/
+.email-box, .password-box, .username-box{
+    border: solid 2.5px var(--pastelBlue) ;
+}
+.email-box i, .password-box i, .username-box i{
+color: var(--mainBlue);
+}
+.password-box i{
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.password-box i:active{
+    color: var(--darkBlue);
+}
+
+.email-box label, .password-box label, .username-box label{
+    color: var(--mainTextColor);
+}
+#emailInput:focus, #passwordInput:focus, #usernameInput:focus{
+box-shadow: none;
+}
+/* Hide the eye icon */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+/*remember me box*/
+form .rememberme-box input{
+    border: 2px solid var(--mainBlue) !important;;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+form .rememberme-box input:checked{
+    background-color: var(--mainBlue) !important;
+}
+form .rememberme-box label{
+    font-size:0.85rem !important;
+    color: var(--mainTextColor);
+}
+
+/*form submit button*/
+form .submit-button{
+    background-image: linear-gradient(to right, var(--pastelPink), var(--pastelBlue));
+    width: 60%;
+    font-family: 'Vazir-Medium';
+    color: var(--mainTextColor);
+    transition: all 0.3s;
+}
+form .submit-button:active{
+    background-image: linear-gradient(to right, var(--pastelBlue), var(--pastelPink));
+}
+
+
+/*forget password link*/
+.forget-password{
+    color: var(--mainBlue) !important;
+    font-size: 0.85rem !important;
+    transition: all 0.3s;
+}
+.forget-password:hover{
+    color: var(--darkBlue) !important;
+}
+/*feedbacks*/
+.feedback{
+    font-size: 0.8rem;
+    color: #E57373;
+    display: none;
+}
+.invalid-icon{ 
+    color: #E57373 !important;
+    display: none !important;
+}
+
+/*signup-form*/
+.signup-form .rememberme-box, .signup-form .forget-password, .signin-form #usernameFD{
+    display: none !important;
+}
+.signup-form .username-box{
+    display: flex !important;
+}
+/*signin-form*/
+.signin-form .rememberme-box, .signin-form .forget-password{
+    display: flex !important;
+}
+.signin-form .username-box{
+    display: none !important;
+}
+/*toasts*/
+.toast-icon{
+width: 30px;
+}
+#signupToast .toast-header i{
+color:var(--mainBlue);
+}
+#signupToast .toast-header h6{
+    font-family: 'Vazir-Bold';
+}
+.close-icon{
+    cursor: pointer;
+}
+
+
+/*breakpoint in small screen*/
+@media screen and (min-width:576px){
+    form .email-box, form .password-box, form .forget-password, form .rememberme-box, form .username-box{
+        width: 85% !important;
+    }
+    form .submit-button{
+        width: 50%;
+    }
+}
+
+/*breakpoint in medium screen*/
+@media screen and (min-width:768px){
+    .signin-container{
+        width: 700px;
+        max-width: 700px;
+     
+    }
+    .signin-row{
+        height: 470px;
+    }
+    .signin-row .signin-pic{
+        width: 100%;
+    }
+    form .submit-button{
+        width: 40%;
+    }
+}
+
+/*breakpoint in large screen*/
+@media screen and (min-width:992px){
+    .signin-container{
+        width: 850px;
+        max-width: 850px;
+    }
+}
