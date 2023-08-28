@@ -228,21 +228,13 @@ color: var(--mainTextColor);
 .range-price input:active{
    border-color: var(--darkPink);
 }
-/*language*/
-.language{
-    background-color: white;
-    box-shadow:  0 5px 5px 1px rgb(155,155,155);
-}
-.language i{
-    color:var(--mainBlue);
-}
 
 /*publishers*/
 .publishers{
     background-color: white;
     box-shadow:  0 5px 5px 1px rgb(155,155,155);
 }
-.pub-list, .lang-list{
+.pub-list{
     transition: all 0.3s;
     max-height: 180px;
     overflow: auto;
@@ -253,30 +245,30 @@ color: var(--mainTextColor);
 .close-box-btn:hover{
     color: #476c91;
 }
-.pub-list::-webkit-scrollbar, .lang-list::-webkit-scrollbar{
+.pub-list::-webkit-scrollbar{
 width: 5px;
 }
-.pub-list::-webkit-scrollbar-thumb, .lang-list::-webkit-scrollbar-thumb{
+.pub-list::-webkit-scrollbar-thumb{
     background-color: var(--mainBlue);
     height: 5px;
     border-radius: 5rem;
 }
-.pub-list::-webkit-scrollbar-track, .lang-list::-webkit-scrollbar-track{
+.pub-list::-webkit-scrollbar-track{
     background-color: var(--pastelBlue);
     width: 10px;
 }
-.pub-list li, .lang-list li{
+.pub-list li{
 cursor: pointer;
 transition: all 0.3s;
 }
-.pub-list li.selected , .lang-list li.selected{
+.pub-list li.selected {
     order: -1;
     border-right: 3px solid var(--darkBlue);
     font-family: 'Vazir-Medium';
     color: var(--mainBlue);
     border-radius: 3rem;
 }
-.pub-list li:hover:not(.selected), .lang-list li:hover:not(.selected){
+.pub-list li:hover:not(.selected){
 color: var(--darkPink);
 }
 .publishers i{
@@ -285,7 +277,7 @@ color: var(--darkPink);
 .icon{
     width:40px;
 }
-.pub-list.close, .lang-list.close{
+.pub-list.close{
     animation: closeList forwards 0.5s;
 }
 @keyframes closeList {

@@ -303,6 +303,7 @@ document.querySelector('.title-sec .category-title').innerHTML=category;
 async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange){
   let category;
   let bookArray=[];
+  let publishers=new Set();
   let res;
   //show the book loader
   document.querySelector('.book-loader').style.display='flex';
@@ -313,7 +314,7 @@ async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRan
   //fetching books data
   switch(cParam){
     case 'foreign':
-      category='fantasy';
+      category='foreign';
       if(sortFilter==='newest')
       res=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng&sort=new&limit=100`);
       else
@@ -361,34 +362,81 @@ async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRan
     const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
     const detailsOfEachBookData =await detailsOfEachBookRes.json();
     for (const key in  detailsOfEachBookData) {
+      publishers.add(detailsOfEachBookData[key].details.publishers[0]);
       let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
-      bookPrice=(isNaN(Number(bookPrice)))?100:bookPrice;
+      if(category==='foreign'){
+        bookPrice=Math.floor(Math.random()*(600-100)+100);
+      }
+      let realPrice=bookPrice;
       if(bookPrice>150)
       bookPrice=Math.floor(bookPrice*0.7); //their price with discount
-      bookPrice*=1000;
-      if(bookPrice>=minPriceRange && bookPrice<=maxPriceRange)
-      bookArray.push({id: book.cover_edition_key, price: Number(bookPrice)}); }
+      if(bookPrice*1000>=minPriceRange && bookPrice<=maxPriceRange)
+      bookArray.push({id: book.cover_edition_key, title: detailsOfEachBookData[key].details.title, price: Number(bookPrice), realPrice:realPrice}); }
     })
   await Promise.all(fetchPromises);
+  document.querySelectorAll('.pub-list').forEach(list=>{
+    publishers.forEach(pub=>{
+      let liElem=document.createElement('li');
+      liElem.innerHTML=pub;
+      liElem.className='pub px-2 py-1';
+      list.append(liElem);
+    })
 
-  switch(sortFilter){
-    case 'cheapest':
-      //sorting them according to their price
-      bookArray.sort((a,b)=> a.price - b.price);
-    break;
-    case 'mostExpensive':
-      //sorting them according to their price 
-      bookArray.sort((a,b)=> b.price - a.price);
-    break;
-  }
-  //hide the book loader
-  document.querySelector('.book-loader').style.display='none';
-  //adding new books to the container
-  for (let i = 0; i < bookArray.length; i++) {
-    if(i==12)
-    break;
-    fetchAndLoadDetailsOfBooks(bookArray[i].id, '.products');
-  }
+  })
+    switch(sortFilter){
+      case 'cheapest':
+        //sorting them according to their price
+        bookArray.sort((a,b)=> a.price - b.price);
+      break;
+      case 'mostExpensive':
+        //sorting them according to their price 
+        bookArray.sort((a,b)=> b.price - a.price);
+      break;
+    }
+
+    //hide the book loader
+    document.querySelector('.book-loader').style.display='none';
+
+    //adding new books to the container
+    for (let i=0; i<bookArray.length; i++) {
+      if(i===12){
+        break;
+      }
+      let cardTextContent;
+      let discountBadge;
+      //if the price of the book was more than 150, add the sale price and the discount badge
+      if(bookArray[i].realPrice>150){
+      cardTextContent=`
+      <p class="real-price text-decoration-line-through text-center mb-0">${bookArray[i].realPrice},000</p>
+      <p class="sale-price price text-center ">${bookArray[i].price},000 <span>تومان</span></p>`;
+      discountBadge=`
+      <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
+      }
+      else{
+        cardTextContent=`
+        <p class="price text-center "> ${bookArray[i].price},000 <span>تومان</span></p>`;
+        discountBadge='';
+      }
+      //load data on the page
+      document.querySelector(`.products`).insertAdjacentHTML('beforeend', `
+      <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${bookArray[i].id}">
+      <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
+      ${discountBadge}
+      <a href="#" class="text-decoration-none" >
+          <div class="text-center pb-2 pb-md-3 pt-3">
+            <img src="https://covers.openlibrary.org/b/olid/${bookArray[i].id}-L.jpg" class="card-img-top" alt="bookPic">
+          </div>
+      </a>
+          <div class="card-body d-flex flex-column justify-content-between p-0">
+            <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>${bookArray[i].title}<span>»</span></a>
+            <div class="card-text mb-2">
+              ${cardTextContent}
+            </div>
+          </div>
+      </div>
+    
+    `)}
+  
 
 }
 
