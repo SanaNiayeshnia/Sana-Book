@@ -301,6 +301,9 @@ color: var(--darkPink);
 .pagination i:hover{
 color: #476c91;
 }
+.pagination #previousPageBtn{
+    display: none;
+}
 .pagination .btn-group label{
     font-family: 'Vazir-FarsiDigits';
 width: 2.5em;
@@ -322,7 +325,11 @@ background-color: white;
     color: white;
     border-color: var(--darkBlue);
 }
-
+.paginationInfo{
+    color: var(--mainTextColor);
+   border-top: 2px solid var(--pastelBlue);
+   font-size: 0.7rem;
+}
 /*cards*/
 .main-sec .card{
     box-shadow:  0 5px 5px 0px rgb(155,155,155);
@@ -473,6 +480,9 @@ width: 25px;
         width: 90px;
         font-size: 1rem;
     }
+    .paginationInfo{
+       font-size: 0.9rem;
+    }   
 }
 /*breakpoint in extra large screen*/
 @media screen and (min-width:1200px){

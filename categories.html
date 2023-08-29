@@ -184,6 +184,9 @@
                   <p class="m-0">قیمت از 0 تا 1000000</p>
                 </div>
               </div>
+              <div class="paginationInfo d-flex justify-content-center align-items-center pt-2 mt-3">
+                <p class="mb-0">صفحۀ <span class="current-page">1</span> از <span class="page-count">3</span>  صفحۀ یافت شده. </p>
+              </div>
             </div>
             <div class="check-availability rounded-4 p-3 mb-3">
               <div class="form-check form-switch d-flex justify-content-center align-items-center p-0">
@@ -251,6 +254,7 @@
 
               </div>
             </div>
+
             <div class="book-loader">
               <img src="Assets/Images/Loaders/Hand Loading.gif" alt="bookLoader">
             </div>
@@ -258,25 +262,18 @@
 
             </div>
             <div class="pagination d-flex align-items-center justify-content-center">
-              <i class="fa-solid fa-angles-right"></i>
+              <i class="fa-solid fa-angles-right" id="nextPageBtn"></i>
               <div class="btn-group mx-3 d-flex gap-2 align-items-center" role="group" dir="ltr" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="paginationradio" id="page1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary rounded-3 " for="page1">1</label>
-              
+                <label class="page1 btn btn-outline-primary rounded-3 " for="page1">1</label>
+
                 <input type="radio" class="btn-check" name="paginationradio" id="page2" autocomplete="off">
-                <label class="btn btn-outline-primary rounded-3" for="page2">2</label>
-              
+                <label class="page2 btn btn-outline-primary rounded-3 " for="page2">2</label>
+
                 <input type="radio" class="btn-check" name="paginationradio" id="page3" autocomplete="off">
-                <label class="btn btn-outline-primary rounded-3" for="page3">3</label>
-
-                <span>...</span>
-                                
-                <input type="radio" class="btn-check" name="paginationradio" id="page4" autocomplete="off">
-                <label class="btn btn-outline-primary rounded-3" for="page4">25</label>
-
+                <label class="page3 btn btn-outline-primary rounded-3 " for="page3">3</label>
               </div>
-              <i class="fa-solid fa-angles-left"></i>
-
+              <i class="fa-solid fa-angles-left" id="previousPageBtn"></i>
             </div>
           </div>
         </div>
@@ -290,6 +287,7 @@
   <img src="Assets/Images/Waves/wave-haikei (2).svg" alt="wavePic" class="w-100 mt-5 d-md-none">
   
     </section>
+
     <footer>
       <div class="container-lg">
         <form action="#" class="newsletter-subscription row justify-content-center align-items-center flex-wrap mb-4">
@@ -340,6 +338,7 @@
   <p class="reserved-rights fs-6 text-center px-5 px-sm-0 py-3 mt-2 mb-0"><span>1402</span> | تمامی حقوق این سایت متعلق به فروشگاه اینترنتی کتاب ثنا بوک می‌باشد.</p>
   
     </footer>
+    
     <!--help icon-->
     <div class="help-box d-flex align-items-center gap-2 ">
    <a class="help-message hidden p-0 rounded-pill text-decoration-none d-flex align-items-center gap-2 overflow-hidden" href="#">
@@ -372,6 +371,9 @@
           <i class="fa-solid fa-close me-2"></i>
           <p class="m-0">قیمت از 0 تا 1000000</p>
         </div>
+      </div>
+      <div class="paginationInfo d-flex justify-content-center align-items-center pt-2 mt-3">
+        <p class="mb-0">صفحۀ <span class="current-page">3</span> از <span class="page-count">1</span>  صفحۀ یافت شده. </p>
       </div>
     </div>
     <div class="d-flex flex-column flex-md-row gap-3 justify-content-between mb-3"> 

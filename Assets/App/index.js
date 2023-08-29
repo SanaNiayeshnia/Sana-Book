@@ -14,10 +14,6 @@ let categoriesSecForwardBtn=document.querySelector('.categories-sec .forward-btn
 let saleBox=document.querySelector('.sale-box .recommend-box-cards');
 let popularBox=document.querySelector('.popular-box .recommend-box-cards');
 
-//global variables
-let cartItems=[];
-
-
 
 
 
@@ -28,7 +24,7 @@ window.addEventListener('load', ()=>{
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
   
   //loading book data into the boxes
-  loadDataInBoxesOnIndexPage(cartItems);
+  loadDataInBoxesOnIndexPage();
   
 }) 
 

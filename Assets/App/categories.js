@@ -1,6 +1,6 @@
 'use strict'
 //import functions
-import { sortAndFilterBooks} from "./functions.js";
+import {loadDataInBoxesOnCategoriesPage, sortAndFilterBooks} from "./functions.js";
 
 
 let filterBtn=document.getElementById('filterBtn');
@@ -23,17 +23,21 @@ let checkAvailibilityBtns=document.querySelectorAll('.check-availability-btn');
 
 let applyRangeFilterBtns=document.querySelectorAll('.apply-range-filter-btn');
 
+let nextPageBtn=document.getElementById('nextPageBtn');
+let previousPageBtn=document.getElementById('previousPageBtn');
+
+
 
 //global variables
+let pageNumber=1;
 let sortFilter="mostRelevant";
 let publisherFilter='all';
 let minPriceRange=0;
 let maxPriceRange=1000000;
+let pageCount;
 let searchParams=new URLSearchParams(location.search);
 
-window.addEventListener('load', ()=>{
-//load books data on the page
-sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
+window.addEventListener('load', async()=>{
 let category;
 switch(searchParams.get('c')){
     case 'foreign':
@@ -51,9 +55,64 @@ switch(searchParams.get('c')){
     case 'education':
       category='آموزشی';
       break;
-  }
-  document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
-  document.querySelector('.title-sec .category-title').innerHTML=category;
+}
+document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
+document.querySelector('.title-sec .category-title').innerHTML=category;
+
+//load books data on the page
+await loadDataInBoxesOnCategoriesPage(searchParams.get('c'));
+sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
+
+pageCount=Number(document.querySelector('.page-count').innerHTML);
+
+//remove previous page buttons
+while(document.querySelector('.pagination .btn-group').firstChild){
+    document.querySelector('.pagination .btn-group').firstChild.remove()
+}
+
+//making pagination buttons
+for (let i = 1; i <= 3; i++) {
+    if(i>pageCount)
+    break;
+    if(i===1){
+        document.querySelector('.pagination .btn-group').insertAdjacentHTML('beforeend', `
+        <input type="radio" class="btn-check" name="paginationradio" id="page${i}" autocomplete="off" checked }>
+        <label class="page${i} btn btn-outline-primary rounded-3 " for="page${i}">${i}</label>
+      `)
+    }
+    else{
+        document.querySelector('.pagination .btn-group').insertAdjacentHTML('beforeend', `
+        <input type="radio" class="btn-check" name="paginationradio" id="page${i}" autocomplete="off" }>
+        <label class="page${i} btn btn-outline-primary rounded-3 " for="page${i}">${i}</label>
+      `)
+    }
+
+}
+if(pageCount<=4){
+    document.querySelector('.pagination #nextPageBtn').remove();
+}
+if(pageCount===4){
+    document.querySelector('.pagination .btn-group').insertAdjacentHTML('beforeend', `
+    <input type="radio" class="btn-check" name="paginationradio" id="lastPage" autocomplete="off" }>
+    <label class="last-page btn btn-outline-primary rounded-3 " for="lastPage">${pageCount}</label>
+    `)
+}
+if(pageCount>4){
+    document.querySelector('.pagination .btn-group').insertAdjacentHTML('beforeend', `
+    <span>...</span>
+    <input type="radio" class="btn-check" name="paginationradio" id="lastPage" autocomplete="off" }>
+    <label class="last-page btn btn-outline-primary rounded-3 " for="lastPage">${pageCount}</label>
+    `)
+}
+
+//changing the page number variable and load new data by clicking on a pagination button
+document.querySelectorAll('.pagination .btn-check').forEach(btn=> btn.addEventListener('click', (event)=>{
+    pageNumber=Number(event.target.nextElementSibling.innerHTML);
+    sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
+    document.querySelector('.main-sec').scrollIntoView();
+}))
+
+
 })
 //show the filter box by clicking on the filter button
 filterBtn.addEventListener('click', (event)=>{
@@ -164,20 +223,20 @@ sortBoxBtns.forEach(btn=>{btn.addEventListener('click', (event)=>{
         </div> `) 
     })
    sortFilter=event.target.dataset.sort;
-   publisherFilter=document.querySelector('.pub-list li.selected').innerHTML;
+   publisherFilter=document.querySelector('.pub-list li.selected')?.innerHTML || 'all';
   //sort books according to the filters 
 switch(sortFilter){
     case 'newest':
-       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
+       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
     break;
     case 'mostRelevant':
-       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
+       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
     break;
     case 'mostExpensive':
-        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
+        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
     break;
     case 'cheapest':
-        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
+        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
     break;
 }
 })})
@@ -206,8 +265,8 @@ checkAvailibilityBtns.forEach(btn=>btn.addEventListener('change', ()=>{
 }))
 //reload data by clicking on the applyRangeFilterBtn when the price range changes
 applyRangeFilterBtns.forEach(btn=>btn.addEventListener('click', ()=>{
-   publisherFilter=document.querySelector('.pub-list li.selected').innerHTML;
-    sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
+   publisherFilter=document.querySelector('.pub-list li.selected')?.innerHTML || 'all';
+    sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
     //add the price range to the applied filter box
     document.querySelectorAll('.filters').forEach(f=>{
         f.querySelector('.price-range-filter').remove();
@@ -219,4 +278,46 @@ applyRangeFilterBtns.forEach(btn=>btn.addEventListener('click', ()=>{
     })
 }))
 
+
+
+//going to the next page by clicking on the next page button
+nextPageBtn.addEventListener('click', ()=>{
+    if(1<pageNumber<4)
+    previousPageBtn.style.display='block';
+
+    if(pageNumber%3===0){
+        document.querySelector('.page1').innerHTML=pageNumber+1;
+
+        if(pageNumber+2>pageCount)
+        document.querySelector('.page2').remove();
+        else
+        document.querySelector('.page2').innerHTML=pageNumber+2;
+
+        if(pageNumber+3>pageCount)
+        document.querySelector('.page3').remove();
+        else
+        document.querySelector('.page3').innerHTML=pageNumber+3;
+    }
+
+    document.querySelectorAll('.pagination .btn-check').forEach(btn=>{
+        if(Number(btn.nextElementSibling.innerHTML)===pageNumber+1){
+            btn.checked=true;
+        }
+    })
+    if((pageNumber+2===pageCount || pageCount===pageNumber+3) && pageCount>4){
+        document.querySelector('.pagination .btn-group span')?.remove();
+        document.querySelector('.pagination .btn-group .last-page').remove();
+    }
+
+
+    pageNumber++;
+    sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber);
+    
+    document.querySelector('.main-sec').scrollIntoView();
+
+})
+
+previousPageBtn.addEventListener('click', ()=>{
+
+})
 

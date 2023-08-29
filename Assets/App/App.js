@@ -9,9 +9,6 @@ let searchInputs=document.querySelectorAll('.search-input');
 
 let seachIcons=document.querySelectorAll('.search-icon');
 
-//global variables
-let cartItems=[];
-
 
 window.addEventListener('load', ()=>{
   //show the sections and hide the loader after 7 seconds
@@ -109,5 +106,4 @@ document.addEventListener('click',(event)=>{
   box.style.opacity=0;
   })
 })
-
 
