@@ -1,10 +1,12 @@
-
+let publishers=new Set();
 async function fetchAndLoadDetailsOfBooks(bookId, query){
        //for accessing the price of each book, we need tp fetch the more detaild data of each book
        const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${bookId}&jscmd=details&format=json`);
        const detailsOfEachBookData =await detailsOfEachBookRes.json();
 
        for (const key in  detailsOfEachBookData) {
+        console.log(detailsOfEachBookData[key].details.publishers[0]);
+        publishers.add(detailsOfEachBookData[key].details.publishers[0]);
          let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
          bookPrice=(isNaN(Number(bookPrice)))?100:bookPrice;
          let cardTextContent;
@@ -209,101 +211,9 @@ async function loadDataInBoxesOnIndexPage(cartItems){
    })
 }
 
-async function loadDataOnCategorisePage(cParam){
- let category;
- //removing previous books from the products box
- while(document.querySelector('.products').firstChild){
-  document.querySelector('.products').firstChild.remove()
- }
- //show the book loader
- document.querySelector('.book-loader').style.display='flex';
- //adding new books
-switch(cParam){
-  case 'foreign':
-    category='ادبیات خارجی';
-    const foreignRes=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng&limit=12`);
-    const foreignData=await foreignRes.json();
-    foreignData.works.forEach(async (book)=>{
-      //for accessing the price of each book, we need tp fetch the more detaild data of each book
-        const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
-        const detailsOfEachBookData =await detailsOfEachBookRes.json();
-        for (const key in  detailsOfEachBookData) {
-          //there's no property called price in open library, so i get a random price to not leave this field empty
-          let bookPrice=Math.floor(Math.random()*(400-100)+100); 
-          let cardTextContent;
-          let discountBadge;
-          //if the price of the book was more than 150, add the sale price and the discount badge
-          if(bookPrice>150){
-          let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
-          cardTextContent=`
-          <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
-          <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>`;
-          discountBadge=`
-          <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
-          }
-          else{
-            cardTextContent=`
-            <p class="price text-center "> ${bookPrice},000 <span>تومان</span></p>`;
-            discountBadge='';
-          }
-          //load data on the page
-          document.querySelector(`.main-sec .products`).insertAdjacentHTML('beforeend', `
-          <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${book.cover_edition_key}">
-          <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-          ${discountBadge}
-          <a href="#" class="text-reset text-decoration-none">
-              <div class="text-center pb-2 pb-md-3 pt-3">
-                <img src="https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg" class="card-img-top" alt="bookPic">
-              </div>
-          </a>
-              <div class="card-body d-flex flex-column justify-content-between p-0">
-                <a class="card-title h5 text-decoration-none foreign text-center my-2 px-2 px-md-3" href="#"><span>«</span>${book.title}<span>»</span></a>
-                <div class="card-text mb-2">
-                  ${cardTextContent}
-                </div>
-              </div>
-          </div>
-      
-        `)
-        }
-    })
-    break;
-  case 'psychology':
-    category= 'روانشناسی';
-      const psychologyRes=await fetch(`http://openlibrary.org/subjects/روانشناسی.json?limit=12`);
-      const psychologyData=await psychologyRes.json();
-      psychologyData.works.forEach((book)=>fetchAndLoadDetailsOfBooks(book.cover_edition_key, '.main-sec .products'));
-    break;
-  case 'poetry':
-    category='شعر';
-    const poetryRes=await fetch(`http://openlibrary.org/subjects/شعر.json?offset=6&limit=12`);
-    const poetryData=await poetryRes.json();
-    poetryData.works.forEach((book)=>fetchAndLoadDetailsOfBooks(book.cover_edition_key,'.main-sec .products'));
-    break;
-  case 'fiction':
-    category= 'ادبیات داستانی';
-    const fictionRes=await fetch(`http://openlibrary.org/subjects/ادبیات_داستانی.json?limit=12`);
-    const fictionData=await fictionRes.json();
-    fictionData.works.forEach((book)=>fetchAndLoadDetailsOfBooks(book.cover_edition_key,'.main-sec .products'));
-    break;
-  case 'education':
-    category='آموزشی';
-    const educationRes=await fetch(`http://openlibrary.org/subjects/آموزشی.json?limit=12`);
-    const educationData=await educationRes.json();
-    educationData.works.forEach((book)=>fetchAndLoadDetailsOfBooks(book.cover_edition_key, '.main-sec .products'));
-    break;
-}
-//hide the book loader
-document.querySelector('.book-loader').style.display='none';
-
-document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
-document.querySelector('.title-sec .category-title').innerHTML=category;
-}
-
-async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange){
+async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, publisherFilter){
   let category;
   let bookArray=[];
-  let publishers=new Set();
   let res;
   //show the book loader
   document.querySelector('.book-loader').style.display='flex';
@@ -358,11 +268,13 @@ async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRan
   const data=await res.json();
   //geting the data about every book in this category and then putting their olid and price in the bookArray
   let fetchPromises;
+  publishers.clear();
   fetchPromises=data.works.map(async book=>{
     const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
     const detailsOfEachBookData =await detailsOfEachBookRes.json();
     for (const key in  detailsOfEachBookData) {
-      publishers.add(detailsOfEachBookData[key].details.publishers[0]);
+    let publisherName=(detailsOfEachBookData[key].details.publishers!=undefined)? detailsOfEachBookData[key].details.publishers[0]: '';
+      publishers.add(publisherName);
       let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
       if(category==='foreign'){
         bookPrice=Math.floor(Math.random()*(600-100)+100);
@@ -370,19 +282,18 @@ async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRan
       let realPrice=bookPrice;
       if(bookPrice>150)
       bookPrice=Math.floor(bookPrice*0.7); //their price with discount
-      if(bookPrice*1000>=minPriceRange && bookPrice<=maxPriceRange)
-      bookArray.push({id: book.cover_edition_key, title: detailsOfEachBookData[key].details.title, price: Number(bookPrice), realPrice:realPrice}); }
-    })
-  await Promise.all(fetchPromises);
-  document.querySelectorAll('.pub-list').forEach(list=>{
-    publishers.forEach(pub=>{
-      let liElem=document.createElement('li');
-      liElem.innerHTML=pub;
-      liElem.className='pub px-2 py-1';
-      list.append(liElem);
-    })
 
-  })
+      if(publisherFilter==='all'){
+        if(bookPrice*1000>=minPriceRange && bookPrice*1000<=maxPriceRange)
+        bookArray.push({id: book.cover_edition_key, title: detailsOfEachBookData[key].details.title, price: Number(bookPrice), realPrice:realPrice});
+      }
+      else{
+        if(bookPrice*1000>=minPriceRange && bookPrice*1000<=maxPriceRange && publisherName===publisherFilter)
+        bookArray.push({id: book.cover_edition_key, title: detailsOfEachBookData[key].details.title, price: Number(bookPrice), realPrice:realPrice});
+      }
+      }
+    })
+    await Promise.all(fetchPromises);
     switch(sortFilter){
       case 'cheapest':
         //sorting them according to their price
@@ -436,9 +347,47 @@ async function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRan
       </div>
     
     `)}
+  //remove previous publishers' names to the pub-list
+  document.querySelectorAll('.pub-list li').forEach(li=>{
+    li.remove();
+  })
+
+  //add new publishers' names to the pub-list
+  document.querySelectorAll('.pub-list').forEach(list=>{
+    publishers.forEach(pub=>{
+      let liElem=document.createElement('li');
+      liElem.innerHTML=pub;
+      liElem.className='pub px-2 py-1';
+      list.append(liElem);
+      if(liElem.innerHTML===publisherFilter){
+      liElem.classList.add('selected');
+      }
+      liElem.addEventListener('click', (event)=>{
+        document.querySelectorAll('.pub-list li').forEach((li)=>{
+          if(li.classList.contains('selected'))
+          li.classList.remove('selected');
+          if(li.innerHTML===liElem.innerHTML)
+          li.classList.add('selected');
+
+          publisherFilter=liElem.innerHTML;
+        })
+        document.querySelectorAll('.applied-filters .filters').forEach(box=>{
+          box.querySelector('.publisher-filter')?.remove();
+          box.insertAdjacentHTML('beforeend', `
+          <div class="filter publisher-filter d-flex justify-content-between align-items-center">
+          <i class="fa-solid fa-close me-2"></i>
+          <p class="m-0">ناشر: ${liElem.innerHTML}</p>
+        </div>`)
+        })
+        liElem.parentElement.scrollTop=0;
+        sortAndFilterBooks(cParam,sortFilter,minPriceRange,maxPriceRange,publisherFilter);
+    })
+    })
+
+  })
   
 
 }
 
   
-export {loadDataInBoxesOnIndexPage,loadDataOnCategorisePage, sortAndFilterBooks} ; 
+export {loadDataInBoxesOnIndexPage, sortAndFilterBooks} ; 

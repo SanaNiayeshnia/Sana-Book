@@ -92,14 +92,14 @@ color: #000000A6;
 color: var(--mainBlue);
 }
 /*filtering*/
-.filtering .applied-filter{
+.filtering .applied-filters{
 background-color: white;
 box-shadow:  0 5px 5px 1px rgb(155, 155, 155);
 }
-.filtering .applied-filter>p{
+.filtering .applied-filters>p{
     border-bottom: 2px solid var(--pastelBlue);
 }
-.filtering .applied-filter .filters .filter{
+.filtering .applied-filters .filters .filter{
     background-color: var(--mainBlue);
     color: white;
     font-size: 0.8rem;
@@ -107,10 +107,10 @@ box-shadow:  0 5px 5px 1px rgb(155, 155, 155);
     border-radius: 6rem;
     cursor: pointer;
 }
-.filtering .applied-filter .filters .filter i{
+.filtering .applied-filters .filters .filter i{
     cursor: pointer;
 }
-.filtering .applied-filter .filters .filter:hover{
+.filtering .applied-filters .filters .filter:hover{
     animation: shakeFilter forwards 0.3s;
 }
 @keyframes shakeFilter {
@@ -366,7 +366,7 @@ background-color: white;
 .filtering-mobile-screen .title{
     font-size: 0.8rem;
 }
-.filtering-mobile-screen .applied-filter .filters .filter,.filtering-mobile-screen .pub-list li,.filtering-mobile-screen .lang-list li{
+.filtering-mobile-screen .applied-filters .filters .filter,.filtering-mobile-screen .pub-list li,.filtering-mobile-screen .lang-list li{
     font-size: 0.7rem;
 }
 .filtering-mobile-screen .icon{

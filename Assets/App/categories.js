@@ -1,6 +1,6 @@
 'use strict'
 //import functions
-import {loadDataOnCategorisePage, sortAndFilterBooks} from "./functions.js";
+import { sortAndFilterBooks} from "./functions.js";
 
 
 let filterBtn=document.getElementById('filterBtn');
@@ -26,14 +26,34 @@ let applyRangeFilterBtns=document.querySelectorAll('.apply-range-filter-btn');
 
 //global variables
 let sortFilter="mostRelevant";
-let publisherFilter=null;
+let publisherFilter='all';
 let minPriceRange=0;
 let maxPriceRange=1000000;
 let searchParams=new URLSearchParams(location.search);
 
 window.addEventListener('load', ()=>{
 //load books data on the page
-loadDataOnCategorisePage(searchParams.get('c'));
+sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
+let category;
+switch(searchParams.get('c')){
+    case 'foreign':
+        category='ادبیات خارجی';
+      break;
+    case 'psychology':
+      category= 'روانشناسی';
+        break;
+    case 'poetry':
+      category='شعر';
+      break;
+    case 'fiction':
+      category= 'ادبیات داستانی';
+      break;
+    case 'education':
+      category='آموزشی';
+      break;
+  }
+  document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
+  document.querySelector('.title-sec .category-title').innerHTML=category;
 })
 //show the filter box by clicking on the filter button
 filterBtn.addEventListener('click', (event)=>{
@@ -72,17 +92,6 @@ closeBtns.forEach(btn=>btn.addEventListener('click', (event)=>{
         event.target.classList.add('fa-angle-up');
     }
 }))
-//selecting a publisher from the boxes
-document.querySelectorAll('.pub-list .pub').forEach(li=>{
-    li.addEventListener('click', (event)=>{
-        let previousSelectedItem= Array.from(li.parentElement.children).find(child=> child.classList.contains('selected'));
-        previousSelectedItem?.classList.remove('selected'); //remove the previous selected item
-        event.target.classList.add('selected'); //add the new selected item
-        publisherFilter=event.target.innerHTML;
-        console.log('pub');
-        sortAndFilterBooks(searchParams.get('c'),sortFilter,minPriceRange, maxPriceRange);
-    })
-})
 
 //making a dynamic range slider
 maxRanges.forEach(maxRange=>{
@@ -155,19 +164,20 @@ sortBoxBtns.forEach(btn=>{btn.addEventListener('click', (event)=>{
         </div> `) 
     })
    sortFilter=event.target.dataset.sort;
+   publisherFilter=document.querySelector('.pub-list li.selected').innerHTML;
   //sort books according to the filters 
 switch(sortFilter){
     case 'newest':
-       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange);
+       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
     break;
     case 'mostRelevant':
-       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange);
+       sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
     break;
     case 'mostExpensive':
-        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange);
+        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
     break;
     case 'cheapest':
-        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange);
+        sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
     break;
 }
 })})
@@ -196,7 +206,8 @@ checkAvailibilityBtns.forEach(btn=>btn.addEventListener('change', ()=>{
 }))
 //reload data by clicking on the applyRangeFilterBtn when the price range changes
 applyRangeFilterBtns.forEach(btn=>btn.addEventListener('click', ()=>{
-    sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange);
+   publisherFilter=document.querySelector('.pub-list li.selected').innerHTML;
+    sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter);
     //add the price range to the applied filter box
     document.querySelectorAll('.filters').forEach(f=>{
         f.querySelector('.price-range-filter').remove();
@@ -207,3 +218,5 @@ applyRangeFilterBtns.forEach(btn=>btn.addEventListener('click', ()=>{
       </div>`)
     })
 }))
+
+
