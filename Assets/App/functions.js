@@ -273,7 +273,7 @@ async function loadDataInBoxesOnCategoriesPage(cParam){
 
 }
 
-function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber, cartItems){
+function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber){
   //removing previous filtered books
   allFilteredBooks.splice(0,allFilteredBooks.length); 
 
@@ -306,7 +306,7 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
          allFilteredBooks.push(book);        
       }
       else{
-        if(book.salePrice*1000>=minPriceRange && book.salePrice*1000<=maxPriceRange && book.publisherName===publisherFilter)
+        if(book.salePrice*1000>=minPriceRange && book.salePrice*1000<=maxPriceRange && book.publisherName==publisherFilter)
         allFilteredBooks.push(book);
       }
     })
@@ -368,8 +368,7 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
   }
 
     //add the book to cart by clicking on the .add-to-cart-btn
-    document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
-      console.log(btn);
+  /*  document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
      btn.addEventListener('click', ()=>{
        cartItems.push(btn.parentElement.dataset.olid);
        let orderCount=(cartItems.length<=5)?cartItems.length:"+5";
@@ -378,7 +377,7 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
   
   
     })
-  
+  */
     },3000);
 
   //remove previous publishers' names to the pub-list
@@ -415,6 +414,7 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
         })
         liElem.parentElement.scrollTop=0;
         sortAndFilterBooks(cParam,sortFilter,minPriceRange,maxPriceRange,publisherFilter);
+
     })
     })
 
@@ -427,7 +427,9 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
     pi.querySelector('.page-count').innerHTML=pageCount;
   })
     
-  
-
 } 
+
+
+
+
 export {loadDataInBoxesOnIndexPage, loadDataInBoxesOnCategoriesPage, sortAndFilterBooks} ; 

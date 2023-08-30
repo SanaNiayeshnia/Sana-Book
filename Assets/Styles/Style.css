@@ -118,6 +118,10 @@ body{
     background-color: var(--mainBlue);
 }
 
+.top-nav .nav-link{
+    cursor: pointer;
+}
+
 /*dropdown-menu*/
 .dropdown-menu{
     padding: 10px;
