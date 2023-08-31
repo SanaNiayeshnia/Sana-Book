@@ -1,6 +1,6 @@
 //global variables
-let cartItems=[];
 let publishers=new Set();
+let cartItems=[];
 let allBooks=[];
 let allBooksSortedNewest=[];
 let allFilteredBooks=[];
@@ -204,13 +204,20 @@ async function loadDataInBoxesOnIndexPage(){
     }
     
    }
+
+   addCartItems();
+
    
    //add the book to cart by clicking on the .add-to-cart-btn
    Array.from(document.getElementsByClassName('add-to-cart-btn')).forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      cartItems.push(btn.parentElement.dataset.olid);
-      let orderCount=(cartItems.length<=5)?cartItems.length:"+5";
-      document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
+      if(JSON.parse(localStorage.getItem('cartItems'))!=null)
+      cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];
+      
+      cartItems.push({olid:btn.parentElement.dataset.olid});
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      addCartItems();
+
     })
 
    })
@@ -273,7 +280,7 @@ async function loadDataInBoxesOnCategoriesPage(cParam){
 
 }
 
-function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber){
+function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber, makePaginationBtns, addRemovingEventsToAppliedFilter){
   //removing previous filtered books
   allFilteredBooks.splice(0,allFilteredBooks.length); 
 
@@ -306,13 +313,13 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
          allFilteredBooks.push(book);        
       }
       else{
-        if(book.salePrice*1000>=minPriceRange && book.salePrice*1000<=maxPriceRange && book.publisherName==publisherFilter)
+        if(book.salePrice*1000>=minPriceRange && book.salePrice*1000<=maxPriceRange && book.publisherName===publisherFilter)
         allFilteredBooks.push(book);
+        
       }
     })
 
   }
-
     switch(sortFilter){
       case 'cheapest':
         //sorting them according to their price
@@ -366,18 +373,21 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
     
     `)
   }
+  
+  addCartItems()
 
     //add the book to cart by clicking on the .add-to-cart-btn
-  /*  document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
+   document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
      btn.addEventListener('click', ()=>{
-       cartItems.push(btn.parentElement.dataset.olid);
-       let orderCount=(cartItems.length<=5)?cartItems.length:"+5";
-       document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
+      if(JSON.parse(localStorage.getItem('cartItems'))!=null)
+       cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];
+
+       cartItems.push({olid:btn.parentElement.dataset.olid});
+       localStorage.setItem('cartItems', JSON.stringify(cartItems));
+       addCartItems();
      })
-  
-  
     })
-  */
+  
     },3000);
 
   //remove previous publishers' names to the pub-list
@@ -413,9 +423,21 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
         </div>`)
         })
         liElem.parentElement.scrollTop=0;
-        sortAndFilterBooks(cParam,sortFilter,minPriceRange,maxPriceRange,publisherFilter);
+        sortAndFilterBooks(cParam,sortFilter,minPriceRange,maxPriceRange,publisherFilter,pageNumber, makePaginationBtns,addRemovingEventsToAppliedFilter);
+        
+        //make new page buttons and go to the first page
+        pageNumber=1;
+        if(pageCount>4){
+          nextPageBtn.style.display='block';
+        }
+        makePaginationBtns();
+        //add events for removing
+        document.querySelectorAll('.applied-filters .publisher-filter i.fa-close').forEach(closeIcon=>{
+        addRemovingEventsToAppliedFilter(closeIcon);
+        })
 
-    })
+
+      })
     })
 
   })
@@ -426,9 +448,23 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
     pi.querySelector('.current-page').innerHTML= pageNumber;
     pi.querySelector('.page-count').innerHTML=pageCount;
   })
-    
 } 
 
+function addCartItems(){
+  Array.from(document.getElementsByClassName('add-to-cart-btn')).forEach(btn=>{
+    let cartCount;
+    if(JSON.parse(localStorage.getItem('cartItems'))!=null){
+      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+    }
+    else{
+      localStorage.setItem('cartItems',JSON.stringify(cartItems));
+      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+    }
+    let orderCount=(cartCount<=5)?cartCount:"+5";
+    document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
+    
+  })
+}
 
 
 

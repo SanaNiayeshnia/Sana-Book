@@ -91,6 +91,10 @@ color: #000000A6;
 .orders .btn-check:hover:not(:checked) +label{
 color: var(--mainBlue);
 }
+
+.sort-filter-name{
+    order: -1;
+}
 /*filtering*/
 .filtering .applied-filters{
 background-color: white;
@@ -195,6 +199,9 @@ color: var(--mainTextColor);
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+.range-input input:focus{
+   outline: none;
+}
 .range-input input::-webkit-slider-thumb {
     height: 15px;
     width: 15px;
@@ -221,12 +228,15 @@ color: var(--mainTextColor);
     font-family:'Vazir-FarsiDigits';
     transition: all 0.3s;
 }
+.range-price input:focus{
+    outline: none;
+}
 .range-price label{
 color: var(--mainTextColor);
 }
 
-.range-price input:active{
-   border-color: var(--darkPink);
+.range-price input:focus{
+   border-color: #476c91;
 }
 
 /*publishers*/
@@ -359,16 +369,15 @@ background-color: white;
     background-color: whitesmoke;
     outline-offset: 0px;
 }
-
-.filtering-mobile-screen{
-    width: 90%;
+.filtering .modal-content{
+    border-color: white;
+}
+.filtering .modal-header{
     background-color: var(--pastelPink);
-    position: fixed;
-    top: -800px;
-    right: 45%;
-    transform: translate(45%,0%);
-    z-index: 3;
-    box-shadow: 0 3px 5px 2px rgb(155,155,155) ;
+    border-bottom-color: white;
+}
+.filtering .modal-body{
+    background-color: var(--pastelPink);
 }
 .filtering-mobile-screen .title{
     font-size: 0.8rem;
@@ -379,69 +388,28 @@ background-color: white;
 .filtering-mobile-screen .icon{
 width: 25px;
 }
-.filtering-mobile-screen.show{
-    animation: showFilterBox forwards 0.5s;
-}
-
-@keyframes showFilterBox {
-    from{
-    top: -800px;
-    }
-    to{
-    top: 10%;
-
-    }
-}
-
-.filtering-mobile-screen.hide{
-    animation: hideFilterBox forwards 0.5s;
-}
-
-@keyframes hideFilterBox {
-    from{
-    top: 10%;
-    }
-    to{
-    top: -800px;
-
-    }
-}
 
 /*ordering-mobile-screen*/
-.sorting-mobile-screen{
+.sorting .modal-body{
     background-color: var(--pastelBlue);
-    position: fixed; 
-    top: -500;
-    right: 50%;
-    transform: translate(50%,50%);
-    z-index: 3;
-    width: 50%;
 }
-.sorting-mobile-screen.show{
-    animation: showOrderBox forwards 0.5s;
+.sorting .modal-header{
+    background-color: var(--pastelBlue);
+    border-bottom-color: white;
 }
-@keyframes showOrderBox {
-    from{
-        top: -500px;
-
-    }
-    to{
-      top: 10%;
-    }    
+.sorting .modal-content{
+    border-color: white;
+    overflow: hidden;
 }
-.sorting-mobile-screen.hide{
-    animation: hideOrderBox forwards 0.5s;
+.sorting-mobile-screen > span i{
+    color: var(--darkBlue);
 }
-@keyframes hideOrderBox {
-    from{
-        top: 10%;
-    }
-    to{
-      top: -500px;
-    }    
-}
-.sorting-mobile-screen .close-box-icon , .filtering-mobile-screen .close-box-icon{
+.sorting .close-box-icon , .filtering .close-box-icon{
    cursor: pointer;
+}
+
+.modal.sorting{
+    background-color: transparent;
 }
 
 

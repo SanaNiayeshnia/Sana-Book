@@ -19,7 +19,7 @@
     <script src="Assets/App/categories.js" type="module" defer></script> 
     <script src="Assets/App/App.js" type="module" defer></script>
 </head>
-<body>
+<body id="body">
   <div class="loader">
     <img src="Assets/Images/Loaders/Train Loader.gif" alt="trainLoader" class="page-loader">
   </div>
@@ -164,8 +164,8 @@
       <div class="container-xl px-4 px-sm-5 px-lg-3 pt-4 pt-md-5">
         <div class="row">
           <div class="d-flex justify-content-between align-items-center d-lg-none mb-4">
-            <button class="rounded-4 py-2 px-3" id="filterBtn"><i class="fa-solid fa-filter me-2"></i>فیلتر کتاب‌ها </button>
-            <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90 fs-5 p-2 rounded-circle" id="sortIcon"></i>
+            <button class="rounded-4 py-2 px-3" id="filterBtn"  data-bs-toggle="modal" data-bs-target="#filterBox"><i class="fa-solid fa-filter me-2"></i>فیلتر کتاب‌ها </button>
+            <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90 fs-5 p-2 rounded-circle" id="sortIcon" data-bs-toggle="modal" data-bs-target="#sortBox"></i>
           </div>
           <div class="col-4 filtering d-none d-lg-block">
             <div class="applied-filters rounded-4 p-3 mb-3">
@@ -176,7 +176,6 @@
                   <p class="m-0">فقط کالاهای موجود</p>
                 </div>
                 <div class="filter sort-filter-name d-flex justify-content-between align-items-center">
-                  <i class="fa-solid fa-close me-2"></i>
                   <p class="m-0">مرتبط ترین</p>
                 </div>
                 <div class="filter price-range-filter d-flex justify-content-between align-items-center">
@@ -354,100 +353,118 @@
 
 
     <!--filter box for mobile-screen-->
-    <div class="filtering filtering-mobile-screen pb-2 pt-3 px-4 rounded-4 justify-content-center" id="filterBox">
-    <i class="close-box-icon fa-solid fa-close fs-5 mb-2"></i>
-    <div class="applied-filters rounded-4 p-3 mb-3">
-      <p class="title pb-2 text-center">فیلترهای اعمال شده</p>
-      <div class="filters d-flex flex-wrap align-items-center justify-content-center gap-2">
-        <div class="filter availability-filter d-flex justify-content-between align-items-center">
-          <i class="fa-solid fa-close me-2 mb-0"></i>
-          <p class="m-0">فقط کالاهای موجود</p>
+    <div class="modal fade filtering" tabindex="-1" id="filterBox">
+      <div class="modal-dialog  modal-dialog-centered  modal-dialog-scrollable">
+        <div class="modal-content rounded-4">
+          <div class="modal-header py-2 px-3">
+            <i class="close-box-icon fa-solid fa-close fs-5 mb-2" data-bs-dismiss="modal"></i>
+          </div>
+          <div class="modal-body filtering-mobile-screen pb-2 pt-3 px-4 justify-content-center">
+              <div class="applied-filters rounded-4 p-3 mb-3">
+                <p class="title pb-2 text-center">فیلترهای اعمال شده</p>
+                <div class="filters d-flex flex-wrap align-items-center justify-content-center gap-2">
+                  <div class="filter availability-filter d-flex justify-content-between align-items-center">
+                    <i class="fa-solid fa-close me-2 mb-0"></i>
+                    <p class="m-0">فقط کالاهای موجود</p>
+                  </div>
+                  <div class="filter sort-filter-name d-flex justify-content-between align-items-center">
+                    <p class="m-0">مرتبط ترین</p>
+                  </div>
+                  <div class="filter price-range-filter d-flex justify-content-between align-items-center">
+                    <i class="fa-solid fa-close me-2"></i>
+                    <p class="m-0">قیمت از 0 تا 1000000</p>
+                  </div>
+                </div>
+                <div class="paginationInfo d-flex justify-content-center align-items-center pt-2 mt-3">
+                  <p class="mb-0">صفحۀ <span class="current-page">3</span> از <span class="page-count">1</span>  صفحۀ یافت شده. </p>
+                </div>
+              </div>
+              <div class="d-flex flex-column flex-md-row gap-3 justify-content-between mb-3"> 
+                <div class="check-availability d-flex flex-fill justify-content-center align-items-center rounded-4 p-3">
+                  <div class="form-check form-switch d-flex flex-md-column justify-content-center align-items-center p-0">
+                    <label class="form-check-label title me-2 me-md-0  mb-md-3" for="availabilitySwitchMobileScreen">فقط نمایش کالاهای موجود</label>
+                    <input class="form-check-input check-availability-btn m-0" type="checkbox" role="switch" id="availabilitySwitchMobileScreen" checked>
+                  </div>
+                </div>
+                <div class="price-range flex-fill rounded-4 p-3">
+                  <div class="topic d-flex align-items-center justify-content-between pb-1 mb-4">
+                    <div class="d-flex align-items-center">
+                      <img src="Assets/Images/Icons/dollar-lineal-colored-6.png" alt="icon" class="icon">
+                      <p class="title mb-0">محدوده قیمت</p>
+                    </div>
+                  <button class="apply-range-filter-btn rounded-3 py-1 px-2">اعمال</button>
+                  </div>
+                  <div class="range pt-1 pb-2 px-3">
+                    <div class="d-flex justify-content-between mb-1">
+                      <span>0</span>
+                      <span>1,000,000</span>
+                    </div>
+                    <div class="range-slider">
+                      <span class="range-selected"></span>
+                    </div>
+                    <div class="range-input mb-4">
+                      <input type="range" class="min" min="0" max="1000000" value="0" step="100">
+                      <input type="range" class="max" min="0" max="1000000" value="1000000" step="100">
+                    </div>
+                    <div class="range-price d-flex justify-content-evenly">      
+                      <label for="min">از</label>
+                      <input class="min-number rounded-3 pe-2" type="number" name="min" value="0">      
+                      <label for="max">تا</label>
+                      <input class="max-number rounded-3 pe-2"  type="number" name="max" value="1000000">      
+                    </div>
+                  </div> 
+          
+                </div>
+              </div>
+              <div class="d-flex gap-3 justify-content-between align-items-start">
+                <div class="publishers flex-fill rounded-4 p-3 mb-3">
+                  <div class="div d-flex justify-content-between align-items-center mb-1">
+                    <div class="d-flex align-items-center">
+                      <img src="Assets/Images/Icons/printer-lineal-colored-7.png" alt="icon" class="icon">
+                    <p class="title text-muted mb-0">انتشارات</p>
+                    </div>
+                    <i class="close-box-btn fa-solid fa-angle-up"></i>
+                  </div>
+                  <ul class="pub-list list-unstyled d-flex flex-column gap-1 mx-2">
+          
+                  </ul>
+          
+                </div>
+              </div>
+          
+          </div>
         </div>
-        <div class="filter sort-filter-name d-flex justify-content-between align-items-center">
-          <i class="fa-solid fa-close me-2"></i>
-          <p class="m-0">محبوب ترین</p>
-        </div>
-        <div class="filter price-range-filter d-flex justify-content-between align-items-center">
-          <i class="fa-solid fa-close me-2"></i>
-          <p class="m-0">قیمت از 0 تا 1000000</p>
-        </div>
-      </div>
-      <div class="paginationInfo d-flex justify-content-center align-items-center pt-2 mt-3">
-        <p class="mb-0">صفحۀ <span class="current-page">3</span> از <span class="page-count">1</span>  صفحۀ یافت شده. </p>
       </div>
     </div>
-    <div class="d-flex flex-column flex-md-row gap-3 justify-content-between mb-3"> 
-      <div class="check-availability d-flex flex-fill justify-content-center align-items-center rounded-4 p-3">
-        <div class="form-check form-switch d-flex flex-md-column justify-content-center align-items-center p-0">
-          <label class="form-check-label title me-2 me-md-0  mb-md-3" for="availabilitySwitchMobileScreen">فقط نمایش کالاهای موجود</label>
-          <input class="form-check-input check-availability-btn m-0" type="checkbox" role="switch" id="availabilitySwitchMobileScreen" checked>
-        </div>
-      </div>
-      <div class="price-range flex-fill rounded-4 p-3">
-        <div class="topic d-flex align-items-center justify-content-between pb-1 mb-4">
-          <div class="d-flex align-items-center">
-            <img src="Assets/Images/Icons/dollar-lineal-colored-6.png" alt="icon" class="icon">
-            <p class="title mb-0">محدوده قیمت</p>
-          </div>
-        <button class="apply-range-filter-btn rounded-3 py-1 px-2">اعمال</button>
-        </div>
-        <div class="range pt-1 pb-2 px-3">
-          <div class="d-flex justify-content-between mb-1">
-            <span>0</span>
-            <span>1,000,000</span>
-          </div>
-          <div class="range-slider">
-            <span class="range-selected"></span>
-          </div>
-          <div class="range-input mb-4">
-            <input type="range" class="min" min="0" max="1000000" value="0" step="100">
-            <input type="range" class="max" min="0" max="1000000" value="1000000" step="100">
-          </div>
-          <div class="range-price d-flex justify-content-evenly">      
-            <label for="min">از</label>
-            <input class="min-number rounded-3 pe-2" type="number" name="min" value="0">      
-            <label for="max">تا</label>
-            <input class="max-number rounded-3 pe-2"  type="number" name="max" value="1000000">      
-          </div>
-        </div> 
-
-      </div>
-    </div>
-    <div class="d-flex gap-3 justify-content-between align-items-start">
-      <div class="publishers flex-fill rounded-4 p-3 mb-3">
-        <div class="div d-flex justify-content-between align-items-center mb-1">
-          <div class="d-flex align-items-center">
-            <img src="Assets/Images/Icons/printer-lineal-colored-7.png" alt="icon" class="icon">
-          <p class="title text-muted mb-0">انتشارات</p>
-          </div>
-          <i class="close-box-btn fa-solid fa-angle-up"></i>
-        </div>
-        <ul class="pub-list list-unstyled d-flex flex-column gap-1 mx-2">
-
-        </ul>
-
-      </div>
-    </div>
-
-    </div>
+  
     <!--order box for mobile-screen-->
-    <div class="sorting sorting-mobile-screen align-items-center p-3 rounded-4" id="sortBox">
-    <i class="close-box-icon fa-solid fa-close fs-5 mb-2"></i>
-      <span class="d-flex justify-content-center align-items-center title mb-3"><i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90 me-2"></i>مرتب سازی براساس: </span>
-      <div class="orders d-flex flex-column align-items-center gap-2 " role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" data-sort="mostRelevant" name="orderingBtnMobileScreen" id="mostRelevantMobileScreen" autocomplete="off" checked>
-        <label class="btn rounded-pill w-75" for="mostRelevantMobileScreen">مرتبط ترین</label>
-        <input type="radio" class="btn-check" data-sort="newest" name="orderingBtnMobileScreen" id="newestMobileScreen" autocomplete="off">
-        <label class="btn rounded-pill w-75" for="newestMobileScreen">جدیدترین</label>
-      
-        <input type="radio" class="btn-check" data-sort="cheapest" name="orderingBtnMobileScreen" id="cheapestMobileScreen" autocomplete="off">
-        <label class="btn rounded-pill w-75" for="cheapestMobileScreen">ارزان ترین</label>
-
-        <input type="radio" class="btn-check" data-sort="mostExpensive" name="orderingBtnMobileScreen" id="mostExpensiveMobileScreen" autocomplete="off">
-        <label class="btn rounded-pill w-75" for="mostExpensiveMobileScreen">گران ترین</label>
-
+    <div class="modal fade sorting" tabindex="-1" id="sortBox">
+      <div class="modal-dialog modal-sm  modal-dialog-centered ">
+        <div class="modal-content rounded-4">
+          <div class="modal-header py-2 px-3">
+            <i class="close-box-icon fa-solid fa-close fs-5 mb-2" data-bs-dismiss="modal"></i>
+          </div>
+          <div class="modal-body sorting-mobile-screen pb-2 pt-3 px-4 justify-content-center">
+                <span class="d-flex justify-content-center align-items-center mb-3"><i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90 me-2"></i>مرتب سازی براساس: </span>
+                <div class="orders d-flex flex-column align-items-center gap-2 " role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" data-sort="mostRelevant" name="orderingBtnMobileScreen" id="mostRelevantMobileScreen" autocomplete="off" checked>
+                  <label class="btn rounded-pill w-75" for="mostRelevantMobileScreen">مرتبط ترین</label>
+                  <input type="radio" class="btn-check" data-sort="newest" name="orderingBtnMobileScreen" id="newestMobileScreen" autocomplete="off">
+                  <label class="btn rounded-pill w-75" for="newestMobileScreen">جدیدترین</label>
+                
+                  <input type="radio" class="btn-check" data-sort="cheapest" name="orderingBtnMobileScreen" id="cheapestMobileScreen" autocomplete="off">
+                  <label class="btn rounded-pill w-75" for="cheapestMobileScreen">ارزان ترین</label>
+          
+                  <input type="radio" class="btn-check" data-sort="mostExpensive" name="orderingBtnMobileScreen" id="mostExpensiveMobileScreen" autocomplete="off">
+                  <label class="btn rounded-pill w-75" for="mostExpensiveMobileScreen">گران ترین</label>
+          
+                
+                </div>
+          </div>
+        </div>
       </div>
     </div>
+   
 
    
    
