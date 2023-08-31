@@ -311,6 +311,28 @@ background-color: var(--pastelBlue);
     opacity: 0;
     
 }
+
+/*go-to-top-icon*/
+.go-to-top-icon{
+position: fixed;
+bottom: 5%;
+right: 2%;
+background-color: var(--mainBlue);
+box-shadow: 0 0 5px 1px #B0BEC5;
+color: white;
+border-radius: 1rem;
+transition: all 0.3s;
+cursor: pointer;
+opacity: 0;
+}
+.go-to-top-icon:hover{
+    transform: scale(1.05);
+}
+.go-to-top-icon:active{
+   background-color: var(--mainPink);
+   border-radius: 2rem;
+}
+
 /*welcome-section*/
 .welcome-title{
     font-size: 3rem !important;

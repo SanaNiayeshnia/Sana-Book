@@ -9,6 +9,7 @@ let searchInputs=document.querySelectorAll('.search-input');
 
 let seachIcons=document.querySelectorAll('.search-icon');
 
+let goToTopIcon=document.getElementById('goToTopIcon');
 
 window.addEventListener('load', ()=>{
   //show the sections and hide the loader after 7 seconds
@@ -31,6 +32,12 @@ window.addEventListener('scroll', ()=>{
       else {
           topNav.classList.remove('changed');
       }
+  //show and hide the goToTopIcon
+      if(window.scrollY>500)
+      goToTopIcon.style.opacity=1;
+      else
+      goToTopIcon.style.opacity=0;
+
 })  
 
 //show the help message by clicking on the help icon
@@ -107,3 +114,5 @@ document.addEventListener('click',(event)=>{
   })
 })
 
+//go to top of the page by clicking on the goToTopIcon
+goToTopIcon.addEventListener('click', ()=>window.scrollTo(0,0))

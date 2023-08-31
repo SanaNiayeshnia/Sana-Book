@@ -396,7 +396,6 @@ previousPageBtn.addEventListener('click', ()=>{
 function addRemovingEventsToAppliedFilter(closeIcon){
     closeIcon.addEventListener('click', (event)=>{
         document.querySelectorAll('.applied-filters .filters .filter').forEach(filter=>{
-            console.log(filter.querySelector('p').innerHTML,event.target.nextElementSibling.innerHTML);
             if(filter.querySelector('p').innerHTML==event.target.nextElementSibling.innerHTML)
             filter.remove();
         })

@@ -95,6 +95,15 @@ color: var(--mainBlue);
 .sort-filter-name{
     order: -1;
 }
+
+.products #notFoundPic{
+    width:300px;
+}
+.products .not-found-message{
+color: var(--mainTextColor);
+font-family: 'Vazir-Medium';
+font-size: 1.3rem;
+}
 /*filtering*/
 .filtering .applied-filters{
 background-color: white;
@@ -417,6 +426,12 @@ width: 25px;
 @media screen and (min-width:768px){
     .title-sec{
         margin-top: -60px;
+    }
+    .products #notFoundPic{
+        width:500px;
+    }
+    .products .not-found-message{
+    font-size: 1.5rem;
     }
 }
 /*breakpoint in large screen*/
