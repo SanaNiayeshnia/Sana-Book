@@ -33,7 +33,7 @@ window.addEventListener('scroll', ()=>{
           topNav.classList.remove('changed');
       }
   //show and hide the goToTopIcon
-      if(window.scrollY>500)
+      if(window.scrollY>400)
       goToTopIcon.style.opacity=1;
       else
       goToTopIcon.style.opacity=0;

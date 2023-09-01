@@ -1,0 +1,295 @@
+@font-face {
+    font-family: 'Vazir-Regular';
+    src: url('../Fonts/Vazir/Vazir-Regular.eot') format('eot'), url('../Fonts/Vazir/Vazir-Regular.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Regular.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-Bold';
+    src: url('../Fonts/Vazir/Vazir-Bold.eot') format('eot'), url('../Fonts/Vazir/Vazir-Bold.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Bold.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-Medium';
+    src: url('../Fonts/Vazir/Vazir-Medium.eot') format('eot'), url('../Fonts/Vazir/Vazir-Medium.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Medium.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-FarsiDigits';
+    src: url('../Fonts/Vazir/Vazir-Regular-FD.eot') format('eot'), url('../Fonts/Vazir/Vazir-Regular-FD.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Regular-FD.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'GTWalshame-Regular';
+    src: url('../Fonts/GT\ Walshame/GTWalsheimPro-CondensedRegular.eot') format('eot'), url('../Fonts/GT\ Walshame/GTWalsheimPro-CondensedRegular.woff') format('woff'),
+    url('../Fonts/GT\ Walshame/GTWalsheimPro-CondensedRegular.woff2') format('woff2')
+}
+
+*{
+    font-family: 'Vazir-Regular';
+}
+
+:root{
+    --mainPink: #E99EC9;
+    --mainBlue: #6699CC;
+    --darkPink:#e264ab;
+    --darkBlue:#5d8dbd;
+    --pastelGreen: #d9f6ce;
+    --pastelPink:#f5c7e0;
+    --pastelBlue: #c2dcf7;
+    --mainTextColor: #263238;
+}
+
+/*breadcrumb*/
+.breadcrumb{
+    margin-top: 30px !important;
+}
+.breadcrumb-item a{
+    color: #000000A6;
+}
+.breadcrumb-item.active{
+    color: var(--darkBlue);
+}
+
+/*book pic*/
+.book-pic-container{
+    position: relative;
+}
+
+.book-pic-container .arrow{
+    position: absolute;
+    width: 220px;
+    right: -30px;
+    top: -80px;
+}
+.book-pic-container .book-pic{
+position: absolute;
+width:45%;
+right: 70px;
+top: 50px;
+border: 10px solid white;
+border-radius:0 4rem 0 0;
+transition: all 0.3s;
+cursor: pointer;
+}
+.book-pic-container .book-pic:hover{
+    filter: contrast(1.3);
+    transform: scale(1.05);
+}
+
+.availability-icon{
+    width: 45px;
+}
+/*title-container*/
+.discount-badge{
+    background-color: var(--darkPink);
+    font-family: 'Vazir-FArsiDigits';
+    color: white;
+    padding: 0.75rem 0.5rem;
+    outline: dashed var(--darkPink);
+    outline-offset: 5px;
+    font-size: 1rem;
+}
+
+.rate-stars{
+    color: #FDD835;
+}
+.rate-stars i{
+    cursor: pointer;
+    font-size: 1.2rem
+}
+.title-container .book-title span{
+    font-family: 'Vazir-Bold' !important;
+    color: var(--mainTextColor);
+}
+.book-title span:not(#bookTitle){
+    color: var(--mainBlue);
+}
+.author-name, .author-name span{
+color: var(--darkBlue);
+font-family: 'Vazir-Medium' !important;
+}
+.price .real-price, .price .sale-price{
+    font-family: 'Vazir-FarsiDigits';
+}
+.price .real-price{
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    color: var(--mainTextColor);
+}
+.price .sale-price{
+    color: var(--darkBlue);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+#addToCartBtn{
+    border: none;
+    background-image: linear-gradient(to left, var(--pastelBlue), var(--pastelPink));
+    transition: all 0.3s;
+}
+
+#addToCartBtn i{
+    background-color: white;
+    color:var(--darkPink);
+    font-size: 1.5rem;
+    transition: all 0.3s;
+}
+#addToCartBtn:active{
+    box-shadow: 0 0 7px 2px var(--pastelBlue);
+    background-image: linear-gradient(to left,  var(--pastelPink), var(--pastelBlue));
+}
+#addToCartBtn:active i{
+color: var(--mainBlue);
+}
+/*book-info*/
+
+.book-info p{
+    font-family:'Vazir-Medium';
+}
+.book-info p .fa-circle{
+color: var(--mainBlue);
+font-size: 0.5rem;
+}
+.book-info p span{
+    color: var(--mainTextColor);
+    font-family:'Vazir-FarsiDigits';
+}
+/*about-this-book*/
+
+.about-this-book .topic{
+    background-color: var(--pastelPink);
+    border-radius: 1rem 1rem 0 0;
+    font-family: 'Vazir-Medium';
+    font-size: 1.1rem;
+}
+.about-this-book .topic img{
+    width: 40px;
+}
+.about-this-book .text{
+   background-color: var(--pastelPink);
+    text-align: justify;
+    color: var(--mainTextColor);
+    border-radius: 1rem 0 1rem 0 ;
+}
+/*recommendation-box*/
+.recommendation-box{
+background-image: url(../Images/Waves/blob-scene-haikei.svg);
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+
+.recommendation-title{
+    border-bottom: white 3px solid;
+}
+.recommendation-title p{
+    width: max-content;
+    display: inline-block;
+    background-color: white;
+    font-size: 1.1rem;
+    font-family: 'Vazir-Medium';
+    color: var(--mainTextColor);
+
+
+}
+.recommended-books{
+overflow: auto;
+
+   /*scroll without the scrollbar inside the .recommend-box-cards*/
+   overflow: auto;
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+   -webkit-overflow-scrolling: touch;
+   scroll-behavior: smooth;
+}
+.recommended-books::-webkit-scrollbar{
+   display: none;
+}
+
+/*marketing*/
+.marketing .marketing-icon{
+    width: 30px;
+}
+
+.marketing .option{
+    box-shadow: 0 3px 5px 1px rgb(150, 145, 145);
+    color: var(--mainTextColor);
+    font-size: 0.75rem;
+}
+
+/*breakpoint small screen*/
+@media screen and (min-width:576px){
+    .book-pic-container .arrow{
+        width: 230px;
+        right: -25px;
+        top: -70px;
+    }
+    .book-pic-container .book-pic{
+        width:43%;
+        right: 90px;
+        top: 80px;
+    }
+    .marketing .marketing-icon{
+        width: 60px;
+    }
+    .marketing .option{
+        font-size: 0.9rem;
+    }
+}
+/*breakpoint medium screen*/
+@media screen and (min-width:768px){
+    .breadcrumb{
+        margin-top: 80px !important;
+    }
+    .book-pic-container .arrow{
+        width: 210px;
+        right: 0px;
+        top: -90px;
+    }
+    .book-pic-container .book-pic{
+        width:45%;
+        right: 80px;
+        top: 55px;
+    }
+    #addToCartBtn i{
+        font-size: 1rem;
+    }
+    .marketing .option{
+        font-size: 1rem;
+    }
+}
+/*breakpoint in large screen*/
+@media screen and (min-width:992px){
+    .discount-badge{
+        font-size: 1.3rem;
+    }
+
+    .book-pic-container .arrow{
+        width: 250px;
+        right: -5px;
+        top: -70px;
+    }
+    .book-pic-container .book-pic{
+        width:43%;
+        right: 110px;
+        top: 95px;
+    }
+    #addToCartBtn i{
+        font-size: 1.5rem;
+    }
+}
+/*breakpoint in extra large screen*/
+@media screen and (min-width:1200px){
+    .row.top{
+        margin-top: -40px;
+    }
+    .book-pic-container .arrow{
+        width: 250px;
+        right: -10px;
+        top: -35px;
+    }
+    .book-pic-container .book-pic{
+    width:43%;
+    right: 130px;
+    top: 110px;
+    }
+}

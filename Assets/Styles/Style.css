@@ -723,7 +723,7 @@ footer{
 .footer-sec1 .links ul li a, .footer-sec1 .social-media a {
     color: #000000A6;
 }
-.footer-sec1 .links ul li a:active, .footer-sec1 .social-media a:active{
+.footer-sec1 .links ul li a:hover, .footer-sec1 .social-media a:hover{
     color: var(--darkBlue);
 }
 .footer-sec2 .first-sec-title{
