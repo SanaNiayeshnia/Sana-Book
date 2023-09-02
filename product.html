@@ -20,448 +20,297 @@
     <script src="Assets/App/App.js" type="module" defer></script>
 </head>
 <body>
-    <header>
-        <!--Top Navbar-->
-        <nav class="navbar navbar-expand-md top-nav fixed-top">
-            <div class="container-lg">
-  
-              <button class="navbar-toggler nav-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa-solid fa-bars nav-toggler-icon fs-4"></i>
-              </button>
-              
-              <a class="navbar-brand me-0 me-md-2 me-lg-3" href="SanaBook.html"><img src="Assets/Images/Logo/Main Logo.png" class="img-fluid main-logo" alt="Main Logo"></a>
-             
-              <!--login and shopping cart in mobile screen-->
-              <div class="login-and-cart-icon d-md-none d-flex align-items-center">
-                <a class="login-btn text-decoration-none d-flex align-items-center" href="#"><i class="fa-solid fa-right-to-bracket fs-4 login-icon me-2"></i></a>
-                <span class="fs-4 divider">|</span>
-                <a href="#"><i class="cart-icon fa-solid fa-cart-shopping fs-4 p-0 mx-2 position-relative"><span class="badge position-absolute top-0 start-100 translate-middle rounded-2"></span></i></a>
-              </div>
-  
-              <!--offcanvas-->
-              <div class="offcanvas offcanvas-start" id="navbarSupportedContent">
-                <div class="offcanvas-header">
-                    <h4 class="offcanvas-title" id="offcanvasNavbarLabel"><span class="me-1 first-sec-title">ثنا</span><span class="second-sec-title">بوک</span></h4>
-                    <i class="fa-solid fa-close fs-4 close-icon" data-bs-dismiss="offcanvas" aria-label="Close"></i>
-                </div>
-                <div class="offcanvas-body">
-                <!--Search Box in mobile screen-->
-                <div class="search-nav-mobile-screen d-flex d-md-none flex-column justify-content-center align-items-center container">
-                  <div class="search-box search-box-mobile-screen d-flex justify-content-between align-items-center rounded-pill mx-auto mb-3">
-                    <input type="text" class="search-input border-0 p-2" placeholder="جستجو کنید.">
-                    <i class="fa-solid fa-search search-icon search-icon-mobile-screen fs-6"></i>
-                  </div>
-                  <div class="search-result-box search-result-box-mobile-screen rounded-3 p-3">
-                    <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
-                    <hr class="text-white bg-white my-2">
-                    <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
-                    <hr class="text-white bg-white my-2">
-                    <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
-                    <hr class="text-white bg-white my-2">
-                    <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
-                    <hr class="text-white bg-white my-2">
-                    <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
-        
-                  </div>
-                </div>
-                 
-  
-                    <!--navbar-->
-                    <ul class="navbar-nav w-100 me-auto mb-2 mb-md-0 align-items-md-center">
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="#"><i class="d-md-none fa-solid fa-house me-2 nav-icon"></i>صفحۀ اصلی</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#"><i class="d-md-none fa-solid fa-newspaper me-2 nav-icon"></i>مقالات</a>
-                        </li>
-                        <li class="nav-item dropdown">
-  
-                          <a class="nav-link dropdown-toggle d-flex align-items-center role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="d-md-none fa-solid fa-book-bookmark me-2 nav-icon"></i>دسته بندی کتاب‌ها<i class="fa-solid fa-angle-down ms-1"></i>
-                          </a>
-                          <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="categories.html?c=foreign">ادبیات خارجی</a></li>
-                            <li><a class="dropdown-item" href="categories.html?c=psychology">روانشناسی</a></li>
-                            <li><a class="dropdown-item" href="categories.html?c=poetry">شعر</a></li>
-                            <li><a class="dropdown-item dropend d-flex align-items-center" href="categories.html?c=education">آموزشی <i class="fa-solid fa-angle-left ms-1"></i></a>
-                             <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                              <li><a class="dropdown-item" href="#">متوسطه دوم</a></li>
-                              <li><a class="dropdown-item" href="#">متوسطه اول</a></li>
-                              <li><a class="dropdown-item" href="#">ابتدایی</a></li>
-                              <li><a class="dropdown-item" href="#">کنکوری</a></li>
-                              <li><a class="dropdown-item" href="#">زبان انگلیسی</a></li>
-                             </ul>
-                            </li>
-                            <li><a class="dropdown-item" href="categories.html?c=fiction">ادبیات داستانی</a></li>
-  
-                          </ul>
-  
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#" aria-disabled="true"><i class="d-md-none fa-solid fa-people-roof me-2 nav-icon"></i>انجمن کتابخوانی</a>
-                        </li>
+  <div class="loader">
+    <img src="Assets/Images/Loaders/Train Loader.gif" alt="trainLoader" class="page-loader">
+  </div>
+  <div class="content">
+  <header>
+      <!--Top Navbar-->
+      <nav class="navbar navbar-expand-md top-nav fixed-top">
+          <div class="container-lg">
 
-                        <li class="nav-item  me-md-auto d-md-none d-lg-inline">
-                          <a class="nav-link" href="#" aria-disabled="true"><i class="d-md-none fa-solid fa-question me-2 nav-icon"></i>سوالات متداول</a>
-                        </li>
-        
-                        <li class="nav-item me-1 d-none d-md-inline">
-                          <a class="nav-link spa-link d-flex align-items-center" href="#" aria-disabled="true"><span class="me-2 d-none d-lg-inline">ورود</span><i class="fa-solid fa-right-to-bracket fs-4 "></i></a>
-                        </li>
-                        <span class="fs-4 d-none d-md-inline divider">|</span>
-                        <li class="nav-item d-none d-md-inline">
-                          <a class="nav-link" href="#" aria-disabled="true"><i class="fa-solid fa-cart-shopping cart-icon fs-4 mx-2 position-relative"><span class="badge position-absolute top-0 start-0 translate-middle rounded-2"></span></i></a>
-                        </li>
-  
-                      </ul>
-                    </div>
-                </div>
+            <button class="navbar-toggler nav-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fa-solid fa-bars nav-toggler-icon fs-4"></i>
+            </button>
             
+            <a class="navbar-brand me-0 me-md-2 me-lg-3" href="index.html"><img src="Assets/Images/Logo/Main Logo.png" class="img-fluid main-logo" alt="Main Logo"></a>
+           
+            <!--login and shopping cart in mobile screen-->
+            <div class="login-and-cart-icon d-md-none d-flex align-items-center">
+              <a class="login-btn text-decoration-none d-flex align-items-center" href="signin.html"><i class="fa-solid fa-right-to-bracket fs-4 login-icon me-2"></i></a>
+              <span class="fs-4 divider">|</span>
+              <a href="#"><i class="cart-icon fa-solid fa-cart-shopping fs-4 p-0 mx-2 position-relative"><span class="badge position-absolute top-0 start-100 translate-middle rounded-2"></span></i></a>
             </div>
-          </nav>
-          <!--wave svg-->
-          <svg class="d-none w-100 wave1 mt-md-5 mt-xl-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#c2dcf7" fill-opacity="1" d="M0,256L17.1,229.3C34.3,203,69,149,103,122.7C137.1,96,171,96,206,122.7C240,149,274,203,309,197.3C342.9,192,377,128,411,96C445.7,64,480,64,514,80C548.6,96,583,128,617,144C651.4,160,686,160,720,160C754.3,160,789,160,823,186.7C857.1,213,891,267,926,277.3C960,288,994,256,1029,213.3C1062.9,171,1097,117,1131,117.3C1165.7,117,1200,171,1234,176C1268.6,181,1303,139,1337,149.3C1371.4,160,1406,224,1423,256L1440,288L1440,0L1422.9,0C1405.7,0,1371,0,1337,0C1302.9,0,1269,0,1234,0C1200,0,1166,0,1131,0C1097.1,0,1063,0,1029,0C994.3,0,960,0,926,0C891.4,0,857,0,823,0C788.6,0,754,0,720,0C685.7,0,651,0,617,0C582.9,0,549,0,514,0C480,0,446,0,411,0C377.1,0,343,0,309,0C274.3,0,240,0,206,0C171.4,0,137,0,103,0C68.6,0,34,0,17,0L0,0Z"></path></svg>
-          <svg class="d-md-none w-100 mt-5"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#c2dcf7" fill-opacity="1" d="M0,256L21.8,234.7C43.6,213,87,171,131,160C174.5,149,218,171,262,160C305.5,149,349,107,393,85.3C436.4,64,480,64,524,101.3C567.3,139,611,213,655,250.7C698.2,288,742,288,785,261.3C829.1,235,873,181,916,170.7C960,160,1004,192,1047,213.3C1090.9,235,1135,245,1178,213.3C1221.8,181,1265,107,1309,106.7C1352.7,107,1396,181,1418,218.7L1440,256L1440,0L1418.2,0C1396.4,0,1353,0,1309,0C1265.5,0,1222,0,1178,0C1134.5,0,1091,0,1047,0C1003.6,0,960,0,916,0C872.7,0,829,0,785,0C741.8,0,698,0,655,0C610.9,0,567,0,524,0C480,0,436,0,393,0C349.1,0,305,0,262,0C218.2,0,175,0,131,0C87.3,0,44,0,22,0L0,0Z"></path></svg>
-          <!--Search nav for Desktop Screen-->
-          <div class="search-nav d-none flex-column justify-content-center align-items-center container">
-            <div class="search-box d-flex justify-content-between align-items-center rounded-pill mb-3">
-                <input type="text" class="search-input border-0 py-1 px-3 p-lg-3" placeholder="نام کتابی که به دنبالش هستید را جستجو کنید">
-                <i class="fa-solid fa-search search-icon fs-6 rounded-end-pill"></i>
-            </div>
-            <div class="search-result-box rounded-3 p-3">
-            </div>
-          </div>
-  
-    </header>
 
-    <section class="main-sec">
-        <div class="container-xl px-5 px-xl-0">
-            <nav aria-label="breadcrumb mb-0">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">خانه</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">دسته بندی کتاب‌ها</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">ادبیات داستانی</a></li>
-                <li class="breadcrumb-item active" aria-current="page">بلندی‌های بادگیر</li>
-              </ol>
-            </nav>
+            <!--offcanvas-->
+            <div class="offcanvas offcanvas-start" id="navbarSupportedContent">
+              <div class="offcanvas-header">
+                  <h4 class="offcanvas-title" id="offcanvasNavbarLabel"><span class="me-1 first-sec-title">ثنا</span><span class="second-sec-title">بوک</span></h4>
+                  <i class="fa-solid fa-close fs-4 close-icon" data-bs-dismiss="offcanvas" aria-label="Close"></i>
+              </div>
+              <div class="offcanvas-body">
+              <!--Search Box in mobile screen-->
+              <div class="search-nav-mobile-screen d-flex d-md-none flex-column justify-content-center align-items-center container">
+                <div class="search-box search-box-mobile-screen d-flex justify-content-between align-items-center rounded-pill mx-auto mb-3">
+                  <input type="text" class="search-input border-0 p-2" placeholder="جستجو کنید.">
+                  <i class="fa-solid fa-search search-icon search-icon-mobile-screen fs-6"></i>
+                </div>
+                <div class="search-result-box search-result-box-mobile-screen rounded-3 p-3">
+                  <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
+                  <hr class="text-white bg-white my-2">
+                  <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
+                  <hr class="text-white bg-white my-2">
+                  <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
+                  <hr class="text-white bg-white my-2">
+                  <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
+                  <hr class="text-white bg-white my-2">
+                  <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title">جستجو 1 | نویسنده:یه نفر</span><img src="Assets/Images/Books/poetry/book2.jpg" alt="resultImage" class="result-img img-fluid rounded-1"></a>
+      
+                </div>
+              </div>
+               
 
-            <div class="row top align-items-center justify-content-center mb-5">
-                  <div class="col-md-6 title-container order-1 order-md-0">
-                    <div class="d-flex justify-content-between align-items-center mb-3 mb-md-0 mt-3">
-                        <div><img src="Assets/Images/Icons/placeholder-lineal-colored.png" class="img-fluid availability-icon" alt="availabilityIcon">موجود</div>
-                        <div class="discount-badge rounded-circle">%30</div>
-                  
-                    </div>
-                  
-                    <h2 class="book-title text-center"><span>«</span><span id="bookTitle">بلندی‌های بادگیر</span><span>»</span></h2>
-                    <h5 class="author-name text-center mb-3">اثر <span id="authorName">امیلی برونته</span></h5>
-                    <div class="rate-stars d-flex gap-2 justify-content-center mb-5 mb-md-4  mb-lg-5">
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="price">
-                        <p class="real-price text-center mb-0 mb-lg-1">190,000</p>
-                        <p class="sale-price text-center mb-md-2">160,000<span class="ms-2">تومان</span></p>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button class="d-flex align-items-center rounded-pill py-2 ps-3 pe-2" id="addToCartBtn"><span>افزودن به سبد خرید</span><i class="fa-solid fa-cart-shopping ms-2 p-3 rounded-circle"></i></button>
-                    </div>
+                  <!--navbar-->
+                  <ul class="navbar-nav w-100 me-auto mb-2 mb-md-0 align-items-md-center">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html"><i class="d-md-none fa-solid fa-house me-2 nav-icon"></i>صفحۀ اصلی</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="d-md-none fa-solid fa-newspaper me-2 nav-icon"></i>مقالات</a>
+                      </li>
+                      <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle d-flex align-items-center role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="d-md-none fa-solid fa-book-bookmark me-2 nav-icon"></i>دسته بندی کتاب‌ها<i class="fa-solid fa-angle-down ms-1"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="categories.html?c=foreign">ادبیات خارجی</a></li>
+                          <li><a class="dropdown-item" href="categories.html?c=psychology">روانشناسی</a></li>
+                          <li><a class="dropdown-item" href="categories.html?c=poetry">شعر</a></li>
+                          <li><a class="dropdown-item dropend d-flex align-items-center" href="categories.html?c=education">آموزشی <i class="fa-solid fa-angle-left ms-1"></i></a>
+                           <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                            <li><a class="dropdown-item" href="#">متوسطه دوم</a></li>
+                            <li><a class="dropdown-item" href="#">متوسطه اول</a></li>
+                            <li><a class="dropdown-item" href="#">ابتدایی</a></li>
+                            <li><a class="dropdown-item" href="#">کنکوری</a></li>
+                            <li><a class="dropdown-item" href="#">زبان انگلیسی</a></li>
+                           </ul>
+                          </li>
+                          <li><a class="dropdown-item" href="categories.html?c=fiction">ادبیات داستانی</a></li>
+
+                        </ul>
+
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" aria-disabled="true"><i class="d-md-none fa-solid fa-people-roof me-2 nav-icon"></i>انجمن کتابخوانی</a>
+                      </li>
+
+                      <li class="nav-item  me-md-auto">
+                        <a class="nav-link" href="#" aria-disabled="true"><i class="d-md-none fa-solid fa-question me-2 nav-icon" ></i>سوالات متداول</a>
+                      </li>
+      
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" aria-disabled="true"><i class="d-none d-md-block fa-solid fa-search me-2 nav-icon p-2 rounded-circle" id="searchIcon"></i></a>
+                      </li>
+
+                      <li class="nav-item me-1 d-none d-md-inline">
+                        <a class="nav-link spa-link d-flex align-items-center" href="signin.html" aria-disabled="true"><span class="me-2 d-none d-lg-inline">ورود</span><i class="fa-solid fa-right-to-bracket fs-4 "></i></a>
+                      </li>
+                      <span class="fs-4 d-none d-md-inline divider">|</span>
+                      <li class="nav-item d-none d-md-inline">
+                        <a class="nav-link" href="#" aria-disabled="true"><i class="fa-solid fa-cart-shopping cart-icon fs-4 mx-2 position-relative"><span class="badge position-absolute top-0 start-0 translate-middle rounded-2"></span></i></a>
+                      </li>
+
+                    </ul>
                   </div>
-    
-                <div class="book-pic-container col-sm-10 col-md-6">
-                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 640 800"><g stroke-width="10" stroke="#e264ab" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8.5 19" transform="matrix(-0.754709580222772,0.6560590289905073,-0.6560590289905073,-0.754709580222772,945.93067726749,500.94494281214645)"><path d="M214 291.6066436767578Q265 540.6066436767578 426 503.6066436767578 " marker-end="url(#SvgjsMarker2668)"></path></g><defs><marker markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" viewBox="0 0 7 7" orient="auto" id="SvgjsMarker2668"><polyline points="0,3.5 3.5,1.75 0,0" fill="none" stroke-width="1.1666666666666667" stroke="#e264ab" stroke-linecap="round" transform="matrix(1,0,0,1,1.1666666666666667,1.75)" stroke-linejoin="round"></polyline></marker></defs></svg>
-                    <img src="Assets/Images/Waves/blob-haikei (1).svg" alt="blobPic" class="blob-pic img-fluid">
-                    <img src="Assets/Images/Books/foreign/book11.jpg" alt="bookPic" id="bookPic" class="book-pic">
-                </div>
-              
-            </div>
-            <div class="row align-items-center mb-5">
-                <div class="about-this-book px-0 px-lg-3 col-lg-6 order-1 order-lg-0">
-                    <span class="topic py-2 px-3"><img src="Assets/Images/Icons/books-lineal-colored.png" alt="bookIcon"> درباره این کتاب:</span>
-                   
-                    <div class="text">
-                      <p class=" px-4 py-3 mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 book-info my-5 my-lg-0">
-                    <div class="d-flex justify-content-around align-items-center">
-                        <div class="">
-                            <p><i class="fa-solid fa-circle me-2"></i> مترجم: <span>یه نفر</span></p>
-                            <p><i class="fa-solid fa-circle me-2"></i>انتشارات: <span>پرتقال</span></p>
-                            <p><i class="fa-solid fa-circle me-2"></i>کد کتاب: <span>hgsfhshb3612</span></p>
-                            <p><i class="fa-solid fa-circle me-2"></i>شابک: <span>635178571717689</span></p>
-                        </div>
-                        <div class="">
-                            <p><i class="fa-solid fa-circle me-2"></i>تعداد صفحات: <span>347</span></p>
-                            <p><i class="fa-solid fa-circle me-2"></i>سال انتشار: <span>1399</span></p>
-                            <p><i class="fa-solid fa-circle me-2"></i>سری چاپ: <span>2</span></p>
-                            <p><i class="fa-solid fa-circle me-2"></i>نوع جلد: <span>شومیز</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col-12 recommendation-box mt-4 mt-lg-5 px-md-5 py-3 rounded-5">
-                <div class="recommendation-title d-flex justify-content-center align-items-center">
-                    <p class="px-3 py-2 mb-0 rounded-top-4">کتاب‌های پیشنهادی ثنا بوک</p>
-                </div>
-                <div class="recommended-books d-flex py-3 gap-3">
-                    <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                        <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                        
-                        <a href="#" class="text-decoration-none">
-                            <div class="text-center pb-2 pb-md-3 pt-3">
-                              <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                            </div>
-                        </a>
-                            <div class="card-body d-flex flex-column justify-content-between p-0">
-                              <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                              <div class="card-text mb-2">
-                                
-                          <p class="price text-center "> 130,000 <span>تومان</span></p>
-                              </div>
-                            </div>
-                    </div>
-                    <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                        <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                        
-                        <a href="#" class="text-decoration-none">
-                            <div class="text-center pb-2 pb-md-3 pt-3">
-                              <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                            </div>
-                        </a>
-                            <div class="card-body d-flex flex-column justify-content-between p-0">
-                              <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                              <div class="card-text mb-2">
-                                
-                          <p class="price text-center "> 130,000 <span>تومان</span></p>
-                              </div>
-                            </div>
-                    </div>
-                    <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                        <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                        
-                        <a href="#" class="text-decoration-none">
-                            <div class="text-center pb-2 pb-md-3 pt-3">
-                              <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                            </div>
-                        </a>
-                            <div class="card-body d-flex flex-column justify-content-between p-0">
-                              <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                              <div class="card-text mb-2">
-                                
-                          <p class="price text-center "> 130,000 <span>تومان</span></p>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                            <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                            
-                            <a href="#" class="text-decoration-none">
-                                <div class="text-center pb-2 pb-md-3 pt-3">
-                                  <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                                </div>
-                            </a>
-                                <div class="card-body d-flex flex-column justify-content-between p-0">
-                                  <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                                  <div class="card-text mb-2">
-                                    
-                              <p class="price text-center "> 130,000 <span>تومان</span></p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                                <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                                
-                                <a href="#" class="text-decoration-none">
-                                    <div class="text-center pb-2 pb-md-3 pt-3">
-                                      <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                                    </div>
-                                </a>
-                                    <div class="card-body d-flex flex-column justify-content-between p-0">
-                                      <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                                      <div class="card-text mb-2">
-                                        
-                                  <p class="price text-center "> 130,000 <span>تومان</span></p>
-                                      </div>
-                                    </div>
-                                </div>
-                                <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                                    <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                                    
-                                    <a href="#" class="text-decoration-none">
-                                        <div class="text-center pb-2 pb-md-3 pt-3">
-                                          <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                                        </div>
-                                    </a>
-                                        <div class="card-body d-flex flex-column justify-content-between p-0">
-                                          <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                                          <div class="card-text mb-2">
-                                            
-                                      <p class="price text-center "> 130,000 <span>تومان</span></p>
-                                          </div>
-                                        </div>
-                                    </div>
-                                    <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                                        <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                                        
-                                        <a href="#" class="text-decoration-none">
-                                            <div class="text-center pb-2 pb-md-3 pt-3">
-                                              <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                                            </div>
-                                        </a>
-                                            <div class="card-body d-flex flex-column justify-content-between p-0">
-                                              <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                                              <div class="card-text mb-2">
-                                                
-                                          <p class="price text-center "> 130,000 <span>تومان</span></p>
-                                              </div>
-                                            </div>
-                                        </div>
-                                        <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                                            <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                                            
-                                            <a href="#" class="text-decoration-none">
-                                                <div class="text-center pb-2 pb-md-3 pt-3">
-                                                  <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                                                </div>
-                                            </a>
-                                                <div class="card-body d-flex flex-column justify-content-between p-0">
-                                                  <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                                                  <div class="card-text mb-2">
-                                                    
-                                              <p class="price text-center "> 130,000 <span>تومان</span></p>
-                                                  </div>
-                                                </div>
-                                            </div>
-                                            <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                                                <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                                                
-                                                <a href="#" class="text-decoration-none">
-                                                    <div class="text-center pb-2 pb-md-3 pt-3">
-                                                      <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                                                    </div>
-                                                </a>
-                                                    <div class="card-body d-flex flex-column justify-content-between p-0">
-                                                      <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                                                      <div class="card-text mb-2">
-                                                        
-                                                  <p class="price text-center "> 130,000 <span>تومان</span></p>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-olid="OL49342088M">
-                                                    <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-                                                    
-                                                    <a href="#" class="text-decoration-none">
-                                                        <div class="text-center pb-2 pb-md-3 pt-3">
-                                                          <img src="https://covers.openlibrary.org/b/olid/OL49342088M-L.jpg" class="card-img-top" alt="bookPic">
-                                                        </div>
-                                                    </a>
-                                                        <div class="card-body d-flex flex-column justify-content-between p-0">
-                                                          <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>همیشه ناراضی‌ها<span>»</span></a>
-                                                          <div class="card-text mb-2">
-                                                            
-                                                      <p class="price text-center "> 130,000 <span>تومان</span></p>
-                                                          </div>
-                                                        </div>
-                                                    </div>
-
-                </div>
-
-            </div>
-            <div class="marketing col-12  mt-5">
-              <div class="row align-items-center gy-4 justify-content-center justify-content-xl-evenly px-lg-3">
-                <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/shopping-bag-lineal-colored-6.png" alt="marketingIcon">ضمانت کیفیت کالا</div></div>
-                <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/delivery-box-lineal-colored.png" alt="marketingIcon">امکان تحویل اکسپرس</div></div>
-                <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/customer-service-lineal-colored-a.png" alt="marketingIcon">پشتیبانی 24 ساعته</div></div>
-                <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/online-payment-lineal-colored.png" alt="marketingIcon">روش‌های پرداخت متنوع</div></div>
               </div>
-            </div>
-   
-            </div>
-
-         
+          
+          </div>
+        </nav>
+        <!--wave svg-->
+        <svg class="w-100 wave1 hide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#c2dcf7" fill-opacity="1" d="M0,256L17.1,229.3C34.3,203,69,149,103,122.7C137.1,96,171,96,206,122.7C240,149,274,203,309,197.3C342.9,192,377,128,411,96C445.7,64,480,64,514,80C548.6,96,583,128,617,144C651.4,160,686,160,720,160C754.3,160,789,160,823,186.7C857.1,213,891,267,926,277.3C960,288,994,256,1029,213.3C1062.9,171,1097,117,1131,117.3C1165.7,117,1200,171,1234,176C1268.6,181,1303,139,1337,149.3C1371.4,160,1406,224,1423,256L1440,288L1440,0L1422.9,0C1405.7,0,1371,0,1337,0C1302.9,0,1269,0,1234,0C1200,0,1166,0,1131,0C1097.1,0,1063,0,1029,0C994.3,0,960,0,926,0C891.4,0,857,0,823,0C788.6,0,754,0,720,0C685.7,0,651,0,617,0C582.9,0,549,0,514,0C480,0,446,0,411,0C377.1,0,343,0,309,0C274.3,0,240,0,206,0C171.4,0,137,0,103,0C68.6,0,34,0,17,0L0,0Z"></path></svg>
+        <svg class="d-md-none w-100 mt-4"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#c2dcf7" fill-opacity="1" d="M0,256L21.8,234.7C43.6,213,87,171,131,160C174.5,149,218,171,262,160C305.5,149,349,107,393,85.3C436.4,64,480,64,524,101.3C567.3,139,611,213,655,250.7C698.2,288,742,288,785,261.3C829.1,235,873,181,916,170.7C960,160,1004,192,1047,213.3C1090.9,235,1135,245,1178,213.3C1221.8,181,1265,107,1309,106.7C1352.7,107,1396,181,1418,218.7L1440,256L1440,0L1418.2,0C1396.4,0,1353,0,1309,0C1265.5,0,1222,0,1178,0C1134.5,0,1091,0,1047,0C1003.6,0,960,0,916,0C872.7,0,829,0,785,0C741.8,0,698,0,655,0C610.9,0,567,0,524,0C480,0,436,0,393,0C349.1,0,305,0,262,0C218.2,0,175,0,131,0C87.3,0,44,0,22,0L0,0Z"></path></svg>
+        <!--Search nav for Desktop Screen-->
+        <div class="search-nav hide flex-column justify-content-center align-items-center container" id="searchNav">
+          <div class="search-box d-flex justify-content-between align-items-center rounded-pill mb-3">
+              <input type="text" class="search-input border-0 py-1 px-3 p-lg-3" placeholder="نام کتابی که به دنبالش هستید را جستجو کنید">
+              <i class="fa-solid fa-search search-icon fs-6 rounded-end-pill"></i>
+          </div>
+          <div class="search-result-box rounded-3 p-3">
+          </div>
         </div>
-        
-    
-    <!--wave svg-->
-    <img src="Assets/Images/Waves/wave-haikei.svg" alt="wavePic" class="w-100 mt-5 d-none d-md-block">
-    <img src="Assets/Images/Waves/wave-haikei (2).svg" alt="wavePic" class="w-100 mt-5 d-md-none">
-       
-    </section>
 
-    <footer>
+  </header>
 
-        <div class="container-lg">
-          <form action="#" class="newsletter-subscription row justify-content-center align-items-center flex-wrap mb-4">
-            <div class="col-lg-5 col-xl-4 d-flex align-items-center justify-content-center me-0 mb-3 mb-lg-0">
-              <i class="fa-regular fa-envelope fs-4 me-2"></i>
-              <p class="my-0">از تازه ترین کتاب‌های ثنا بوک آگاه شوید.</p>
-            </div>
-       
-            <input type="email" class="col-7 col-sm-7 col-md-5 col-lg-4 col-xl-4 p-1 p-sm-2 p-lg-2 me-1 rounded-start-3" placeholder="YourEmailAddress@email.com">
-            <button type="submit" class="col-4 col-sm-3 col-md-3 col-lg-2 p-1 p-sm-2 p-lg-2 rounded-end-3">عضویت در خبرنامه</button>
-              
-          </form>
-          <hr class="divider">
-          <div class="footer-sec1 d-flex gap-5 px-3 px-lg-0">
-            <div class="links">
-              <h6 class="mb-2">پیوندهای مفید</h6>
-              <ul class="list-unstyled">
-                <li><a href="#" class="text-decoration-none mb-2">راهنمای خرید و ثبت سفارش</a></li>
-                <li><a href="#" class="text-decoration-none mb-2">سوالات متداول </a></li>
-                <li><a href="#" class="text-decoration-none mb-2">قوانین و مقررات</a></li>
-                <li><a href="#" class="text-decoration-none mb-2">سیاست حفظ حریم خصوصی</a></li>
-                <li><a href="#" class="text-decoration-none">درباره ما</a></li>
-              </ul>
-            </div>
-            <div class="social-media">
-              <h6 class="mb-2">شبکه‌های اجتماعی</h6>
-              <div class="d-flex justify-content-between">
-                <a href="#" class="fs-5"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="fs-5"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" class="fs-5"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" class="fs-5"><i class="fa-brands fa-twitter"></i></a>
+  <section class="main-sec">
+      <div class="container-xl px-5 px-xl-0">
+          <nav aria-label="breadcrumb mb-0">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#" class="text-decoration-none">خانه</a></li>
+              <li class="breadcrumb-item"><a href="#" class="text-decoration-none">دسته بندی کتاب‌ها</a></li>
+              <li class="breadcrumb-item"><a href="#" class="text-decoration-none subject">ادبیات داستانی</a></li>
+              <li class="breadcrumb-item active" aria-current="page">بلندی‌های بادگیر</li>
+            </ol>
+          </nav>
+
+          <div class="row top align-items-center justify-content-center mb-5">
+                <div class="col-md-6 title-container order-1 order-md-0">
+                  <div class="d-flex justify-content-between align-items-center mb-4 mb-md-1 mt-3 mt-md-0" id="badgeContainer">
+                      <div><img src="Assets/Images/Icons/placeholder-lineal-colored.png" class="img-fluid availability-icon" alt="availabilityIcon">موجود</div>                
+                  </div>
+                
+                  <h2 class="book-title text-center"><span>«</span><span id="bookTitle">بلندی‌های بادگیر</span><span>»</span></h2>
+                  <h5 class="author-name text-center mb-3">اثر <span id="authorName">امیلی برونته</span></h5>
+                  <div class="rate-stars d-flex gap-2 justify-content-center mb-5 mb-md-4  mb-lg-5">
+                      <i class="fa-regular fa-star"></i>
+                      <i class="fa-regular fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                  </div>
+                  <div class="price" id="price">
+                    
+                  </div>
+                  <div class="d-flex justify-content-center">
+                      <button class="d-flex align-items-center rounded-pill py-2 ps-3 pe-2" id="addToCartBtn"><span>افزودن به سبد خرید</span><i class="fa-solid fa-cart-shopping ms-2 p-3 rounded-circle"></i></button>
+                  </div>
+                </div>
+  
+              <div class="book-pic-container col-sm-10 col-md-6">
+                  <svg class="arrow" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 640 800"><g stroke-width="10" stroke="#e264ab" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8.5 19" transform="matrix(-0.754709580222772,0.6560590289905073,-0.6560590289905073,-0.754709580222772,945.93067726749,500.94494281214645)"><path d="M214 291.6066436767578Q265 540.6066436767578 426 503.6066436767578 " marker-end="url(#SvgjsMarker2668)"></path></g><defs><marker markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" viewBox="0 0 7 7" orient="auto" id="SvgjsMarker2668"><polyline points="0,3.5 3.5,1.75 0,0" fill="none" stroke-width="1.1666666666666667" stroke="#e264ab" stroke-linecap="round" transform="matrix(1,0,0,1,1.1666666666666667,1.75)" stroke-linejoin="round"></polyline></marker></defs></svg>
+                  <img src="Assets/Images/Waves/blob-haikei (1).svg" alt="blobPic" class="blob-pic img-fluid">
+                  <img src="Assets/Images/Books/foreign/book11.jpg" alt="bookPic" id="bookPic" class="book-pic">
               </div>
-    
+            
+          </div>
+          <div class="row align-items-center mb-5">
+              <div class="about-this-book px-0 px-lg-3 col-lg-6 order-1 order-lg-0">
+                  <span class="topic py-2 px-3"><img src="Assets/Images/Icons/books-lineal-colored.png" alt="bookIcon"> درباره این کتاب:</span>
+                 
+                  <div class="text">
+                    <p class=" px-4 py-3 mb-0" id="aboutThisBookText">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                  </div>
+              </div>
+              <div class="col-lg-6 book-info my-5 my-lg-0 d-flex justify-content-around align-items-center">
+                  <div class="part1">
+                      <p><i class="fa-solid fa-circle me-2"></i>انتشارات: <span id="publisher">پرتقال</span></p>
+                      <p><i class="fa-solid fa-circle me-2"></i>کد کتاب: <span id="bookId">hgsfhshb3612</span></p>
+                      <p><i class="fa-solid fa-circle me-2"></i>شابک: <span id="ISBN">635178571717689</span></p>
+                  </div>
+                  <div class="part2">
+                      <p><i class="fa-solid fa-circle me-2"></i>تعداد صفحات: <span id="pageCount">347</span></p>
+                      <p><i class="fa-solid fa-circle me-2"></i>سال انتشار: <span id="publishDate">1399</span></p>
+                      <p><i class="fa-solid fa-circle me-2"></i>سری چاپ: <span id="editionNum">2</span></p>
+                      <p><i class="fa-solid fa-circle me-2"></i>نوع جلد: <span id="physicalCover">شومیز</span></p>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-12 recommendation-box position-relative mt-4 mt-lg-5  py-3 rounded-5">
+              <div class="recommendation-title d-flex justify-content-center align-items-center">
+                  <p class="px-3 py-2 mb-0 rounded-top-4">کتاب‌های پیشنهادی ثنا بوک</p>
+              </div>
+              <div class="recommended-books mx-md-5 d-flex py-3 gap-3" id="recommendedBooksBox">
+                 <!--navigator btns in sale box-->
+                 <div class="navigator-btns d-flex justify-content-between position-absolute top-50 start-0 w-100">
+                   <i class="back-btn fa-solid fa-angle-right fs-4 align-middle rounded-circle"></i>
+                   <i class="forward-btn fa-solid fa-angle-left fs-4 align-middle rounded-circle"></i>
+                 </div>
+
+              </div>
+
+          </div>
+          <div class="marketing col-12  mt-5">
+            <div class="row align-items-center gy-4 justify-content-center justify-content-xl-evenly px-lg-3">
+              <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/shopping-bag-lineal-colored-6.png" alt="marketingIcon">ضمانت کیفیت کالا</div></div>
+              <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/delivery-box-lineal-colored.png" alt="marketingIcon">امکان تحویل اکسپرس</div></div>
+              <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/customer-service-lineal-colored-a.png" alt="marketingIcon">پشتیبانی 24 ساعته</div></div>
+              <div class="col-6 col-xl-3 d-flex justify-content-center px-0"><div class="option py-1 px-2 px-sm-3 rounded-5"><img class="marketing-icon img-fluid" src="Assets/Images/Icons/online-payment-lineal-colored.png" alt="marketingIcon">روش‌های پرداخت متنوع</div></div>
             </div>
           </div>
-          <hr class="divider">
-          <div class="footer-sec2 d-flex flex-wrap flex-md-nowrap gap-md-5 justify-content-center align-items-center mb-3 px-3 px-lg-0">
-            <div>
-             <h2><span class="first-sec-title me-1">ثنا</span><span class="second-sec-title">بوک</span></h2>
-             <p class="fs-6">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد.</p>
-            </div>
-            <div class="d-flex flex-wrap flex-md-nowrap gap-3 justify-content-center align-items-center">
-             <a href="#"><img src="Assets/Images/Validation pics/validation1.jpg" alt="eNamad" class="enamad-logo rounded-3"></a>
-             <a href="#"><img src="Assets/Images/Validation pics/validation2.jpg" alt="samandehi" class="samandehi-logo rounded-3"></a>
-            </div>
-          </div>      
-    </div>
-    <p class="reserved-rights fs-6 text-center px-5 px-sm-0 py-3 mt-2 mb-0"><span>1402</span> | تمامی حقوق این سایت متعلق به فروشگاه اینترنتی کتاب ثنا بوک می‌باشد.</p>
-    
-    </footer>
+ 
+          </div>
 
-    <!--help icon-->
-    <div class="help-box d-flex align-items-center gap-2 ">
-      <a class="help-message hidden p-0 rounded-pill text-decoration-none d-flex align-items-center gap-2 overflow-hidden" href="#">
-        <span class="p-2 m-0 fs-3 text-white">(:</span>
-        <div class="pe-3">
-          <p class="mb-1 text-center">پشتیبان آنلاین در خدمت شماست.</p>
-          <p class="mb-1 text-center text-primary">کلیک کنید</p>
+       
+      </div>
+      
+  
+  <!--wave svg-->
+  <img src="Assets/Images/Waves/wave-haikei.svg" alt="wavePic" class="w-100 mt-5 d-none d-md-block">
+  <img src="Assets/Images/Waves/wave-haikei (2).svg" alt="wavePic" class="w-100 mt-5 d-md-none">
+     
+  </section>
+
+  <footer>
+
+      <div class="container-lg">
+        <form action="#" class="newsletter-subscription row justify-content-center align-items-center flex-wrap mb-4">
+          <div class="col-lg-5 col-xl-4 d-flex align-items-center justify-content-center me-0 mb-3 mb-lg-0">
+            <i class="fa-regular fa-envelope fs-4 me-2"></i>
+            <p class="my-0">از تازه ترین کتاب‌های ثنا بوک آگاه شوید.</p>
+          </div>
+     
+          <input type="email" class="col-7 col-sm-7 col-md-5 col-lg-4 col-xl-4 p-1 p-sm-2 p-lg-2 me-1 rounded-start-3" placeholder="YourEmailAddress@email.com">
+          <button type="submit" class="col-4 col-sm-3 col-md-3 col-lg-2 p-1 p-sm-2 p-lg-2 rounded-end-3">عضویت در خبرنامه</button>
+            
+        </form>
+        <hr class="divider">
+        <div class="footer-sec1 d-flex gap-5 px-3 px-lg-0">
+          <div class="links">
+            <h6 class="mb-2">پیوندهای مفید</h6>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-decoration-none mb-2">راهنمای خرید و ثبت سفارش</a></li>
+              <li><a href="#" class="text-decoration-none mb-2">سوالات متداول </a></li>
+              <li><a href="#" class="text-decoration-none mb-2">قوانین و مقررات</a></li>
+              <li><a href="#" class="text-decoration-none mb-2">سیاست حفظ حریم خصوصی</a></li>
+              <li><a href="#" class="text-decoration-none">درباره ما</a></li>
+            </ul>
+          </div>
+          <div class="social-media">
+            <h6 class="mb-2">شبکه‌های اجتماعی</h6>
+            <div class="d-flex justify-content-between">
+              <a href="#" class="fs-5"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" class="fs-5"><i class="fa-brands fa-telegram"></i></a>
+              <a href="#" class="fs-5"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#" class="fs-5"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+  
+          </div>
         </div>
-      </a>
-      <i class="help-icon fa-solid fa-headset p-3 fs-3 text-white rounded-pill" id="helpIcon"></i>
-    </div>
+        <hr class="divider">
+        <div class="footer-sec2 d-flex flex-wrap flex-md-nowrap gap-md-5 justify-content-center align-items-center mb-3 px-3 px-lg-0">
+          <div>
+           <h2><span class="first-sec-title me-1">ثنا</span><span class="second-sec-title">بوک</span></h2>
+           <p class="fs-6">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد.</p>
+          </div>
+          <div class="d-flex flex-wrap flex-md-nowrap gap-3 justify-content-center align-items-center">
+           <a href="#"><img src="Assets/Images/Validation pics/validation1.jpg" alt="eNamad" class="enamad-logo rounded-3"></a>
+           <a href="#"><img src="Assets/Images/Validation pics/validation2.jpg" alt="samandehi" class="samandehi-logo rounded-3"></a>
+          </div>
+        </div>      
+  </div>
+  <p class="reserved-rights fs-6 text-center px-5 px-sm-0 py-3 mt-2 mb-0"><span>1402</span> | تمامی حقوق این سایت متعلق به فروشگاه اینترنتی کتاب ثنا بوک می‌باشد.</p>
+  
+  </footer>
 
-  <!--go to top of the page icon-->
-  <i class="go-to-top-icon fa-solid fa-angle-up p-3 fs-5" id="goToTopIcon"></i>
+  <!--help icon-->
+  <div class="help-box d-flex align-items-center gap-2 ">
+    <a class="help-message hidden p-0 rounded-pill text-decoration-none d-flex align-items-center gap-2 overflow-hidden" href="#">
+      <span class="p-2 m-0 fs-3 text-white">(:</span>
+      <div class="pe-3">
+        <p class="mb-1 text-center">پشتیبان آنلاین در خدمت شماست.</p>
+        <p class="mb-1 text-center text-primary">کلیک کنید</p>
+      </div>
+    </a>
+    <i class="help-icon fa-solid fa-headset p-3 fs-3 text-white rounded-pill" id="helpIcon"></i>
+  </div>
+
+<!--go to top of the page icon-->
+<i class="go-to-top-icon fa-solid fa-angle-up p-3 fs-5" id="goToTopIcon"></i>
 
 
+  </div>
+   
 
     
        

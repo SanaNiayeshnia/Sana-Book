@@ -38,7 +38,56 @@
     --pastelBlue: #c2dcf7;
     --mainTextColor: #263238;
 }
+/*top wave*/
+.wave1{
+    margin-top: -15rem ;
+}
+.wave1.show{
+    animation: showWave1 forwards 0.3s;
+}
+@keyframes showWave1{
+    from{
+       margin-top: -15rem ;
 
+    }
+    to{
+        margin-top: 3rem;
+    }
+}
+.wave1.hide{
+    animation: hideWave1 forwards 0.3s;
+}
+@keyframes hideWave1{
+    from{
+       margin-top: 3rem ;
+
+    }
+    to{
+        margin-top: -15rem;
+    }
+}
+
+/*search-nav desktop screen*/
+.search-nav{
+    transition: all 0.3s;
+}
+.search-nav.show{
+    display: flex;
+    opacity: 1;
+}
+.search-nav.hide{
+    display: none;
+   opacity: 0;
+}
+/*search-icon in top-nav*/
+#searchIcon{
+    background-color: white !important;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+#searchIcon:active{
+    transform: scale(1.1);
+}
 /*breadcrumb*/
 .breadcrumb{
     margin-top: 30px !important;
@@ -154,7 +203,6 @@ font-size: 0.5rem;
     font-family:'Vazir-FarsiDigits';
 }
 /*about-this-book*/
-
 .about-this-book .topic{
     background-color: var(--pastelPink);
     border-radius: 1rem 1rem 0 0;
@@ -165,6 +213,7 @@ font-size: 0.5rem;
     width: 40px;
 }
 .about-this-book .text{
+    min-height: 150px;
    background-color: var(--pastelPink);
     text-align: justify;
     color: var(--mainTextColor);
@@ -192,7 +241,7 @@ background-attachment: fixed;
 
 }
 .recommended-books{
-overflow: auto;
+   overflow: auto;
 
    /*scroll without the scrollbar inside the .recommend-box-cards*/
    overflow: auto;
@@ -203,6 +252,12 @@ overflow: auto;
 }
 .recommended-books::-webkit-scrollbar{
    display: none;
+}
+.recommended-books .navigator-btns i{
+    background-color: #6699ccd2;
+}
+.recommended-books .navigator-btns i:hover{
+    background-color: var(--mainBlue);
 }
 
 /*marketing*/
@@ -238,7 +293,7 @@ overflow: auto;
 /*breakpoint medium screen*/
 @media screen and (min-width:768px){
     .breadcrumb{
-        margin-top: 80px !important;
+        margin-top: 55px !important;
     }
     .book-pic-container .arrow{
         width: 210px;
@@ -259,6 +314,7 @@ overflow: auto;
 }
 /*breakpoint in large screen*/
 @media screen and (min-width:992px){
+
     .discount-badge{
         font-size: 1.3rem;
     }
@@ -271,7 +327,7 @@ overflow: auto;
     .book-pic-container .book-pic{
         width:43%;
         right: 110px;
-        top: 95px;
+        top: 90px;
     }
     #addToCartBtn i{
         font-size: 1.5rem;
@@ -279,6 +335,9 @@ overflow: auto;
 }
 /*breakpoint in extra large screen*/
 @media screen and (min-width:1200px){
+    .breadcrumb{
+        margin-top: 30px !important;
+    }
     .row.top{
         margin-top: -40px;
     }

@@ -15,12 +15,13 @@ async function fetchAndLoadDetailsOfBooks(bookId, query){
         for (const key in  detailsOfEachBookData) {
          publishers.add(detailsOfEachBookData[key].details.publishers[0]);
           let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
-          bookPrice=(isNaN(Number(bookPrice)))?100:bookPrice;
+          bookPrice=(isNaN(Number(bookPrice)))?Math.floor(Math.random()*(400-100)+100):bookPrice;
           let cardTextContent;
           let discountBadge;
+          let salePrice;
           //if the price of the book was more than 150, add the sale price and the discount badge
           if(bookPrice>150){
-          let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+          salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
           cardTextContent=`
           <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
           <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>`;
@@ -28,22 +29,25 @@ async function fetchAndLoadDetailsOfBooks(bookId, query){
           <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
           }
           else{
+            salePrice=bookPrice;
             cardTextContent=`
             <p class="price text-center "> ${bookPrice},000 <span>تومان</span></p>`;
             discountBadge='';
           }
+          //the href
+          let href=`product.html?q=${bookId},${bookPrice},${salePrice}`
           //load data on the page
           document.querySelector(`${query}`).insertAdjacentHTML('beforeend', `
           <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${bookId}">
           <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
           ${discountBadge}
-          <a href="#" class="text-decoration-none" >
+          <a href="${href}" class="text-decoration-none" >
               <div class="text-center pb-2 pb-md-3 pt-3">
                 <img src="https://covers.openlibrary.org/b/olid/${bookId}-L.jpg" class="card-img-top" alt="bookPic">
               </div>
           </a>
               <div class="card-body d-flex flex-column justify-content-between p-0">
-                <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>${detailsOfEachBookData[key].details.title}<span>»</span></a>
+                <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="${href}"><span>«</span>${detailsOfEachBookData[key].details.title}<span>»</span></a>
                 <div class="card-text mb-2">
                   ${cardTextContent}
                 </div>
@@ -99,50 +103,7 @@ async function loadDataInBoxesOnIndexPage(){
       throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
      
       foreignData=await foreignRes.json();
-      foreignData.works.forEach(async (book)=>{
-        //for accessing the price of each book, we need tp fetch the more detaild data of each book
-          const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
-          const detailsOfEachBookData =await detailsOfEachBookRes.json();
-          for (const key in  detailsOfEachBookData) {
-            //there's no property called price in open library, so i get a random price to not leave this field empty
-            let bookPrice=Math.floor(Math.random()*(400-100)+100); 
-            let cardTextContent;
-            let discountBadge;
-            //if the price of the book was more than 150, add the sale price and the discount badge
-            if(bookPrice>150){
-            let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
-            cardTextContent=`
-            <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
-            <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>`;
-            discountBadge=`
-            <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
-            }
-            else{
-              cardTextContent=`
-              <p class="price text-center "> ${bookPrice},000 <span>تومان</span></p>`;
-              discountBadge='';
-            }
-            //load data on the page
-            document.querySelector('#navForeign .tab-pane-container').insertAdjacentHTML('beforeend', `
-            <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${book.cover_edition_key}">
-            <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
-            ${discountBadge}
-            <a href="#" class="text-reset text-decoration-none">
-                <div class="text-center pb-2 pb-md-3 pt-3">
-                  <img src="https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg" class="card-img-top" alt="bookPic">
-                </div>
-            </a>
-                <div class="card-body d-flex flex-column justify-content-between p-0">
-                  <a class="card-title h5 text-decoration-none foreign text-center my-2 px-2 px-md-3" href="#"><span>«</span>${book.title}<span>»</span></a>
-                  <div class="card-text mb-2">
-                    ${cardTextContent}
-                  </div>
-                </div>
-            </div>
-        
-          `)
-          }
-      })
+      foreignData.works.forEach(async (book)=>fetchAndLoadDetailsOfBooks(book.cover_edition_key,"#navForeign .tab-pane-container"));
 
     }
       catch(error){
@@ -178,20 +139,23 @@ async function loadDataInBoxesOnIndexPage(){
         document.querySelector('.sale-box .book-loader').style.display='none'; //hiding book loader
         for (const key in  detailsOfEachBookData) {
           let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
+          let salePrice;
           if(bookPrice>150){
-            let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+            salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+            //the href
+            let href=`product.html?q=${book.cover_edition_key},${bookPrice},${salePrice}`;
             //load data on the page
             document.querySelector('.sale-box .recommend-box-cards').insertAdjacentHTML('beforeend', `
             <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${book.cover_edition_key}">
             <i class="add-to-cart-btn fa-solid fa-plus p-2 "></i>
             <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>
-            <a href="#" class="text-reset text-decoration-none">
+            <a href="${href}" class="text-reset text-decoration-none">
                 <div class="text-center pb-2 pb-md-3 pt-3">
                   <img src="https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg" class="card-img-top" alt="bookPic">
                 </div>
             </a>
                 <div class="card-body d-flex flex-column justify-content-between p-0">
-                  <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href"#"><span>«</span>${book.title}<span>»</span></a>
+                  <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href"${href}"><span>«</span>${book.title}<span>»</span></a>
                   <div class="card-text mb-2">
                     <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
                     <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>
@@ -200,6 +164,8 @@ async function loadDataInBoxesOnIndexPage(){
             </div>
           `)
           }
+          else
+          salePrice=bookPrice;
   
         }
       }
@@ -230,9 +196,10 @@ async function loadDataInBoxesOnIndexPage(){
         bookPrice= (typeof(pricebook)!=Number)? Math.floor(Math.random()*(400-100)+100): bookPrice;
         let cardTextContent;
         let discountBadge;
+        let salePrice;
         //if the price of the book was more than 150, add the sale price and the discount badge
         if(bookPrice>150){
-        let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+        salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
         cardTextContent=`
         <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
         <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>`;
@@ -240,22 +207,25 @@ async function loadDataInBoxesOnIndexPage(){
         <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
         }
         else{
+          salePrice=bookPrice;
           cardTextContent=`
           <p class="price text-center "> ${bookPrice},000 <span>تومان</span></p>`;
           discountBadge='';
         }
+        //the href
+        let href=`product.html?q=${book.cover_edition_key},${bookPrice},${salePrice}`;
         //load data on the page
         document.querySelector('.popular-box .recommend-box-cards').insertAdjacentHTML('beforeend', `
         <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${book.cover_edition_key}">
         <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
         ${discountBadge}
-        <a href="#" class="text-reset text-decoration-none">
+        <a href="${href}" class="text-reset text-decoration-none">
             <div class="text-center pb-2 pb-md-3 pt-3">
               <img src="https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-L.jpg" class="card-img-top" alt="bookPic">
             </div>
         </a>
             <div class="card-body d-flex flex-column justify-content-between p-0">
-              <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href"#"><span>«</span>${book.title}<span>»</span></a>
+              <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href"${href}"><span>«</span>${book.title}<span>»</span></a>
               <div class="card-text mb-2">
                 ${cardTextContent}
               </div>
@@ -290,7 +260,7 @@ async function loadDataInBoxesOnIndexPage(){
    })
 }
 //fetching book data for products box on categories page
-async function loadDataInBoxesOnCategoriesPage(cParam){
+async function loadDataOnCategoriesPage(cParam){
   let category;
   let res;
   //show the book loader
@@ -335,7 +305,7 @@ async function loadDataInBoxesOnCategoriesPage(cParam){
       break;
 
     case 'fiction':
-      category= 'ادبیات_داستانی';
+      category= 'ادبیات داستانی';
       try{
       res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=70`);
       if(!res.ok)
@@ -359,6 +329,10 @@ async function loadDataInBoxesOnCategoriesPage(cParam){
       break;
     default:
   }
+  //puting the subject in active breadcrumb and category title
+  document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
+  document.querySelector('.title-sec .category-title').innerHTML=category;
+
   const data=await res.json();
   //geting the data about every book in this category and then putting their olid and price in the allBooks array
   let fetchPromises=data.works.map(async book=>{
@@ -376,7 +350,7 @@ async function loadDataInBoxesOnCategoriesPage(cParam){
        let salePrice=realPrice;
        if(realPrice>150)
        salePrice=Math.floor(realPrice*0.7); //their price with discount
-       allBooks.push({id:book.cover_edition_key, title:detailsOfEachBookData[key].details.title, realPrice: Number(realPrice), salePrice: Number(salePrice), publisherName, lastModified: detailsOfEachBookData[key].details.last_modified.value });
+       allBooks.push({id:book.cover_edition_key, title:detailsOfEachBookData[key].details.title, realPrice: Number(realPrice), salePrice: Number(salePrice), publisherName, createdDate: detailsOfEachBookData[key].details.created.value });
      }
       }
     catch(error){
@@ -385,9 +359,10 @@ async function loadDataInBoxesOnCategoriesPage(cParam){
 
   })
   await Promise.all(fetchPromises);
-  allBooksSortedNewest =[...allBooks].sort((a,b)=> new Date(b.lastModified) - new Date(a.lastModified)); //sort all books from the newest one to the oldest one
+  allBooksSortedNewest =[...allBooks].sort((a,b)=> new Date(b.createdDate) - new Date(a.createdDate)); //sort all books from the newest one to the oldest one
 
 }
+
 
 function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber, makePaginationBtns, addRemovingEventsToAppliedFilter){
   //removing previous filtered books
@@ -471,18 +446,20 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
           <p class="price text-center "> ${allFilteredBooks[i].realPrice},000 <span>تومان</span></p>`;
           discountBadge='';
         }
+        //the href
+        let href=`product.html?q=${allFilteredBooks[i].id},${allFilteredBooks[i].realPrice},${allFilteredBooks[i].salePrice}`
         //load data on the page
         document.querySelector(`.products`).insertAdjacentHTML('beforeend', `
         <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${allFilteredBooks[i].id}">
         <i class="add-to-cart-btn fa-solid fa-plus p-2"></i>
         ${discountBadge}
-        <a href="#" class="text-decoration-none" >
+        <a href="${href}" class="text-decoration-none" >
             <div class="text-center pb-2 pb-md-3 pt-3">
               <img src="https://covers.openlibrary.org/b/olid/${allFilteredBooks[i].id}-L.jpg" class="card-img-top" alt="bookPic">
             </div>
         </a>
             <div class="card-body d-flex flex-column justify-content-between p-0">
-              <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="#"><span>«</span>${allFilteredBooks[i].title}<span>»</span></a>
+              <a class="card-title h5 text-center text-decoration-none my-2 px-2 px-md-3" href="${href}"><span>«</span>${allFilteredBooks[i].title}<span>»</span></a>
               <div class="card-text mb-2">
                 ${cardTextContent}
               </div>
@@ -585,7 +562,93 @@ function addCartItems(){
     
   })
 }
+//fetching the book data on product page
+async function loadDataOnProductPage(bookParamsObj){
+  try{
+    const bookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=data&format=json`);
+    if(!bookRes.ok)
+    throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
+    const bookData =await bookRes.json();
+    
+    for(const key in bookData){
+      console.log(bookData);
+      let subject;
+      let allSubjects=['روانشناسی', 'شعر', 'ادبیات داستانی', 'آموزشی'];
+      (allSubjects.some(s=>s===bookData[key].subjects[0].name))?subject=bookData[key].subjects[0].name:subject='ادبیات خارجی';
+      document.querySelector('.breadcrumb .subject').innerHTML=subject;
+      document.querySelector('.breadcrumb .active').innerHTML=bookData[key].title;
+      document.getElementById('bookTitle').innerHTML=bookData[key].title;
+      document.getElementById('authorName').innerHTML=bookData[key].authors[0].name;
+      document.getElementById('bookPic').setAttribute('src', bookData[key].cover.large);
+      let isbn=(bookData[key].identifiers.isbn_13===undefined)?'9085895728136':bookData[key].identifiers.isbn_13[0];
+      document.getElementById('ISBN').innerHTML=isbn;
+      document.getElementById('bookId').innerHTML=bookParamsObj.id;
+      document.getElementById('publisher').innerHTML=bookData[key].publishers[0].name;
+      document.getElementById('pageCount').innerHTML=bookData[key].number_of_pages;
+      document.getElementById('publishDate').innerHTML=bookData[key].publish_date;
+
+      let priceElementContent;
+      if(bookParamsObj.salePrice===bookParamsObj.realPrice){
+        priceElementContent=`<p class="sale-price text-center mb-md-2">${bookParamsObj.salePrice},000<span class="ms-2">تومان</span></p>`;
+      }
+      else{
+        document.getElementById('badgeContainer').insertAdjacentHTML('beforeend', `
+        <div class="discount-badge rounded-circle">%30</div>
+        `);
+        priceElementContent=`
+        <p class="real-price text-center mb-0 mb-lg-1">${bookParamsObj.realPrice},000</p>
+        <p class="sale-price text-center mb-md-2">${bookParamsObj.salePrice},000<span class="ms-2">تومان</span></p>`
+      }
+      document.getElementById('price').insertAdjacentHTML('beforeend', priceElementContent);
+
+      //load data in recommmendedBookBox
+      let recommendedRes;
+      if(subject==='ادبیات خارجی')
+       recommendedRes=await fetch(`http://openlibrary.org/subjects/fantasy.json?sort=random`);
+       else if(subject==='ادبیات داستانی')
+       recommendedRes=await fetch(`http://openlibrary.org/subjects/ادبیات_داستانی.json?sort=random`);
+      else
+       recommendedRes=await fetch(`http://openlibrary.org/subjects/${subject}.json?sort=random`);
+      let recommendedData=await recommendedRes.json();
+   
+      recommendedData.works.forEach(book=>{
+        fetchAndLoadDetailsOfBooks(book.cover_edition_key, '#recommendedBooksBox');
+      })
 
 
+    }
+  
+    const bookDetailsRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=details&format=json`);
+    if(!bookRes.ok)
+    throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
+    const bookDetailsData =await bookDetailsRes.json();
+    for (const key in bookDetailsData) {
+      console.log(bookDetailsData[key]);
+      let editionNum=(bookDetailsData[key].details.edition_name===undefined)?1:bookDetailsData[key].details.edition_name;
+      document.getElementById('editionNum').innerHTML=editionNum;
+      let physicalCover=(bookDetailsData[key].details.physical_format===undefined)?'شومیز':bookDetailsData[key].details.physical_format;
+      document.getElementById('physicalCover').innerHTML=physicalCover;
+      if(bookDetailsData[key].details.contributors && bookDetailsData[key].details.contributors[0].role==="Translator")
+      document.querySelector('.book-info .part1').insertAdjacentHTML('afterbegin', `
+      <p><i class="fa-solid fa-circle me-2"></i> مترجم: <span id="translator">${bookDetailsData[key].details.contributors[0].name}</span></p>
+      `)
+      if(bookDetailsData[key].details.description===undefined)
+      document.getElementById('aboutThisBookText').innerHTML='توضیحی برای این کتاب درج نشده است.';
+      else if(bookDetailsData[key].details.description && bookDetailsData[key].details.description.value===undefined)
+      document.getElementById('aboutThisBookText').innerHTML=bookDetailsData[key].details.description;
+      else if(bookDetailsData[key].details.description || bookDetailsData[key].details.description.value)
+      document.getElementById('aboutThisBookText').innerHTML=bookDetailsData[key].details.description.value;
 
-export {loadDataInBoxesOnIndexPage, loadDataInBoxesOnCategoriesPage, sortAndFilterBooks} ; 
+
+    }
+
+    
+  
+  }
+  catch(error){
+    console.error('با یک ارور غیر منتظره مواجه شدیم:', error)
+  }
+
+}
+
+export {loadDataInBoxesOnIndexPage, loadDataOnCategoriesPage, sortAndFilterBooks, loadDataOnProductPage} ; 

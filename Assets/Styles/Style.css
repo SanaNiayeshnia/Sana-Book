@@ -122,6 +122,11 @@ body{
     cursor: pointer;
 }
 
+.top-nav.changed #searchIcon{
+    background-color: var(--mainBlue) !important;
+    color: white;
+}
+
 /*dropdown-menu*/
 .dropdown-menu{
     padding: 10px;
