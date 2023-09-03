@@ -563,6 +563,8 @@ async function loadDataOnProductPage(bookParamsObj){
     if(!bookRes.ok)
     throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
     const bookData =await bookRes.json();
+
+    document.getElementById('addToCartBtn').setAttribute('data-olid', bookParamsObj.id);
     
     for(const key in bookData){
       let subject;

@@ -5,12 +5,13 @@ let searchIcon=document.getElementById('searchIcon');
 let recommendationBoxForwardBtn=document.querySelector('.forward-btn');
 let recommendationBoxBackBtn=document.querySelector('.back-btn');
 
-window.addEventListener('load', ()=>{
+window.addEventListener('load',async ()=>{
     let searchParams=new URLSearchParams(location.search);
     let query=searchParams.get('q');
     let bookParamsArray=query.split(',');
     let bookParamsObj={id:bookParamsArray[0], realPrice:bookParamsArray[1], salePrice:bookParamsArray[2]};
-    loadDataOnProductPage(bookParamsObj);
+    await loadDataOnProductPage(bookParamsObj);
+    
 })
 
 
@@ -65,4 +66,35 @@ recommendationBoxForwardBtn.addEventListener('click', (event)=>{
 //scrolling to right by clicking on the forward button
 recommendationBoxBackBtn.addEventListener('click', (event)=>{
     event.target.parentElement.parentElement.scrollBy(220,0);
+})
+
+//add the book to cart by clicking on the addToCartBtn
+document.getElementById('addToCartBtn').addEventListener('click', (event)=>{
+    console.log(event.target);
+    let cartCount;
+    let orderCount;
+    if(JSON.parse(localStorage.getItem('cartItems'))!=null){
+      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+    }
+    else{
+      localStorage.setItem('cartItems',JSON.stringify(cartItems));
+      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+    }
+    orderCount=(cartCount<=5)?cartCount:"+5";
+    document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
+    
+    let cartItems;
+    if(JSON.parse(localStorage.getItem('cartItems'))!=null)
+     cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];    
+     cartItems.push({olid: event.target.dataset.olid});
+     localStorage.setItem('cartItems', JSON.stringify(cartItems));    
+     cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+     orderCount=(cartCount<=5)?cartCount:"+5";
+     document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
+    
+     //show the addToCart alert 
+     let addToCartAlert=document.getElementById('addToCartToast');
+     let addToCartToast = new bootstrap.Toast(addToCartAlert);
+     addToCartToast.show();
+
 })
