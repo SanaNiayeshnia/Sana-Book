@@ -7,7 +7,7 @@ let allFilteredBooks=[];
 async function fetchAndLoadDetailsOfBooks(bookId, query){
        //for accessing the price of each book, we need tp fetch the more detaild data of each book
        try{
-        const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${bookId}&jscmd=details&format=json`);
+        const detailsOfEachBookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${bookId}&jscmd=details&format=json`);
         if(!detailsOfEachBookRes.ok)
         throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
         const detailsOfEachBookData =await detailsOfEachBookRes.json();
@@ -70,7 +70,7 @@ async function loadDataInBoxesOnIndexPage(){
     //fetch data for categories box
       //fetch up to 15 psychology book for the psychology category on the main page
       try{
-      const psychologyRes=await fetch('http://openlibrary.org/subjects/روانشناسی.json?limit=15');
+      const psychologyRes=await fetch('https://openlibrary.org/subjects/روانشناسی.json?limit=15');
       if(!psychologyRes.ok)
       throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
 
@@ -84,7 +84,7 @@ async function loadDataInBoxesOnIndexPage(){
 
       //fetch up to 15 poetry book for the poetry category on the main page
       try{
-      const poetryRes=await fetch('http://openlibrary.org/subjects/شعر.json?offset=6&limit=15');
+      const poetryRes=await fetch('https://openlibrary.org/subjects/شعر.json?offset=6&limit=15');
       if(!poetryRes.ok)
         throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
 
@@ -98,7 +98,7 @@ async function loadDataInBoxesOnIndexPage(){
 
       //fetch up to 15 english fantasy book for the foreign literature category on the main page
       try{
-      const foreignRes=await fetch('http://openlibrary.org/subjects/fantasy.json?language=eng&limit=15');
+      const foreignRes=await fetch('https://openlibrary.org/subjects/fantasy.json?language=eng&limit=15');
       if(!foreignRes.ok)
       throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
      
@@ -112,7 +112,7 @@ async function loadDataInBoxesOnIndexPage(){
 
       //fetch up to 15 fiction book for the fiction category on the main page
       try{
-      const fictionRes=await fetch('http://openlibrary.org/subjects/ادبیات_داستانی.json?limit=15');
+      const fictionRes=await fetch('https://openlibrary.org/subjects/ادبیات_داستانی.json?limit=15');
       if(!fictionRes.ok)
       throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
 
@@ -131,7 +131,7 @@ async function loadDataInBoxesOnIndexPage(){
     allBooksData.forEach(async (book)=>{
       //for accessing the price of each book, we need tp fetch the more detaild data of each book
       try{
-        const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
+        const detailsOfEachBookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
         if(!detailsOfEachBookRes.ok)
         throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
        
@@ -186,7 +186,7 @@ async function loadDataInBoxesOnIndexPage(){
       let book=allBooksData[randomIndex];
       //for accessing the price of each book, we need tp fetch the more detaild data of each book
       try{
-      const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
+      const detailsOfEachBookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
       if(!detailsOfEachBookRes.ok)
       throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
       const detailsOfEachBookData =await detailsOfEachBookRes.json();
@@ -257,7 +257,7 @@ async function loadDataOnCategoriesPage(cParam){
     case 'foreign':
       category='foreign';
       try{
-      res=await fetch(`http://openlibrary.org/subjects/fantasy.json?language=eng&limit=70`);
+      res=await fetch(`https://openlibrary.org/subjects/fantasy.json?language=eng&limit=70`);
       if(!res.ok)
       throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
       }
@@ -269,7 +269,7 @@ async function loadDataOnCategoriesPage(cParam){
     case 'psychology':
       category= 'روانشناسی';
       try{
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=70`);
+      res=await fetch(`https://openlibrary.org/subjects/${category}.json?limit=70`);
       if(!res.ok)
        throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
       }
@@ -281,7 +281,7 @@ async function loadDataOnCategoriesPage(cParam){
     case 'poetry':
       category='شعر';
       try{
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?offset=6&limit=70`);
+      res=await fetch(`https://openlibrary.org/subjects/${category}.json?offset=6&limit=70`);
       if(!res.ok)
        throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
       }
@@ -293,7 +293,7 @@ async function loadDataOnCategoriesPage(cParam){
     case 'fiction':
       category= 'ادبیات_داستانی';
       try{
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=70`);
+      res=await fetch(`https://openlibrary.org/subjects/${category}.json?limit=70`);
       if(!res.ok)
        throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
       }
@@ -305,7 +305,7 @@ async function loadDataOnCategoriesPage(cParam){
     case 'education':
       category='آموزشی';
       try{
-      res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=70`);
+      res=await fetch(`https://openlibrary.org/subjects/${category}.json?limit=70`);
       if(!res.ok)
        throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
       }
@@ -320,7 +320,7 @@ async function loadDataOnCategoriesPage(cParam){
   //geting the data about every book in this category and then putting their olid and price in the allBooks array
   let fetchPromises=data.works.map(async book=>{
     try{
-      const detailsOfEachBookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
+      const detailsOfEachBookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${book.cover_edition_key}&jscmd=details&format=json`);
       if(!detailsOfEachBookRes.ok)
        throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
        const detailsOfEachBookData =await detailsOfEachBookRes.json();
@@ -559,7 +559,7 @@ function addCartItems(){
 //fetching the book data on product page
 async function loadDataOnProductPage(bookParamsObj){
   try{
-    const bookRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=data&format=json`);
+    const bookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=data&format=json`);
     if(!bookRes.ok)
     throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
     const bookData =await bookRes.json();
@@ -597,11 +597,11 @@ async function loadDataOnProductPage(bookParamsObj){
       //load data in recommmendedBookBox
       let recommendedRes;
       if(subject==='ادبیات خارجی')
-       recommendedRes=await fetch(`http://openlibrary.org/subjects/fantasy.json?sort=random`);
+       recommendedRes=await fetch(`https://openlibrary.org/subjects/fantasy.json?sort=random`);
        else if(subject==='ادبیات داستانی')
-       recommendedRes=await fetch(`http://openlibrary.org/subjects/ادبیات_داستانی.json?sort=random`);
+       recommendedRes=await fetch(`https://openlibrary.org/subjects/ادبیات_داستانی.json?sort=random`);
       else
-       recommendedRes=await fetch(`http://openlibrary.org/subjects/${subject}.json?sort=random`);
+       recommendedRes=await fetch(`https://openlibrary.org/subjects/${subject}.json?sort=random`);
       let recommendedData=await recommendedRes.json();
    
       let fetchPromises= recommendedData.works.map(async book=>{
@@ -615,7 +615,7 @@ async function loadDataOnProductPage(bookParamsObj){
 
     }
   
-    const bookDetailsRes = await fetch(`http://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=details&format=json`);
+    const bookDetailsRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=details&format=json`);
     if(!bookRes.ok)
     throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
     const bookDetailsData =await bookDetailsRes.json();
