@@ -51,6 +51,7 @@ switch(searchParams.get('c')){
 }
 document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
 document.querySelector('.title-sec .category-title').innerHTML=category;
+document.title=`ثنابوک | ${category}`;
 
 //load books data on the page
 await loadDataOnCategoriesPage(searchParams.get('c'));

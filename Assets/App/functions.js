@@ -565,15 +565,18 @@ async function loadDataOnProductPage(bookParamsObj){
     const bookData =await bookRes.json();
 
     document.getElementById('addToCartBtn').setAttribute('data-olid', bookParamsObj.id);
+
     
     for(const key in bookData){
+      document.title=`ثنابوک | ${bookData[key].title}`;
       let subject;
       let allSubjects=['روانشناسی', 'شعر', 'ادبیات داستانی', 'آموزشی'];
       (allSubjects.some(s=>s===bookData[key].subjects[0].name))?subject=bookData[key].subjects[0].name:subject='ادبیات خارجی';
       document.querySelector('.breadcrumb .subject').innerHTML=subject;
       document.querySelector('.breadcrumb .active').innerHTML=bookData[key].title;
       document.getElementById('bookTitle').innerHTML=bookData[key].title;
-      document.getElementById('authorName').innerHTML=bookData[key].authors[0].name;
+      let authorName=(bookData[key].authors===undefined)?"ناشناس":bookData[key].authors[0].name;
+      document.getElementById('authorName').innerHTML=authorName;
       document.getElementById('bookPic').setAttribute('src', bookData[key].cover.large);
       let isbn=(bookData[key].identifiers.isbn_13===undefined)?'9085895728136':bookData[key].identifiers.isbn_13[0];
       document.getElementById('ISBN').innerHTML=isbn;

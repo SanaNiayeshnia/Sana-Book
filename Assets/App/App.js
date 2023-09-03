@@ -76,6 +76,7 @@ searchInputs.forEach(searchInput=>{
       }
       //adding the new results
       let resultBooksArray=data.docs;
+      console.log(resultBooksArray);
       let index=0; //book index in resultBooksArray
       while(index<resultBooksArray.length){
         searchResultBox.style.opacity=1;
@@ -83,12 +84,12 @@ searchInputs.forEach(searchInput=>{
         let authorName=(resultBooksArray[index]?.author_name===undefined)?"ناشناس":resultBooksArray[index]?.author_name[0];
         if(index===resultBooksArray.length-1){
           searchResultBox.insertAdjacentHTML("beforeend",`
-          <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title"> ${resultBooksArray[index]?.title} | ${authorName} </span><img src="${bookCoverURL}" alt="resultImage" class="result-img img-fluid rounded-1"></a>
+          <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#" data-olid="${resultBooksArray[index].cover_edition_key}"><span class="result-title"> ${resultBooksArray[index]?.title} | ${authorName} </span><img src="${bookCoverURL}" alt="resultImage" class="result-img img-fluid rounded-1"></a>
         `);
         }
         else{
           searchResultBox.insertAdjacentHTML("beforeend",`
-          <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#"><span class="result-title"> ${resultBooksArray[index]?.title} | ${authorName} </span><img src="${bookCoverURL}" alt="resultImage" class="result-img img-fluid rounded-1"></a>
+          <a class="search-result-item text-decoration-none text-white d-flex justify-content-between align-items-center px-2" href="#" data-olid="${resultBooksArray[index].cover_edition_key}"><span class="result-title"> ${resultBooksArray[index]?.title} | ${authorName} </span><img src="${bookCoverURL}" alt="resultImage" class="result-img img-fluid rounded-1"></a>
           <hr class="text-white bg-white my-2">
         `);
         }
