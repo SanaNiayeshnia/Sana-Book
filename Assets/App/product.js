@@ -11,7 +11,6 @@ window.addEventListener('load', ()=>{
     let bookParamsArray=query.split(',');
     let bookParamsObj={id:bookParamsArray[0], realPrice:bookParamsArray[1], salePrice:bookParamsArray[2]};
     loadDataOnProductPage(bookParamsObj);
-    console.log(bookParamsArray, bookParamsObj);
 })
 
 

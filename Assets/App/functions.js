@@ -244,20 +244,6 @@ async function loadDataInBoxesOnIndexPage(){
 
    addCartItems();
 
-   
-   //add the book to cart by clicking on the .add-to-cart-btn
-   Array.from(document.getElementsByClassName('add-to-cart-btn')).forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      if(JSON.parse(localStorage.getItem('cartItems'))!=null)
-      cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];
-      
-      cartItems.push({olid:btn.parentElement.dataset.olid});
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      addCartItems();
-
-    })
-
-   })
 }
 //fetching book data for products box on categories page
 async function loadDataOnCategoriesPage(cParam){
@@ -305,7 +291,7 @@ async function loadDataOnCategoriesPage(cParam){
       break;
 
     case 'fiction':
-      category= 'ادبیات داستانی';
+      category= 'ادبیات_داستانی';
       try{
       res=await fetch(`http://openlibrary.org/subjects/${category}.json?limit=70`);
       if(!res.ok)
@@ -329,10 +315,7 @@ async function loadDataOnCategoriesPage(cParam){
       break;
     default:
   }
-  //puting the subject in active breadcrumb and category title
-  document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
-  document.querySelector('.title-sec .category-title').innerHTML=category;
-
+  
   const data=await res.json();
   //geting the data about every book in this category and then putting their olid and price in the allBooks array
   let fetchPromises=data.works.map(async book=>{
@@ -471,21 +454,9 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
     
     addCartItems()
   
-      //add the book to cart by clicking on the .add-to-cart-btn
-     document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
-       btn.addEventListener('click', ()=>{
-        if(JSON.parse(localStorage.getItem('cartItems'))!=null)
-         cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];
-  
-         cartItems.push({olid:btn.parentElement.dataset.olid});
-         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-         addCartItems();
-       })
-      })
-    
     }
 
-    },3000);
+  },3000);
 
   //remove previous publishers' names to the pub-list
   document.querySelectorAll('.pub-list li').forEach(li=>{
@@ -548,8 +519,8 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
 } 
 
 function addCartItems(){
-  Array.from(document.getElementsByClassName('add-to-cart-btn')).forEach(btn=>{
     let cartCount;
+    let orderCount;
     if(JSON.parse(localStorage.getItem('cartItems'))!=null){
       cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
     }
@@ -557,11 +528,34 @@ function addCartItems(){
       localStorage.setItem('cartItems',JSON.stringify(cartItems));
       cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
     }
-    let orderCount=(cartCount<=5)?cartCount:"+5";
+    orderCount=(cartCount<=5)?cartCount:"+5";
     document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
     
+
+    //add the book to cart by clicking on the .add-to-cart-
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
+     btn.addEventListener('click', ()=>{
+      if(JSON.parse(localStorage.getItem('cartItems'))!=null)
+       cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];
+
+       cartItems.push({olid:btn.parentElement.dataset.olid});
+       localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+      orderCount=(cartCount<=5)?cartCount:"+5";
+      document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
+      
+
+       //show the addToCart alert 
+       let addToCartAlert=document.getElementById('addToCartToast');
+       let addToCartToast = new bootstrap.Toast(addToCartAlert);
+       addToCartToast.show();
+
+    })
   })
+
 }
+
 //fetching the book data on product page
 async function loadDataOnProductPage(bookParamsObj){
   try{
@@ -571,7 +565,6 @@ async function loadDataOnProductPage(bookParamsObj){
     const bookData =await bookRes.json();
     
     for(const key in bookData){
-      console.log(bookData);
       let subject;
       let allSubjects=['روانشناسی', 'شعر', 'ادبیات داستانی', 'آموزشی'];
       (allSubjects.some(s=>s===bookData[key].subjects[0].name))?subject=bookData[key].subjects[0].name:subject='ادبیات خارجی';
@@ -611,9 +604,13 @@ async function loadDataOnProductPage(bookParamsObj){
        recommendedRes=await fetch(`http://openlibrary.org/subjects/${subject}.json?sort=random`);
       let recommendedData=await recommendedRes.json();
    
-      recommendedData.works.forEach(book=>{
-        fetchAndLoadDetailsOfBooks(book.cover_edition_key, '#recommendedBooksBox');
+      let fetchPromises= recommendedData.works.map(async book=>{
+        await fetchAndLoadDetailsOfBooks(book.cover_edition_key, '#recommendedBooksBox');
       })
+
+      await Promise.all(fetchPromises);
+
+      addCartItems()
 
 
     }
@@ -623,7 +620,6 @@ async function loadDataOnProductPage(bookParamsObj){
     throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
     const bookDetailsData =await bookDetailsRes.json();
     for (const key in bookDetailsData) {
-      console.log(bookDetailsData[key]);
       let editionNum=(bookDetailsData[key].details.edition_name===undefined)?1:bookDetailsData[key].details.edition_name;
       document.getElementById('editionNum').innerHTML=editionNum;
       let physicalCover=(bookDetailsData[key].details.physical_format===undefined)?'شومیز':bookDetailsData[key].details.physical_format;

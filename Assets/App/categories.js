@@ -31,6 +31,27 @@ let pageCount;
 let searchParams=new URLSearchParams(location.search);
 
 window.addEventListener('load', async()=>{
+let category;
+switch(searchParams.get('c')){
+    case 'foreign':
+        category='ادبیات خارجی';
+      break;
+    case 'psychology':
+      category= 'روانشناسی';
+        break;
+    case 'poetry':
+      category='شعر';
+      break;
+    case 'fiction':
+      category= 'ادبیات داستانی';
+      break;
+    case 'education':
+      category='آموزشی';
+      break;
+}
+document.querySelector('.title-sec .breadcrumb .active').innerHTML=category;
+document.querySelector('.title-sec .category-title').innerHTML=category;
+
 //load books data on the page
 await loadDataOnCategoriesPage(searchParams.get('c'));
 sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber, makePaginationBtns, addRemovingEventsToAppliedFilter, makePaginationBtns, addRemovingEventsToAppliedFilter);

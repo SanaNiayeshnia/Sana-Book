@@ -757,6 +757,33 @@ footer .reserved-rights span{
     font-family: 'Vazir-FarsiDigits';
 }
 
+/*toasts*/
+.toast-alert .toast-icon{
+width: 30px ;
+}
+.toast-alert .toast-header{
+    border-radius: 1.5rem 1.5rem 0 0 !important;
+    border-bottom: solid 2px var(--pastelBlue);
+
+}
+.toast-alert .toast-header i{
+color:var(--mainBlue);
+}
+.toast-alert .toast-header h6{
+    font-family: 'Vazir-Bold';
+}
+.toast-alert .close-icon{
+    cursor: pointer;
+}
+.toast-alert .toast-body{
+    background-color: white;
+    border-radius:0 0 1.5rem 1.5rem !important;
+}
+.toast-alert .toast{
+    border: 2px solid var(--pastelBlue);
+}
+
+    
 /*breakpoint in medium screen*/
 @media screen and (min-width:768px){
     .top-nav li a:not(.active):hover {

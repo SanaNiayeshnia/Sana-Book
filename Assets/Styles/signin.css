@@ -188,19 +188,6 @@ form .submit-button:active{
 .signin-form .username-box{
     display: none !important;
 }
-/*toasts*/
-.toast-icon{
-width: 30px;
-}
-#signupToast .toast-header i{
-color:var(--mainBlue);
-}
-#signupToast .toast-header h6{
-    font-family: 'Vazir-Bold';
-}
-.close-icon{
-    cursor: pointer;
-}
 
 
 /*breakpoint in small screen*/
