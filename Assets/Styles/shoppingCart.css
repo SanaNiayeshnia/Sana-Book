@@ -1,0 +1,264 @@
+@font-face {
+    font-family: 'Vazir-Regular';
+    src: url('../Fonts/Vazir/Vazir-Regular.eot') format('eot'), url('../Fonts/Vazir/Vazir-Regular.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Regular.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-Bold';
+    src: url('../Fonts/Vazir/Vazir-Bold.eot') format('eot'), url('../Fonts/Vazir/Vazir-Bold.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Bold.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-Medium';
+    src: url('../Fonts/Vazir/Vazir-Medium.eot') format('eot'), url('../Fonts/Vazir/Vazir-Medium.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Medium.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'Vazir-FarsiDigits';
+    src: url('../Fonts/Vazir/Vazir-Regular-FD.eot') format('eot'), url('../Fonts/Vazir/Vazir-Regular-FD.woff') format('woff'),
+    url('../Fonts/Vazir/Vazir-Regular-FD.woff2') format('woff2')
+}
+@font-face {
+    font-family: 'GTWalshame-Regular';
+    src: url('../Fonts/GT\ Walshame/GTWalsheimPro-CondensedRegular.eot') format('eot'), url('../Fonts/GT\ Walshame/GTWalsheimPro-CondensedRegular.woff') format('woff'),
+    url('../Fonts/GT\ Walshame/GTWalsheimPro-CondensedRegular.woff2') format('woff2')
+}
+
+*{
+    font-family: 'Vazir-Regular';
+}
+
+:root{
+    --mainPink: #E99EC9;
+    --mainBlue: #6699CC;
+    --darkPink:#e264ab;
+    --darkBlue:#5d8dbd;
+    --pastelGreen: #d9f6ce;
+    --pastelPink:#f5c7e0;
+    --pastelBlue: #c2dcf7;
+    --mainTextColor: #263238;
+}
+
+
+/*top-sec*/
+.top-sec .title{
+    font-family: 'Vazir-Bold';
+}
+
+.top-sec .title span{
+    color: var(--mainBlue);
+    font-weight: 600;
+}
+hr{
+    height: 3px;
+    background-color: var(--mainBlue);
+    opacity: 0.7;
+    border: none;
+    
+}
+
+/*cart-sec*/
+/*cart-table*/
+.cart-table .head{
+    background-color: var(--pastelBlue);
+}
+.cart-table .head th:first-child{
+    border-top-right-radius: 1rem ;
+}
+.cart-table .head th:last-child{
+    border-top-left-radius: 1rem ;
+}
+.cart-table .head th{
+    font-family: 'Vazir-Bold';
+    font-weight: 500 !important;
+}
+.cart-table tbody tr:not(tr:last-child){
+    border-bottom: 2px solid var(--pastelBlue);
+}
+.cart-table .real-price{
+    color: #252424be;
+    font-family:'Vazir-FarsiDigits';
+    font-size: 1rem;
+}
+.cart-table .single-price, .cart-table .total-price{
+    font-family:'Vazir-FarsiDigits';
+    font-size: 1.05rem;
+    color: var(--mainTextColor);
+}
+.cart-table .book-link{
+    color: var(--mainTextColor);
+}
+.cart-table .book-link:hover .book-pic{
+transform: scale(1.1);
+filter: contrast(1.3);
+border-radius: 0rem;
+}
+.cart-table #bookTitle{
+   font-family: 'Vazir-Medium';
+}
+.cart-table .book-pic{
+    width: 50px;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+.cart-table .book-link .olid{
+    color: #252424be !important;
+    font-size: 0.9rem;
+}
+.cart-table .discount-badge{
+font-family: 'Vazir-FarsiDigits';
+font-size: 0.7rem;
+background-color: var(--darkPink);
+color: white;
+text-align: center;
+}
+.cart-table .quantity-box i{
+    background-color: var(--pastelBlue);
+    color: var(--mainTextColor);
+    border:solid #a1c0e0;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+.cart-table .quantity-box i:hover{
+    background-color: #a1c0e0;
+}
+.cart-table .quantity-box .quantity-plus{
+    border-width: 2px 2px 2px 0;
+}
+.cart-table .quantity-box .quantity-minus{
+    border-width: 2px 0 2px 2px;
+}
+.cart-table .quantity-input{
+    width: 50px;
+    padding: 0.2rem;
+    border: 2px solid #a1c0e0;
+    transition: all 0.3s;
+    font-family: 'Vazir-FarsiDigits';
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+.cart-table .quantity-input:focus{
+    outline: none;
+    border-color: var(--mainBlue);
+}
+
+.cart-table tfoot tr td{
+    background-color: var(--pastelBlue);
+}
+.cart-table tfoot tr td:last-child{
+    border-bottom-left-radius: 1rem;
+}
+.cart-table tfoot tr td:first-child{
+    border-bottom-right-radius: 1rem !important;
+}
+.cart-table tfoot td:first-child>p{
+    font-family:'Vazir-Bold';
+    color: var(--mainTextColor);
+}
+
+/*cart-table-mobile-screen*/
+.cart-table-mobile-screen .title, .cart-table-mobile-screen p{
+font-family: 'Vazir-Medium';
+color: var(--mainTextColor);
+font-size: 0.9rem;
+}
+.cart-table-mobile-screen>p{
+    font-family: 'Vazir-Bold';
+    font-size: 1rem !important;
+    background-color: var(--pastelBlue);
+}
+.cart-table-mobile-screen p{
+font-size: 0.9rem;
+color: var(--mainTextColor);
+}
+
+.cart-table-mobile-screen .product-box .real-price{
+font-size: 0.9rem;
+}
+.cart-table-mobile-screen .product-box .single-price{
+    font-size: 1rem;
+}
+.cart-table-mobile-screen .product-box .discount-badge{
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+}
+.cart-table-mobile-screen .product-box .quantity-input{
+    padding: 0.1rem;
+    font-size: 1rem;
+}
+.cart-table-mobile-screen .product-box .quantity-box i{
+    padding: 0.1rem;
+    font-size: 0.7rem;
+}
+.cart-table-mobile-screen .product-box:not(.product-box:last-child){
+border-bottom:var(--pastelBlue) 2px solid;
+}
+/*cart-bill*/
+.cart-bill p, .cart-bill div{
+    color: var(--mainTextColor);
+}
+.cart-bill>div{
+    font-family: 'Vazir-Medium';
+}
+.cart-bill .head , .cart-bill .foot{
+background-color: var(--pastelPink);
+font-family: 'Vazir-Bold';
+}
+.cart-bill .price{
+    font-family: 'Vazir-FarsiDigits';
+    font-size: 1.05rem;
+}
+
+/*payment-button*/
+#paymentButton{
+    border:none;
+    font-family: 'Vazir-Medium';
+    background-image: linear-gradient(to left, var(--pastelPink), var(--pastelBlue));
+    transition: all 0.3s;
+}
+#paymentButton:active{
+    background-image: linear-gradient(to left, var(--pastelBlue), var(--pastelPink));
+    box-shadow: 0 0 10px 1px var(--pastelPink);
+}
+/*marketing-sec*/
+/*marketing*/
+.marketing .marketing-icon{
+    width: 30px;
+}
+
+.marketing .option{
+    box-shadow: 0 3px 5px 1px rgb(150, 145, 145);
+    color: var(--mainTextColor);
+    font-size: 0.75rem;
+}
+
+
+/*breakpoint small screen*/
+@media screen and (min-width:576px){
+    .marketing .marketing-icon{
+        width: 60px;
+    }
+    .marketing .option{
+        font-size: 0.9rem;
+    }
+}
+/*breakpoint medium screen*/
+@media screen and (min-width:768px){
+    .top-sec .top-row{
+        margin-top: -80px;
+    }
+    .marketing .option{
+        font-size: 1rem;
+    }
+}
+
+/*breakpoint in extra large screen*/
+@media screen and (min-width:1200px){
+    .top-sec .top-row{
+        margin-top: -120px;
+    }
+}
