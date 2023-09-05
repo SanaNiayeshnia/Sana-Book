@@ -740,6 +740,17 @@ let fetchPromises=cartItems.map(async item=>{
       </tr>
       `);
 
+      if(bookPrice>150){
+        priceElementContent=`
+        <div class="d-flex gap-3 align-items-center">
+        <p class="discount-badge p-1 rounded-pill mb-1">%30 تخفیف</p>
+        <p class="real-price text-decoration-line-through mb-0">${bookPrice},000</p>
+        <p class="mb-0">
+          <span class="single-price sale-price me-1">${salePrice},000</span>تومان
+        </p>
+        </div>
+        `;
+      }
       //add items to the cartTableMobileScreen element
       cartTableMobileScreen.insertAdjacentHTML('beforeend', `
       <div class="product-box pt-2 pb-3" data-olid="${item.olid}">

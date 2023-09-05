@@ -167,6 +167,14 @@ sortBoxBtns.forEach(btn=>{btn.addEventListener('click', (event)=>{
     })
    sortFilter=event.target.dataset.sort;
    publisherFilter=document.querySelector('.pub-list li.selected')?.innerHTML || 'all';
+   
+    //make new page buttons and go to the first page
+    pageNumber=1;
+    if(pageCount>4){
+        nextPageBtn.style.display='block';
+    }
+    makePaginationBtns();
+    
   //sort books according to the filters 
 switch(sortFilter){
     case 'newest':
@@ -182,6 +190,13 @@ switch(sortFilter){
         sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber, makePaginationBtns, addRemovingEventsToAppliedFilter);
     break;
 }
+    //make new page buttons and go to the first page
+    pageNumber=1;
+    if(pageCount>4){
+        nextPageBtn.style.display='block';
+    }
+    makePaginationBtns();
+
 })})
 
 //add filter to applied filters by checking the availibily switch
