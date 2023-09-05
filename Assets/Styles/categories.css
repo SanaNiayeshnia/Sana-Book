@@ -46,7 +46,7 @@ body{
 }
 
 /*title-sec*/
-.breadcrumb-item a{
+.breadcrumb-item a, .breadcrumb-item:not(.active){
 color: #000000A6;
 }
 .breadcrumb-item.active{

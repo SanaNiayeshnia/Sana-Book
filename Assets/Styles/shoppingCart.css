@@ -88,6 +88,14 @@ hr{
 .cart-table .book-link{
     color: var(--mainTextColor);
 }
+.cart-table .remove-cart-item-btn{
+    color: var(--darkBlue);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.cart-table .remove-cart-item-btn:hover{
+    color: var(--darkPink);
+}
 .cart-table .book-link:hover .book-pic{
 transform: scale(1.1);
 filter: contrast(1.3);
@@ -197,6 +205,14 @@ font-size: 0.9rem;
 .cart-table-mobile-screen .product-box:not(.product-box:last-child){
 border-bottom:var(--pastelBlue) 2px solid;
 }
+.no-cart-item{
+    display: none;
+
+}
+.no-cart-item p{
+    font-family: 'Vazir-Bold';
+    font-size: 1.3rem;
+}
 /*cart-bill*/
 .cart-bill p, .cart-bill div{
     color: var(--mainTextColor);
@@ -216,7 +232,7 @@ font-family: 'Vazir-Bold';
 /*payment-button*/
 #paymentButton{
     border:none;
-    font-family: 'Vazir-Medium';
+    font-size: 1.1rem;
     background-image: linear-gradient(to left, var(--pastelPink), var(--pastelBlue));
     transition: all 0.3s;
 }

@@ -39,7 +39,7 @@
             <div class="login-and-cart-icon d-md-none d-flex align-items-center">
               <a class="login-btn text-decoration-none d-flex align-items-center" href="signin.html"><i class="fa-solid fa-right-to-bracket fs-4 login-icon me-2"></i></a>
               <span class="fs-4 divider">|</span>
-              <a href="#"><i class="cart-icon fa-solid fa-cart-shopping fs-4 p-0 mx-2 position-relative"><span class="badge position-absolute top-0 start-100 translate-middle rounded-2"></span></i></a>
+              <a href="shoppingCart.html"><i class="cart-icon fa-solid fa-cart-shopping fs-4 p-0 mx-2 position-relative"><span class="badge position-absolute top-0 start-100 translate-middle rounded-2"></span></i></a>
             </div>
 
             <!--offcanvas-->
@@ -119,7 +119,7 @@
                       </li>
                       <span class="fs-4 d-none d-md-inline divider">|</span>
                       <li class="nav-item d-none d-md-inline">
-                        <a class="nav-link" href="#" aria-disabled="true"><i class="fa-solid fa-cart-shopping cart-icon fs-4 mx-2 position-relative"><span class="badge position-absolute top-0 start-0 translate-middle rounded-2"></span></i></a>
+                        <a class="nav-link" href="shoppingCart.html" aria-disabled="true"><i class="fa-solid fa-cart-shopping cart-icon fs-4 mx-2 position-relative"><span class="badge position-absolute top-0 start-0 translate-middle rounded-2"></span></i></a>
                       </li>
 
                     </ul>
@@ -147,10 +147,10 @@
       <div class="container-xl px-5 px-xl-0">
           <nav aria-label="breadcrumb mb-0">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#" class="text-decoration-none">خانه</a></li>
-              <li class="breadcrumb-item"><a href="#" class="text-decoration-none">دسته بندی کتاب‌ها</a></li>
-              <li class="breadcrumb-item"><a href="#" class="text-decoration-none subject">ادبیات داستانی</a></li>
-              <li class="breadcrumb-item active" aria-current="page">بلندی‌های بادگیر</li>
+              <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">خانه</a></li>
+              <li class="breadcrumb-item">دسته بندی کتاب‌ها</li>
+              <li class="breadcrumb-item"><a href="#" class="text-decoration-none subject">دسته بندی کتاب</a></li>
+              <li class="breadcrumb-item active" aria-current="page">نام کتاب</li>
             </ol>
           </nav>
 
@@ -160,8 +160,8 @@
                       <div><img src="./Assets/Images/Icons/placeholder-lineal-colored.png" class="img-fluid availability-icon" alt="availabilityIcon">موجود</div>                
                   </div>
                 
-                  <h2 class="book-title text-center"><span>«</span><span id="bookTitle">بلندی‌های بادگیر</span><span>»</span></h2>
-                  <h5 class="author-name text-center mb-3">اثر <span id="authorName">امیلی برونته</span></h5>
+                  <h2 class="book-title text-center"><span>«</span><span id="bookTitle">نام کتاب</span><span>»</span></h2>
+                  <h5 class="author-name text-center mb-3">اثر <span id="authorName">نام نویسنده</span></h5>
                   <div class="rate-stars d-flex gap-2 justify-content-center mb-5 mb-md-4  mb-lg-5">
                       <i class="fa-regular fa-star"></i>
                       <i class="fa-regular fa-star"></i>
@@ -180,7 +180,7 @@
               <div class="book-pic-container col-sm-10 col-md-6">
                   <svg class="arrow" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 640 800"><g stroke-width="10" stroke="#e264ab" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8.5 19" transform="matrix(-0.754709580222772,0.6560590289905073,-0.6560590289905073,-0.754709580222772,945.93067726749,500.94494281214645)"><path d="M214 291.6066436767578Q265 540.6066436767578 426 503.6066436767578 " marker-end="url(#SvgjsMarker2668)"></path></g><defs><marker markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" viewBox="0 0 7 7" orient="auto" id="SvgjsMarker2668"><polyline points="0,3.5 3.5,1.75 0,0" fill="none" stroke-width="1.1666666666666667" stroke="#e264ab" stroke-linecap="round" transform="matrix(1,0,0,1,1.1666666666666667,1.75)" stroke-linejoin="round"></polyline></marker></defs></svg>
                   <img src="./Assets/Images/Waves/blob-haikei (1).svg" alt="blobPic" class="blob-pic img-fluid">
-                  <img src="Assets/Images/Books/foreign/book11.jpg" alt="bookPic" id="bookPic" class="book-pic">
+                  <img src="Assets/Images/undefined-bookcover.jpg" alt="bookPic" id="bookPic" class="book-pic">
               </div>
             
           </div>
@@ -194,15 +194,15 @@
               </div>
               <div class="col-lg-6 book-info my-5 my-lg-0 d-block d-md-flex justify-content-around align-items-center">
                 <div class="part1">
-                  <p><i class="fa-solid fa-circle me-2"></i>انتشارات: <span id="publisher">پرتقال</span></p>
-                  <p><i class="fa-solid fa-circle me-2"></i>کد کتاب: <span id="bookId">hgsfhshb3612</span></p>
-                  <p><i class="fa-solid fa-circle me-2"></i>شابک: <span id="ISBN">635178571717689</span></p>
+                  <p><i class="fa-solid fa-circle me-2"></i>انتشارات: <span id="publisher"></span></p>
+                  <p><i class="fa-solid fa-circle me-2"></i>کد کتاب: <span id="bookId"></span></p>
+                  <p><i class="fa-solid fa-circle me-2"></i>شابک: <span id="ISBN"></span></p>
                 </div>
                 <div class="part2">
-                  <p><i class="fa-solid fa-circle me-2"></i>تعداد صفحات: <span id="pageCount">347</span></p>
-                  <p><i class="fa-solid fa-circle me-2"></i>سال انتشار: <span id="publishDate">1399</span></p>
-                  <p><i class="fa-solid fa-circle me-2"></i>سری چاپ: <span id="editionNum">2</span></p>
-                  <p><i class="fa-solid fa-circle me-2"></i>نوع جلد: <span id="physicalCover">شومیز</span></p>
+                  <p><i class="fa-solid fa-circle me-2"></i>تعداد صفحات: <span id="pageCount"></span></p>
+                  <p><i class="fa-solid fa-circle me-2"></i>سال انتشار: <span id="publishDate"></span></p>
+                  <p><i class="fa-solid fa-circle me-2"></i>سری چاپ: <span id="editionNum"></span></p>
+                  <p><i class="fa-solid fa-circle me-2"></i>نوع جلد: <span id="physicalCover"></span></p>
                 </div>
               </div>
           </div>
@@ -313,9 +313,9 @@
   <div class="toast-container toast-alert position-fixed bottom-0 start-0 p-3">
     <div id="addToCartToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
+        <i class="close-icon fa-solid fa-close fs-5 me-2" data-bs-dismiss="toast" aria-label="Close"></i>
         <img src="Assets/Images/Logo/Title Icon.png" class="toast-icon rounded me-2 img-fluid" alt="toastIcon">
-        <h6 class="me-auto mb-0 align-middle">ثنا بوک</h6>
-        <i class="close-icon fa-solid fa-close fs-5" data-bs-dismiss="toast" aria-label="Close"></i>
+        <h6 class="mb-0 align-middle">ثنا بوک</h6>
       </div>
       <div class="toast-body">
         محصول مورد نظر به سبد خریدتان اضافه شد.

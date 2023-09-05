@@ -247,8 +247,8 @@ span.second-sec-title{
     top: 60px;
     opacity: 0;
     transition: all 0.5s;
-    max-height: 300px;
     overflow: auto;
+    z-index: 3;
 }
 .search-result-box hr{
 height: 1px;

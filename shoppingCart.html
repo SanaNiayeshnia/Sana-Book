@@ -156,9 +156,9 @@
 
       <section class="cart-sec">
         <div class="container-lg px-5 px-lg-0">
-          <div class="row align-items-center justify-content-center">
+          <div class="row align-items-start justify-content-center">
             <div class="col-sm-10 col-md-12 col-lg-8 px-lg-2 px-xl-3 mb-4 mb-lg-0">
-              <table class="cart-table d-none d-md-table p-0 w-100">
+              <table class="cart-table d-none d-md-table p-0 w-100" id="cartTableDesktopScreen">
                 <thead>
                   <tr class="head">
                     <th class="p-3">محصول</th>
@@ -169,164 +169,19 @@
                 </thead>
     
                 <tbody>
-                  <tr>
-                    <td class="p-3">
-                      <a href="#" class="book-link text-decoration-none d-flex align-items-center">
-                        <img src="تکه هایی از یک کل منسجم.jpg" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
-                        <div class="">
-                          <p class="mb-0" id="bookTitle">تکه‌هایی از یک کل منسجم</p>
-                          <p class="mb-1" id="bookAuthor">پونه مقیمی</p>
-                          <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">GFdsdhj31353</span></p>
-                        </div>
-                      </a>
-                    </td>
-                    <td class="text-center d-flex flex-column align-items-center justify-content-center p-3">
-                      <p class="discount-badge p-1 rounded-pill mb-1">%30 تخفیف</p>
-                      <p class="real-price text-decoration-line-through mb-0">130,000</p>
-                      <p class="mb-0">
-                        <span class="single-price me-1">100,000</span>تومان
-                      </p>
-                    </td>
-                    <td class="p-3">
-                      <div class="quantity-box d-flex align-items-center justify-content-center p-0">
-                        <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
-                        <input type="number" value="1" class="quantity-input text-center">
-                        <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
       
-                      </div>
-                    </td>
-                    <td class="text-center"><span class="total-price text-center me-1">200,000</span>تومان</td>
-                  </tr>
-                  <tr>
-                    <td class="p-3">
-                      <a href="#" class="book-link text-decoration-none d-flex align-items-center">
-                        <img src="تکه هایی از یک کل منسجم.jpg" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
-                        <div class="">
-                          <p class="mb-0" id="bookTitle">تکه‌هایی از یک کل منسجم</p>
-                          <p class="mb-1" id="bookAuthor">پونه مقیمی</p>
-                          <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">GFdsdhj31353</span></p>
-                        </div>
-                      </a>
-                    </td>
-                    <td class="text-center d-flex flex-column align-items-center justify-content-center p-3">
-                      <p class="discount-badge p-1 rounded-pill mb-1">%30 تخفیف</p>
-                      <p class="real-price text-decoration-line-through mb-0">130,000</p>
-                      <p class="mb-0">
-                        <span class="single-price me-1">100,000</span>تومان
-                      </p>
-                    </td>
-                    <td class="p-3">
-                      <div class="quantity-box d-flex align-items-center justify-content-center p-0">
-                        <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
-                        <input type="number" value="1" class="quantity-input text-center">
-                        <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
-      
-                      </div>
-                    </td>
-                    <td class="text-center"><span class="total-price text-center me-1">200,000</span>تومان</td>
-                  </tr>
-                  <tr>
-                    <td class="p-3">
-                      <a href="#" class="book-link text-decoration-none d-flex align-items-center">
-                        <img src="تکه هایی از یک کل منسجم.jpg" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
-                        <div class="">
-                          <p class="mb-0" id="bookTitle">تکه‌هایی از یک کل منسجم</p>
-                          <p class="mb-1" id="bookAuthor">پونه مقیمی</p>
-                          <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">GFdsdhj31353</span></p>
-                        </div>
-                      </a>
-                    </td>
-                    <td class="text-center d-flex flex-column align-items-center justify-content-center p-3">
-                      <p class="discount-badge p-1 rounded-pill mb-1">%30 تخفیف</p>
-                      <p class="real-price text-decoration-line-through mb-0">130,000</p>
-                      <p class="mb-0">
-                        <span class="single-price me-1">100,000</span>تومان
-                      </p>
-                    </td>
-                    <td class="p-3">
-                      <div class="quantity-box d-flex align-items-center justify-content-center p-0">
-                        <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
-                        <input type="number" value="1" class="quantity-input text-center">
-                        <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
-      
-                      </div>
-                    </td>
-                    <td class="text-center"><span class="total-price text-center me-1">200,000</span>تومان</td>
-                  </tr>
                 </tbody>
     
      
     
               </table>
-              <div class="cart-table cart-table-mobile-screen d-md-none">
+              <div class="cart-table cart-table-mobile-screen d-md-none" id="cartTableMobileScreen">
                 <p class="p-3 text-center rounded-top-4 mb-0">محصولات</p>
-                <div class="product-box py-3">
-                  <a href="#" class="book-link text-decoration-none d-flex align-items-center mb-3 px-2">
-                    <img src="تکه هایی از یک کل منسجم.jpg" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
-                    <div class="">
-                      <p class="mb-0" id="bookTitle">تکه‌هایی از یک کل منسجم</p>
-                      <p class="mb-1" id="bookAuthor">پونه مقیمی</p>
-                      <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">GFdsdhj31353</span></p>
-                    </div>
-                  </a>
-                  <div class="d-flex gap-3 align-items-center mb-2 px-2">
-                    <p class="title mb-0">قیمت واحد:</p>
-                    <p class="real-price text-decoration-line-through mb-0">130,000</p>
-                    <p class="discount-badge p-1 mb-1">%30</p>
-                    <p class="mb-0">
-                      <span class="single-price me-1">100,000</span>تومان
-                    </p>
-                  </div>
-                  <div class="d-flex gap-3 align-items-center mb-2 px-2">
-                    <p class="title mb-0">تعداد:</p>
-                    <div class="quantity-box d-flex align-items-center justify-content-center p-0">
-                      <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
-                      <input type="number" value="1" class="quantity-input text-center">
-                      <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
-                    </div>
-                  </div>
-                  <div class="d-flex gap-3 align-items-center px-2">
-                    <p class="title mb-0">قیمت نهایی:</p>
-                    <p class="mb-0 text-center">
-                      <span class="total-price me-1">200,000</span>تومان
-                    </p>   
-                  </div>
-                           
-                </div>
-                <div class="product-box py-3">
-                  <a href="#" class="book-link text-decoration-none d-flex align-items-center mb-3 px-2">
-                    <img src="تکه هایی از یک کل منسجم.jpg" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
-                    <div class="">
-                      <p class="mb-0" id="bookTitle">تکه‌هایی از یک کل منسجم</p>
-                      <p class="mb-1" id="bookAuthor">پونه مقیمی</p>
-                      <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">GFdsdhj31353</span></p>
-                    </div>
-                  </a>
-                  <div class="d-flex gap-3 align-items-center mb-2 px-2">
-                    <p class="title mb-0">قیمت واحد:</p>
-                    <p class="real-price text-decoration-line-through mb-0">130,000</p>
-                    <p class="discount-badge p-1 mb-1">%30</p>
-                    <p class="mb-0">
-                      <span class="single-price me-1">100,000</span>تومان
-                    </p>
-                  </div>
-                  <div class="d-flex gap-3 align-items-center mb-2 px-2">
-                    <p class="title mb-0">تعداد:</p>
-                    <div class="quantity-box d-flex align-items-center justify-content-center p-0">
-                      <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
-                      <input type="number" value="1" class="quantity-input text-center">
-                      <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
-                    </div>
-                  </div>
-                  <div class="d-flex gap-3 align-items-center px-2">
-                    <p class="title mb-0">قیمت نهایی:</p>
-                    <p class="mb-0 text-center">
-                      <span class="total-price me-1">200,000</span>تومان
-                    </p>   
-                  </div>
-                           
-                </div>
-                 
+              </div>
+              <div class="no-cart-item">
+                <img src="Assets/Images/Illustrations/sad face.svg" alt="noCartItemPic" class="img-fluid">
+                <p class="text-center">سبد خرید شما خالی می‌باشد!</p>
+
               </div>
 
             </div>
@@ -335,16 +190,16 @@
               <div class="cart-bill mb-3">
                 <p class="head text-center p-3 rounded-top-4">مجموع سبد خرید</p>
                 <div class="d-flex justify-content-between px-2">قیمت کل سفارش:
-                  <p class="ms-1"><span class="price me-1">600,000</span>تومان</p>
+                  <p class="ms-1"><span class="price me-1" id="totalCartPrice">600,000</span>تومان</p>
                 </div>
                 <div class="d-flex justify-content-between px-2">تخفیف:
-                  <p class="ms-1"><span class="price me-1">200,000</span>تومان</p>
+                  <p class="ms-1"><span class="price me-1" id="totalDiscount">200,000</span>تومان</p>
                 </div>
                 <div class="d-flex justify-content-between px-2">بسته بندی و ارسال:
                   <p class="ms-1">وابسته به نوع ارسال</p>
                 </div>
                 <div class="foot d-flex justify-content-between py-3 px-2 rounded-bottom-4">قیمت قابل پرداخت:
-                  <p class="ms-1 mb-0"><span class="price me-1" id="totalCartprice">400,000</span>تومان</p>
+                  <p class="ms-1 mb-0"><span class="price me-1" id="finalTotalPrice">400,000</span>تومان</p>
                 </div>
   
   

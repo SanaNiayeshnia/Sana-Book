@@ -92,7 +92,7 @@
 .breadcrumb{
     margin-top: 30px !important;
 }
-.breadcrumb-item a{
+.breadcrumb-item a, .breadcrumb-item:not(.active){
     color: #000000A6;
 }
 .breadcrumb-item.active{

@@ -13,15 +13,13 @@ async function fetchAndLoadDetailsOfBooks(bookId, query){
         const detailsOfEachBookData =await detailsOfEachBookRes.json();
 
         for (const key in  detailsOfEachBookData) {
-         publishers.add(detailsOfEachBookData[key].details.publishers[0]);
           let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
-          bookPrice=(isNaN(Number(bookPrice)))?Math.floor(Math.random()*(400-100)+100):bookPrice;
+          bookPrice=(isNaN(Number(bookPrice)))?Number(bookId.slice(-4,-1)):bookPrice;
           let cardTextContent;
           let discountBadge;
-          let salePrice;
           //if the price of the book was more than 150, add the sale price and the discount badge
           if(bookPrice>150){
-          salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+          let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
           cardTextContent=`
           <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
           <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>`;
@@ -29,13 +27,12 @@ async function fetchAndLoadDetailsOfBooks(bookId, query){
           <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
           }
           else{
-            salePrice=bookPrice;
             cardTextContent=`
             <p class="price text-center "> ${bookPrice},000 <span>تومان</span></p>`;
             discountBadge='';
           }
           //the href
-          let href=`product.html?q=${bookId},${bookPrice},${salePrice}`
+          let href=`product.html?id=${bookId}`;
           //load data on the page
           document.querySelector(`${query}`).insertAdjacentHTML('beforeend', `
           <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${bookId}">
@@ -98,7 +95,7 @@ async function loadDataInBoxesOnIndexPage(){
 
       //fetch up to 15 english fantasy book for the foreign literature category on the main page
       try{
-      const foreignRes=await fetch('https://openlibrary.org/subjects/fantasy.json?language=eng&limit=15');
+      const foreignRes=await fetch('https://openlibrary.org/subjects/fantasy.json?language=eng&limit=15&sort=random');
       if(!foreignRes.ok)
       throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
      
@@ -139,11 +136,10 @@ async function loadDataInBoxesOnIndexPage(){
         document.querySelector('.sale-box .book-loader').style.display='none'; //hiding book loader
         for (const key in  detailsOfEachBookData) {
           let bookPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
-          let salePrice;
           if(bookPrice>150){
-            salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+            let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
             //the href
-            let href=`product.html?q=${book.cover_edition_key},${bookPrice},${salePrice}`;
+            let href=`product.html?id=${book.cover_edition_key}`;
             //load data on the page
             document.querySelector('.sale-box .recommend-box-cards').insertAdjacentHTML('beforeend', `
             <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${book.cover_edition_key}">
@@ -155,7 +151,7 @@ async function loadDataInBoxesOnIndexPage(){
                 </div>
             </a>
                 <div class="card-body d-flex flex-column justify-content-between p-0">
-                  <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href"${href}"><span>«</span>${book.title}<span>»</span></a>
+                  <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href="${href}"><span>«</span>${book.title}<span>»</span></a>
                   <div class="card-text mb-2">
                     <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
                     <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>
@@ -164,8 +160,6 @@ async function loadDataInBoxesOnIndexPage(){
             </div>
           `)
           }
-          else
-          salePrice=bookPrice;
   
         }
       }
@@ -196,10 +190,9 @@ async function loadDataInBoxesOnIndexPage(){
         bookPrice= (typeof(pricebook)!=Number)? Math.floor(Math.random()*(400-100)+100): bookPrice;
         let cardTextContent;
         let discountBadge;
-        let salePrice;
         //if the price of the book was more than 150, add the sale price and the discount badge
         if(bookPrice>150){
-        salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+        let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
         cardTextContent=`
         <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
         <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>`;
@@ -207,13 +200,12 @@ async function loadDataInBoxesOnIndexPage(){
         <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
         }
         else{
-          salePrice=bookPrice;
           cardTextContent=`
           <p class="price text-center "> ${bookPrice},000 <span>تومان</span></p>`;
           discountBadge='';
         }
         //the href
-        let href=`product.html?q=${book.cover_edition_key},${bookPrice},${salePrice}`;
+        let href=`product.html?id=${book.cover_edition_key}`;
         //load data on the page
         document.querySelector('.popular-box .recommend-box-cards').insertAdjacentHTML('beforeend', `
         <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${book.cover_edition_key}">
@@ -328,7 +320,7 @@ async function loadDataOnCategoriesPage(cParam){
        let publisherName=(detailsOfEachBookData[key].details.publishers!=undefined)? detailsOfEachBookData[key].details.publishers[0]: '';
        let realPrice=( detailsOfEachBookData[key].details.notes?.value===undefined)?  detailsOfEachBookData[key].details.notes?.substring(5,) :  detailsOfEachBookData[key].details.notes?.value.substring(5,);
        if(category==='foreign'){
-         realPrice=Math.floor(Math.random()*(600-100)+100);
+         realPrice=Number(book.cover_edition_key.slice(-4,-1));
        }
        let salePrice=realPrice;
        if(realPrice>150)
@@ -346,7 +338,7 @@ async function loadDataOnCategoriesPage(cParam){
 
 }
 
-
+//sort and filter books on categories page
 function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, publisherFilter, pageNumber, makePaginationBtns, addRemovingEventsToAppliedFilter){
   //removing previous filtered books
   allFilteredBooks.splice(0,allFilteredBooks.length); 
@@ -430,7 +422,7 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
           discountBadge='';
         }
         //the href
-        let href=`product.html?q=${allFilteredBooks[i].id},${allFilteredBooks[i].realPrice},${allFilteredBooks[i].salePrice}`
+        let href=`product.html?id=${allFilteredBooks[i].id}`;
         //load data on the page
         document.querySelector(`.products`).insertAdjacentHTML('beforeend', `
         <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${allFilteredBooks[i].id}">
@@ -519,14 +511,16 @@ function sortAndFilterBooks(cParam, sortFilter, minPriceRange, maxPriceRange, pu
 } 
 
 function addCartItems(){
-    let cartCount;
+    let cartCount=0;
     let orderCount;
     if(JSON.parse(localStorage.getItem('cartItems'))!=null){
-      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+      cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];
+      cartItems.forEach(item=>{
+        cartCount+=item.count;
+      }) 
     }
     else{
       localStorage.setItem('cartItems',JSON.stringify(cartItems));
-      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
     }
     orderCount=(cartCount<=5)?cartCount:"+5";
     document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
@@ -535,13 +529,22 @@ function addCartItems(){
     //add the book to cart by clicking on the .add-to-cart-
     document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
      btn.addEventListener('click', ()=>{
+      cartCount=0;
       if(JSON.parse(localStorage.getItem('cartItems'))!=null)
        cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];
+     
+      let sameItemIndex= cartItems.findIndex(item=>item.olid===btn.parentElement.dataset.olid);
+      if(sameItemIndex===-1)
+      cartItems.push({olid:btn.parentElement.dataset.olid, count:1});
+      else{
+        cartItems[sameItemIndex].count=cartItems[sameItemIndex].count+1;
+      }
 
-       cartItems.push({olid:btn.parentElement.dataset.olid});
-       localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      cartItems.forEach(item=>{
+        cartCount+=item.count;
+      })   
       orderCount=(cartCount<=5)?cartCount:"+5";
       document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
       
@@ -557,22 +560,26 @@ function addCartItems(){
 }
 
 //fetching the book data on product page
-async function loadDataOnProductPage(bookParamsObj){
+async function loadDataOnProductPage(bookId){
   try{
-    const bookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=data&format=json`);
+    const bookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${bookId}&jscmd=data&format=json`);
     if(!bookRes.ok)
     throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
     const bookData =await bookRes.json();
 
-    document.getElementById('addToCartBtn').setAttribute('data-olid', bookParamsObj.id);
+    document.getElementById('addToCartBtn').setAttribute('data-olid', bookId);
 
     
     for(const key in bookData){
       document.title=`ثنابوک | ${bookData[key].title}`;
       let subject;
-      let allSubjects=['روانشناسی', 'شعر', 'ادبیات داستانی', 'آموزشی'];
-      (allSubjects.some(s=>s===bookData[key].subjects[0].name))?subject=bookData[key].subjects[0].name:subject='ادبیات خارجی';
-      document.querySelector('.breadcrumb .subject').innerHTML=subject;
+      let allSubjects=[{title:'روانشناسی', href:'psycology'}, {title:'شعر', href:'poetry'}, {title:'ادبیات داستانی', href:'fiction'},{title:'آموزشی', href:'education'} ];
+      subject= allSubjects.find(s=>s.title===bookData[key].subjects[0].name);
+      if(subject===undefined)
+      subject={title:'ادبیات خارجی', href:'foreign' };
+
+      document.querySelector('.breadcrumb .subject').innerHTML=subject.title;
+      document.querySelector('.breadcrumb .subject').setAttribute('href', `categories.html?c=${subject.href}`);
       document.querySelector('.breadcrumb .active').innerHTML=bookData[key].title;
       document.getElementById('bookTitle').innerHTML=bookData[key].title;
       let authorName=(bookData[key].authors===undefined)?"ناشناس":bookData[key].authors[0].name;
@@ -580,33 +587,39 @@ async function loadDataOnProductPage(bookParamsObj){
       document.getElementById('bookPic').setAttribute('src', bookData[key].cover.large);
       let isbn=(bookData[key].identifiers.isbn_13===undefined)?'9085895728136':bookData[key].identifiers.isbn_13[0];
       document.getElementById('ISBN').innerHTML=isbn;
-      document.getElementById('bookId').innerHTML=bookParamsObj.id;
+      document.getElementById('bookId').innerHTML=bookId;
       document.getElementById('publisher').innerHTML=bookData[key].publishers[0].name;
       document.getElementById('pageCount').innerHTML=bookData[key].number_of_pages;
       document.getElementById('publishDate').innerHTML=bookData[key].publish_date;
 
       let priceElementContent;
-      if(bookParamsObj.salePrice===bookParamsObj.realPrice){
-        priceElementContent=`<p class="sale-price text-center mb-md-2">${bookParamsObj.salePrice},000<span class="ms-2">تومان</span></p>`;
-      }
-      else{
+      
+      let bookPrice=( bookData[key].notes?.value===undefined)?  bookData[key].notes?.substring(5,) :  bookData[key].notes?.value.substring(5,);
+      bookPrice=(isNaN(Number(bookPrice)))?Number(bookId.slice(-4,-1)):bookPrice;
+      if(bookPrice>150){
         document.getElementById('badgeContainer').insertAdjacentHTML('beforeend', `
         <div class="discount-badge rounded-circle">%30</div>
         `);
+        let salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
         priceElementContent=`
-        <p class="real-price text-center mb-0 mb-lg-1">${bookParamsObj.realPrice},000</p>
-        <p class="sale-price text-center mb-md-2">${bookParamsObj.salePrice},000<span class="ms-2">تومان</span></p>`
+        <p class="real-price text-center mb-0 mb-lg-1">${bookPrice},000</p>
+        <p class="sale-price text-center mb-md-2">${salePrice},000<span class="ms-2">تومان</span></p>`;
+      }
+      else{
+        priceElementContent=`
+        <p class="sale-price text-center mb-md-2">${bookPrice},000<span class="ms-2">تومان</span></p>
+        `
       }
       document.getElementById('price').insertAdjacentHTML('beforeend', priceElementContent);
 
       //load data in recommmendedBookBox
       let recommendedRes;
-      if(subject==='ادبیات خارجی')
+      if(subject.title==='ادبیات خارجی')
        recommendedRes=await fetch(`https://openlibrary.org/subjects/fantasy.json?sort=random`);
-       else if(subject==='ادبیات داستانی')
+       else if(subject.title==='ادبیات داستانی')
        recommendedRes=await fetch(`https://openlibrary.org/subjects/ادبیات_داستانی.json?sort=random`);
       else
-       recommendedRes=await fetch(`https://openlibrary.org/subjects/${subject}.json?sort=random`);
+       recommendedRes=await fetch(`https://openlibrary.org/subjects/${subject.title}.json?sort=random`);
       let recommendedData=await recommendedRes.json();
    
       let fetchPromises= recommendedData.works.map(async book=>{
@@ -620,7 +633,7 @@ async function loadDataOnProductPage(bookParamsObj){
 
     }
   
-    const bookDetailsRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${bookParamsObj.id}&jscmd=details&format=json`);
+    const bookDetailsRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${bookId}&jscmd=details&format=json`);
     if(!bookRes.ok)
     throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
     const bookDetailsData =await bookDetailsRes.json();
@@ -652,4 +665,267 @@ async function loadDataOnProductPage(bookParamsObj){
 
 }
 
-export {loadDataInBoxesOnIndexPage, loadDataOnCategoriesPage, sortAndFilterBooks, loadDataOnProductPage} ; 
+//fetching the data on shopping cart page
+async function loadDataOnShoppingCartPage(){
+addCartItems();
+let cartTableDesktopScreen=document.querySelector('#cartTableDesktopScreen tbody');
+let cartTableMobileScreen=document.getElementById('cartTableMobileScreen');
+
+let cartItems=JSON.parse(localStorage.getItem('cartItems'));
+if(cartItems.length===0){
+document.querySelector('.no-cart-item').style.display='block';
+}
+let fetchPromises=cartItems.map(async item=>{
+  try{
+    const bookRes = await fetch(`https://openlibrary.org/api/books?bibkeys=OLID:${item.olid}&jscmd=data&format=json`);
+    if(!bookRes.ok)
+    throw new Error('در حال حاضر سرور قادر به پاسخگویی نمی‌باشد. لطفاٌ بعدا امتحان کنید.')
+
+    const bookData =await bookRes.json();
+    for (const key in bookData) {
+      let authorName=(bookData[key].authors===undefined)?"ناشناس":bookData[key].authors[0].name;
+      let bookPrice=( bookData[key].notes?.value===undefined)?  bookData[key].notes?.substring(5,) :  bookData[key].notes?.value.substring(5,);
+      bookPrice=(isNaN(Number(bookPrice)))?Number(item.olid.slice(-4,-1)):bookPrice;
+      let salePrice;
+      let priceElementContent;
+      if(bookPrice>150){
+        salePrice=Math.floor(bookPrice*0.7); //sale price is 70% of the actual price. It means the discount is 30%;
+        priceElementContent=`
+        <div class="d-flex flex-column align-items-center justify-content-center">
+        <p class="discount-badge p-1 rounded-pill mb-1">%30 تخفیف</p>
+        <p class="real-price text-decoration-line-through mb-0">${bookPrice},000</p>
+        <p class="mb-0">
+          <span class="single-price sale-price me-1">${salePrice},000</span>تومان
+        </p>
+        </div>
+        `;
+      }
+      else{
+        salePrice=bookPrice;
+        priceElementContent=`
+        <p class="mb-0">
+        <span class="single-price real-price me-1" >${salePrice},000</span>تومان
+        </p>
+        `
+      }
+      let totalPrice=salePrice*item.count;
+      //add items to the cartTableDesktopScreen element
+      cartTableDesktopScreen.insertAdjacentHTML('beforeend', `
+      <tr data-olid="${item.olid}">
+      <td class="px-3 pb-3 pt-2" >
+        <i class="remove-cart-item-btn fa-solid fa-close mb-3 fs-5"></i>
+        <a href="product.html?id=${item.olid}" class="book-link text-decoration-none d-flex align-items-center">
+          <img src="${bookData[key].cover.large}" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
+          <div class="d-flex flex-column justify-content-end">
+            <p class="mb-0" id="bookTitle">${bookData[key].title}</p>
+            <p class="mb-1" id="bookAuthor">${authorName}</p>
+            <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">${item.olid}</span></p>
+          </div>
+        </a>
+      </td>
+      <td class="p-3">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+       ${priceElementContent}
+      </div>
+      </td>
+      <td class="p-3">
+        <div class="quantity-box d-flex align-items-center justify-content-center p-0">
+          <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
+          <input type="number" value="${item.count}" class="quantity-input text-center" data-olid="${item.olid}">
+          <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
+      
+        </div>
+      </td>
+      <td class="text-center"><span class="total-price text-center me-1" data-olid="${item.olid}">${totalPrice},000</span>تومان</td>
+      </tr>
+      `);
+
+      //add items to the cartTableMobileScreen element
+      cartTableMobileScreen.insertAdjacentHTML('beforeend', `
+      <div class="product-box pt-2 pb-3" data-olid="${item.olid}">
+       <div>
+       <i class="remove-cart-item-btn fa-solid fa-close mb-3 px-2 fs-5"></i>
+       <a href="product.html?id=${item.olid}" class="book-link text-decoration-none d-flex align-items-center mb-3 px-2">
+         <img src="${bookData[key].cover.large}" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
+         <div class="">
+           <p class="mb-0" id="bookTitle">${bookData[key].title}</p>
+           <p class="mb-1" id="bookAuthor">${authorName}</p>
+           <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">${item.olid}</span></p>
+         </div>
+       </a>
+       <div class="d-flex gap-3 align-items-center mb-2 px-2">
+       <p class="title mb-0">قیمت واحد:</p>
+       ${priceElementContent}
+       </div>
+       <div class="d-flex gap-3 align-items-center mb-2 px-2">
+         <p class="title mb-0">تعداد:</p>
+         <div class="quantity-box d-flex align-items-center justify-content-center p-0">
+           <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
+           <input type="number" value="${item.count}" class="quantity-input text-center" data-olid="${item.olid}">
+           <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
+         </div>
+       </div>
+       <div class="d-flex gap-3 align-items-center px-2">
+         <p class="title mb-0">قیمت نهایی:</p>
+         <p class="mb-0 text-center">
+           <span class="total-price me-1" data-olid="${item.olid}">${totalPrice},000</span>تومان
+         </p>   
+       </div>
+       </div>
+                 
+      </div>
+      `)
+    
+
+    }
+      
+
+  }
+  catch(error){
+    console.error('با یک ارور غیر منتظره مواجه شدیم:', error)
+  }
+})
+
+Promise.all(fetchPromises)
+.then(()=>{
+  //load data on cart bill
+  calculateTheCartBill();
+
+  //add to quantity value by clicking on the plus icon
+  document.querySelectorAll('.quantity-plus').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      let newQuantityValue;
+      document.querySelectorAll('.quantity-input').forEach(input=>{
+        //changing the value of quantity-input in both mobile and desktop screens
+        if(input.dataset.olid===e.target.nextElementSibling.dataset.olid){
+          newQuantityValue=Number(e.target.nextElementSibling.value)+1;
+          input.value=newQuantityValue;
+        }
+      })
+      //changing the total price of the item in both mobile and desktop screens
+      let singlePrice=e.target.parentElement.parentElement.parentElement.querySelector('.single-price').innerHTML;
+      singlePrice=Number(singlePrice.substring(0, singlePrice.length-4));
+      let totalPrice=singlePrice*Number(e.target.nextElementSibling.value);
+      document.querySelectorAll('.cart-table .total-price').forEach(tp=>{
+        if(tp.dataset.olid===e.target.nextElementSibling.dataset.olid){
+          tp.innerHTML=totalPrice+",000";
+        }
+      })
+
+      //changeing the orderCount in local storage
+      let cartItems=JSON.parse(localStorage.getItem('cartItems'));
+      cartItems.forEach(item=>{
+        if(item.olid==e.target.nextElementSibling.dataset.olid)
+        item.count=item.count+1;
+      })
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      calculateTheCartBill();
+      addCartItems();
+    })
+  })
+
+  //decrease the quantity value by clicking on the minus icon
+  document.querySelectorAll('.quantity-minus').forEach(btn=>{
+   btn.addEventListener('click', (e)=>{
+    let newQuantityValue;
+    document.querySelectorAll('.quantity-input').forEach(input=>{
+       //changing the value of quantity-input in both mobile and desktop screens
+       if(input.dataset.olid===e.target.previousElementSibling.dataset.olid){
+         newQuantityValue=Number(e.target.previousElementSibling.value)-1;
+         if(newQuantityValue<=0)
+          newQuantityValue=1;
+         input.value=newQuantityValue;
+        }
+    })
+    //changing the total price of the item in both mobile and desktop screens
+    let singlePrice=e.target.parentElement.parentElement.parentElement.querySelector('.single-price').innerHTML;
+    singlePrice=Number(singlePrice.substring(0, singlePrice.length-4));
+    let totalPrice=singlePrice*Number(e.target.previousElementSibling.value);
+    document.querySelectorAll('.cart-table .total-price').forEach(tp=>{
+       if(tp.dataset.olid===e.target.previousElementSibling.dataset.olid){
+         tp.innerHTML=totalPrice+",000";
+       }
+    })
+    //changeing the orderCount in local storage
+    let cartItems=JSON.parse(localStorage.getItem('cartItems'));
+    cartItems.forEach(item=>{
+      if(item.olid==e.target.previousElementSibling.dataset.olid){
+        item.count=(item.count-1<=0)?1:item.count-1;
+      }
+     
+    })
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    calculateTheCartBill();
+    addCartItems();
+    })
+  })
+
+
+  //remove an item from the cart by clicking on the .remove-cart-item-btn
+  document.querySelectorAll('.remove-cart-item-btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+
+      let cartItems=JSON.parse(localStorage.getItem('cartItems'));
+      let removedItemIndex= cartItems.findIndex(item=>item.olid===e.target.parentElement.parentElement.dataset.olid);
+      cartItems.splice(removedItemIndex,1);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+      document.querySelectorAll('.cart-table tr').forEach(tr=>{
+        if(tr.dataset.olid===e.target.parentElement.parentElement.dataset.olid)
+        {
+        tr.remove();
+        }
+      })
+      document.querySelectorAll('.cart-table .product-box').forEach(pb=>{
+        if(pb.dataset.olid===e.target.parentElement.parentElement.dataset.olid){
+          console.log(pb);
+          pb.remove();
+        }
+
+      })
+      calculateTheCartBill();
+      addCartItems();
+
+
+
+    })
+  })
+
+
+})
+
+
+}
+
+
+function calculateTheCartBill(){
+  //calculate the totalCartPrice
+  let totalCartPrice=0;
+  let totalDiscount=0;
+  let finalTotalPrice=0;
+  document.querySelectorAll('#cartTableDesktopScreen .real-price').forEach(price=>{
+    let singleRealPrice=Number(price.innerHTML.substring(0, price.innerHTML.length-4));
+    let orderCount=Number(price.parentElement.parentElement.parentElement.parentElement.querySelector('.quantity-input').value);
+    let totalRealPrice=singleRealPrice*orderCount;
+    totalCartPrice+=totalRealPrice;
+    if(price.nextElementSibling?.querySelector('span').classList.contains('sale-price')){
+      let singleSalePrice=Number(price.nextElementSibling.querySelector('span').innerHTML.substring(0, price.nextElementSibling.querySelector('span').innerHTML.length-4));
+      let discount=singleRealPrice-singleSalePrice;
+      totalDiscount+=discount*orderCount;
+    }
+  })
+  document.querySelectorAll('#cartTableDesktopScreen .total-price').forEach(price=>{
+    let singleTotalPrice=Number(price.innerHTML.substring(0, price.innerHTML.length-4));
+    finalTotalPrice+=singleTotalPrice;
+
+  })
+  if(finalTotalPrice===0){
+    document.querySelector('.no-cart-item').style.display='block';
+  }
+  document.getElementById('totalCartPrice').innerHTML=totalCartPrice+',000';
+  document.getElementById('totalDiscount').innerHTML=totalDiscount+",000";
+  document.getElementById('finalTotalPrice').innerHTML=finalTotalPrice+",000";
+
+}
+
+export {loadDataInBoxesOnIndexPage, loadDataOnCategoriesPage, sortAndFilterBooks, loadDataOnProductPage, loadDataOnShoppingCartPage} ; 

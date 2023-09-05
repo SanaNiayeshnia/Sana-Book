@@ -7,10 +7,7 @@ let recommendationBoxBackBtn=document.querySelector('.back-btn');
 
 window.addEventListener('load',async ()=>{
     let searchParams=new URLSearchParams(location.search);
-    let query=searchParams.get('q');
-    let bookParamsArray=query.split(',');
-    let bookParamsObj={id:bookParamsArray[0], realPrice:bookParamsArray[1], salePrice:bookParamsArray[2]};
-    await loadDataOnProductPage(bookParamsObj);
+    await loadDataOnProductPage(searchParams.get('id'));
     
 })
 
@@ -70,31 +67,33 @@ recommendationBoxBackBtn.addEventListener('click', (event)=>{
 
 //add the book to cart by clicking on the addToCartBtn
 document.getElementById('addToCartBtn').addEventListener('click', (event)=>{
-    console.log(event.target);
-    let cartCount;
+    let cartCount=0;
     let orderCount;
+    let cartItems=[];
     if(JSON.parse(localStorage.getItem('cartItems'))!=null){
-      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+      cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];     
     }
     else{
       localStorage.setItem('cartItems',JSON.stringify(cartItems));
-      cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
+    } 
+
+    let sameItemIndex= cartItems.findIndex(item=>item.olid===event.target.dataset.olid);
+    if(sameItemIndex===-1)
+    cartItems.push({olid:event.target.dataset.olid, count:1});
+    else{
+      cartItems[sameItemIndex].count=cartItems[sameItemIndex].count+1;
     }
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)); 
+
+    cartItems.forEach(item=>{
+        cartCount+=item.count;
+    })   
     orderCount=(cartCount<=5)?cartCount:"+5";
     document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
-    
-    let cartItems;
-    if(JSON.parse(localStorage.getItem('cartItems'))!=null)
-     cartItems=[...JSON.parse(localStorage.getItem('cartItems'))];    
-     cartItems.push({olid: event.target.dataset.olid});
-     localStorage.setItem('cartItems', JSON.stringify(cartItems));    
-     cartCount=JSON.parse(localStorage.getItem('cartItems')).length;
-     orderCount=(cartCount<=5)?cartCount:"+5";
-     document.querySelectorAll('.cart-icon .badge').forEach(cartIcon=> cartIcon.innerHTML=orderCount);
-    
-     //show the addToCart alert 
-     let addToCartAlert=document.getElementById('addToCartToast');
-     let addToCartToast = new bootstrap.Toast(addToCartAlert);
-     addToCartToast.show();
+
+    //show the addToCart alert 
+    let addToCartAlert=document.getElementById('addToCartToast');
+    let addToCartToast = new bootstrap.Toast(addToCartAlert);
+    addToCartToast.show();
 
 })
