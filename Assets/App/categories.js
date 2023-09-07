@@ -59,6 +59,11 @@ sortAndFilterBooks(searchParams.get('c'), sortFilter, minPriceRange, maxPriceRan
 
 //making pagination buttons
 makePaginationBtns();
+
+//add removing events to the applied filters
+document.querySelectorAll('.applied-filters .filter i.fa-close').forEach(closeIcon=>{
+    addRemovingEventsToAppliedFilter(closeIcon);
+})
 })
 
 
@@ -411,6 +416,8 @@ previousPageBtn.addEventListener('click', ()=>{
 //remove an applied filter and reset the filter 
 function addRemovingEventsToAppliedFilter(closeIcon){
     closeIcon.addEventListener('click', (event)=>{
+        publisherFilter=document.querySelector('.pub-list li.selected')?.innerHTML || 'all';
+
         document.querySelectorAll('.applied-filters .filters .filter').forEach(filter=>{
             if(filter.querySelector('p').innerHTML==event.target.nextElementSibling.innerHTML)
             filter.remove();
@@ -431,11 +438,17 @@ function addRemovingEventsToAppliedFilter(closeIcon){
                 right: 0%;
                 `;
             })
+
+            document.querySelectorAll('.filters').forEach(f=>{
+                f.insertAdjacentHTML('beforeend',`
+                <div class="filter price-range-filter d-flex justify-content-between align-items-center">
+                <i class="fa-solid fa-close me-2 mb-0"></i>
+                <p class="m-0"> از ${minPriceRange} تا ${maxPriceRange} تومان</p>
+              </div>`)
+            })
    
         }
-        else if(event.target.parentElement.classList.contains('sort-filter-name')){
-            
-        }
+      
         else if(event.target.parentElement.classList.contains('publisher-filter')){
             publisherFilter='all'; 
             
