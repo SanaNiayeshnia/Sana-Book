@@ -185,7 +185,6 @@ async function loadDataInBoxesOnIndexPage() {
     ...poetryData,
     ...fictionData,
   ];
-  console.log(allBooksData);
   allBooksData.forEach((book) => {
     document.querySelector(".sale-box .book-loader").style.display = "none"; //hiding book loader
     if (book?.bookPrice > 150) {
