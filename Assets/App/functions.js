@@ -31,13 +31,13 @@ async function fetchAndLoadDetailsOfBooks(bookId, query) {
       if (bookPrice > 150) {
         salePrice = Math.floor(bookPrice * 0.7); //sale price is 70% of the actual price. It means the discount is 30%;
         cardTextContent = `
-          <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice},000</p>
-          <p class="sale-price price text-center ">${salePrice},000 <span>تومان</span></p>`;
+          <p class="real-price text-decoration-line-through text-center mb-0">${bookPrice?.toLocaleString()},000</p>
+          <p class="sale-price price text-center ">${salePrice?.toLocaleString()},000 <span>تومان</span></p>`;
         discountBadge = `
           <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
       } else {
         cardTextContent = `
-            <p class="price text-center "> ${bookPrice},000 <span>تومان</span></p>`;
+            <p class="price text-center "> ${bookPrice?.toLocaleString()},000 <span>تومان</span></p>`;
         discountBadge = "";
       }
       //the href
@@ -197,19 +197,25 @@ async function loadDataInBoxesOnIndexPage() {
         .insertAdjacentHTML(
           "beforeend",
           `
-        <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${book?.bookId}">
+        <div class="card user-select-none rounded-3" role="tabpanel" tabindex="0" data-OLID="${
+          book?.bookId
+        }">
         <i class="add-to-cart-btn fa-solid fa-plus p-2 "></i>
         <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>
         <a href="${href}" class="text-reset text-decoration-none">
             <div class="text-center pb-2 pb-md-3 pt-3">
-              <img src="https://covers.openlibrary.org/b/olid/${book?.bookId}-L.jpg" class="card-img-top" alt="bookPic">
+              <img src="https://covers.openlibrary.org/b/olid/${
+                book?.bookId
+              }-L.jpg" class="card-img-top" alt="bookPic">
             </div>
         </a>
             <div class="card-body d-flex flex-column justify-content-between p-0">
-              <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href="${href}"><span>«</span>${book?.details?.title}<span>»</span></a>
+              <a class="card-title h5 text-decoration-none text-center my-2 px-2 px-md-3" href="${href}"><span>«</span>${
+            book?.details?.title
+          }<span>»</span></a>
               <div class="card-text mb-2">
-                <p class="real-price text-decoration-line-through text-center mb-0">${book?.bookPrice},000</p>
-                <p class="sale-price price text-center ">${book?.salePrice},000 <span>تومان</span></p>
+                <p class="real-price text-decoration-line-through text-center mb-0">${book?.bookPrice?.toLocaleString()},000</p>
+                <p class="sale-price price text-center ">${book?.salePrice?.toLocaleString()},000 <span>تومان</span></p>
               </div>
             </div>
         </div>
@@ -236,13 +242,13 @@ async function loadDataInBoxesOnIndexPage() {
       //if the price of the book was more than 150, add the sale price and the discount badge
       if (book?.bookPrice > 150) {
         cardTextContent = `
-      <p class="real-price text-decoration-line-through text-center mb-0">${book?.bookPrice},000</p>
-      <p class="sale-price price text-center ">${book?.salePrice},000 <span>تومان</span></p>`;
+      <p class="real-price text-decoration-line-through text-center mb-0">${book?.bookPrice?.toLocaleString()},000</p>
+      <p class="sale-price price text-center ">${book?.salePrice?.toLocaleString()},000 <span>تومان</span></p>`;
         discountBadge = `
       <span class="badge discount-percent fs-6 px-1 px-md-2 pt-2 pt-md-3 pb-2">%30</span>`;
       } else {
         cardTextContent = `
-        <p class="price text-center "> ${book?.bookPrice},000 <span>تومان</span></p>`;
+        <p class="price text-center "> ${book?.bookPrice?.toLocaleString()},000 <span>تومان</span></p>`;
         discountBadge = "";
       }
       //the href
@@ -737,11 +743,11 @@ async function loadDataOnProductPage(bookId) {
         );
         let salePrice = Math.floor(bookPrice * 0.7); //sale price is 70% of the actual price. It means the discount is 30%;
         priceElementContent = `
-        <p class="real-price text-center mb-0 mb-lg-1">${bookPrice},000</p>
-        <p class="sale-price text-center mb-md-2">${salePrice},000<span class="ms-2">تومان</span></p>`;
+        <p class="real-price text-center mb-0 mb-lg-1">${bookPrice?.toLocaleString()},000</p>
+        <p class="sale-price text-center mb-md-2">${salePrice?.toLocaleString()},000<span class="ms-2">تومان</span></p>`;
       } else {
         priceElementContent = `
-        <p class="sale-price text-center mb-md-2">${bookPrice},000<span class="ms-2">تومان</span></p>
+        <p class="sale-price text-center mb-md-2">${bookPrice?.toLocaleString()},000<span class="ms-2">تومان</span></p>
         `;
       }
       document
@@ -868,9 +874,9 @@ async function loadDataOnShoppingCartPage() {
           priceElementContent = `
         <div class="d-flex flex-column align-items-center justify-content-center">
         <p class="discount-badge p-1 rounded-pill mb-1">%30 تخفیف</p>
-        <p class="real-price text-decoration-line-through mb-0">${bookPrice},000</p>
+        <p class="real-price text-decoration-line-through mb-0">${bookPrice?.toLocaleString()},000</p>
         <p class="mb-0">
-          <span class="single-price sale-price me-1">${salePrice},000</span>تومان
+          <span class="single-price sale-price me-1">${salePrice?.toLocaleString()},000</span>تومان
         </p>
         </div>
         `;
@@ -878,7 +884,7 @@ async function loadDataOnShoppingCartPage() {
           salePrice = bookPrice;
           priceElementContent = `
         <p class="mb-0">
-        <span class="single-price real-price me-1" >${salePrice},000</span>تومان
+        <span class="single-price real-price me-1" >${salePrice?.toLocaleString()},000</span>تومان
         </p>
         `;
         }
@@ -890,12 +896,18 @@ async function loadDataOnShoppingCartPage() {
       <tr data-olid="${item.olid}">
       <td class="px-3 pb-3 pt-2" >
         <i class="remove-cart-item-btn fa-solid fa-close mb-3 fs-5"></i>
-        <a href="product.html?id=${item.olid}" class="book-link text-decoration-none d-flex align-items-center">
-          <img src="${bookData[key].cover.large}" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
+        <a href="product.html?id=${
+          item.olid
+        }" class="book-link text-decoration-none d-flex align-items-center">
+          <img src="${
+            bookData[key].cover.large
+          }" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
           <div class="d-flex flex-column justify-content-end">
             <p class="mb-0" id="bookTitle">${bookData[key].title}</p>
             <p class="mb-1" id="bookAuthor">${authorName}</p>
-            <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">${item.olid}</span></p>
+            <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">${
+              item.olid
+            }</span></p>
           </div>
         </a>
       </td>
@@ -907,12 +919,16 @@ async function loadDataOnShoppingCartPage() {
       <td class="p-3">
         <div class="quantity-box d-flex align-items-center justify-content-center p-0">
           <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
-          <input type="number" value="${item.count}" class="quantity-input text-center" data-olid="${item.olid}">
+          <input type="number" value="${
+            item.count
+          }" class="quantity-input text-center" data-olid="${item.olid}">
           <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
       
         </div>
       </td>
-      <td class="text-center"><span class="total-price text-center me-1" data-olid="${item.olid}">${totalPrice},000</span>تومان</td>
+      <td class="text-center"><span class="total-price text-center me-1" data-olid="${
+        item.olid
+      }">${totalPrice?.toLocaleString()},000</span>تومان</td>
       </tr>
       `
         );
@@ -921,9 +937,9 @@ async function loadDataOnShoppingCartPage() {
           priceElementContent = `
         <div class="d-flex gap-3 align-items-center">
         <p class="discount-badge p-1 rounded-pill mb-1">%30 تخفیف</p>
-        <p class="real-price text-decoration-line-through mb-0">${bookPrice},000</p>
+        <p class="real-price text-decoration-line-through mb-0">${bookPrice?.toLocaleString()},000</p>
         <p class="mb-0">
-          <span class="single-price sale-price me-1">${salePrice},000</span>تومان
+          <span class="single-price sale-price me-1">${salePrice?.toLocaleString()},000</span>تومان
         </p>
         </div>
         `;
@@ -935,12 +951,18 @@ async function loadDataOnShoppingCartPage() {
       <div class="product-box pt-2 pb-3" data-olid="${item.olid}">
        <div>
        <i class="remove-cart-item-btn fa-solid fa-close mb-3 px-2 fs-5"></i>
-       <a href="product.html?id=${item.olid}" class="book-link text-decoration-none d-flex align-items-center mb-3 px-2">
-         <img src="${bookData[key].cover.large}" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
+       <a href="product.html?id=${
+         item.olid
+       }" class="book-link text-decoration-none d-flex align-items-center mb-3 px-2">
+         <img src="${
+           bookData[key].cover.large
+         }" alt="bookPic" class="book-pic img-fluid me-3" id="bookPic">
          <div class="">
            <p class="mb-0" id="bookTitle">${bookData[key].title}</p>
            <p class="mb-1" id="bookAuthor">${authorName}</p>
-           <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">${item.olid}</span></p>
+           <p class="olid mb-0"> کد کالا: <span id="olid" class="ms-1">${
+             item.olid
+           }</span></p>
          </div>
        </a>
        <div class="d-flex gap-3 align-items-center mb-2 px-2">
@@ -951,14 +973,18 @@ async function loadDataOnShoppingCartPage() {
          <p class="title mb-0">تعداد:</p>
          <div class="quantity-box d-flex align-items-center justify-content-center p-0">
            <i class="quantity-plus fa-solid fa-plus p-2 rounded-start-3"></i>
-           <input type="number" value="${item.count}" class="quantity-input text-center" data-olid="${item.olid}">
+           <input type="number" value="${
+             item.count
+           }" class="quantity-input text-center" data-olid="${item.olid}">
            <i class="quantity-minus fa-solid fa-minus p-2 rounded-end-3"></i>
          </div>
        </div>
        <div class="d-flex gap-3 align-items-center px-2">
          <p class="title mb-0">قیمت نهایی:</p>
          <p class="mb-0 text-center">
-           <span class="total-price me-1" data-olid="${item.olid}">${totalPrice},000</span>تومان
+           <span class="total-price me-1" data-olid="${
+             item.olid
+           }">${totalPrice?.toLocaleString()},000</span>تومان
          </p>   
        </div>
        </div>
@@ -997,7 +1023,7 @@ async function loadDataOnShoppingCartPage() {
           singlePrice * Number(e.target.nextElementSibling.value);
         document.querySelectorAll(".cart-table .total-price").forEach((tp) => {
           if (tp.dataset.olid === e.target.nextElementSibling.dataset.olid) {
-            tp.innerHTML = totalPrice + ",000";
+            tp.innerHTML = totalPrice?.toLocaleString() + ",000";
           }
         });
 
@@ -1040,7 +1066,7 @@ async function loadDataOnShoppingCartPage() {
           if (
             tp.dataset.olid === e.target.previousElementSibling.dataset.olid
           ) {
-            tp.innerHTML = totalPrice + ",000";
+            tp.innerHTML = totalPrice?.toLocaleString() + ",000";
           }
         });
         //changeing the orderCount in local storage
@@ -1138,10 +1164,12 @@ function calculateTheCartBill() {
   if (finalTotalPrice === 0) {
     document.querySelector(".no-cart-item").style.display = "block";
   }
-  document.getElementById("totalCartPrice").innerHTML = totalCartPrice + ",000";
-  document.getElementById("totalDiscount").innerHTML = totalDiscount + ",000";
+  document.getElementById("totalCartPrice").innerHTML =
+    totalCartPrice?.toLocaleString() + ",000";
+  document.getElementById("totalDiscount").innerHTML =
+    totalDiscount?.toLocaleString() + ",000";
   document.getElementById("finalTotalPrice").innerHTML =
-    finalTotalPrice + ",000";
+    finalTotalPrice?.toLocaleString() + ",000";
 }
 
 export {
